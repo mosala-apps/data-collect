@@ -8,7 +8,7 @@ function Home({ navigation }) {
       headerRight: () => (
         <Button
           onPress={() => alert('This is a button!')}
-          title="Info"
+          title="Icon"
           color="#6384EA"
         />
       ),
