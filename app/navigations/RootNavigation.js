@@ -1,10 +1,12 @@
-import React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
-const RootNavigation= () => {
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { NavigationStack } from './NavigationStack';
+
+function RootNavigation() {
   return (
     <NavigationContainer>
-      <NavigationStack/>
+      <NavigationStack />
     </NavigationContainer>
-  )
+  );
 }
-export default RootNavigation
+export default RootNavigation;

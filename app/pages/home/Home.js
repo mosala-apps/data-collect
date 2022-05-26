@@ -9,7 +9,7 @@ function Home({ navigation }) {
         <Button
           onPress={() => alert('This is a button!')}
           title="Info"
-          color="#fff"
+          color="#6384EA"
         />
       ),
     })
