@@ -67,6 +67,8 @@ export const styles = StyleSheet.create({
     height: 31,
     backgroundColor: variableStyle.secondaryColor,
     borderRadius: 5,
+    flexDirection: 'row',
+    justifyContent:'center'
   },
   signin__button_text:{
      textAlign:'center',

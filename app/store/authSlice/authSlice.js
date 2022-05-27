@@ -11,7 +11,14 @@ const AuthSlice = createSlice({
     authError: false,
     lastDateAuth: null,
   },
-  reducers: {},
+  reducers: {
+    userAuthenticating: (state, { payload })=> {
+      state.isLoading = payload;
+    },
+    userErrorAuthenticating: (state, { payload })=> {
+      state.authError = payload;
+    },
+  },
   extraReducers: {
     [login.pending]: (state) => {
       state.isLoading = true;
@@ -20,7 +27,7 @@ const AuthSlice = createSlice({
       state.isLoading = false;
       state.isAuthenticated = true;
       state.authError = false;
-      state.lastDateAuth = new Date();
+      //state.lastDateAuth = new Date();
       state.user = payload.user;
     },
     [login.rejected]: (state) => {
@@ -29,5 +36,5 @@ const AuthSlice = createSlice({
     },
   },
 });
-
+export const { userAuthenticating, userErrorAuthenticating } = AuthSlice.actions
 export default AuthSlice.reducer;

@@ -1,28 +1,31 @@
 import {
-  Image, Text, View, Pressable,
+  Image, Text, View, TouchableOpacity, ActivityIndicator,
 } from 'react-native';
 import React, { useState } from 'react';
 import { Shadow } from 'react-native-shadow-2';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
-import { authSelector,login } from "../../../store"
+import { authSelector, login, userAuthenticating } from '../../../store';
 import { styles } from './signin.style';
 import logo from '../../../../assets/img/logo_parteners.png';
 import InputField from '../../../components/inputField/InputField';
 
 function Signin({ navigation }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { control, handleSubmit, formState: { errors, isValid } } = useForm();
-  const {user, isLoading, isAuthenticated, authError }= useSelector(authSelector)
+  const {
+    user, isLoading, isAuthenticated, authError,
+  } = useSelector(authSelector);
   const handleSignin = (data) => {
-    //alert(JSON.stringify(data));
-    dispatch(login(data))
+    dispatch(userAuthenticating(true));
+    dispatch(login(data));
     // navigation.navigate('Home');
   };
   return (
     <View style={styles.signin__container}>
       <Image source={logo} style={styles.signin__logo} />
-      <Text>{JSON.stringify(user)} auth:{JSON.stringify(isAuthenticated)} err: {JSON.stringify(authError)}</Text>
+      {authError
+            && <Text style={styles.signin__textError}>Mot de passe incorrecte ou Login ne correspondent à aucun utilisateur enregistré</Text>}
       <Shadow
         distance={5}
         startColor="#00000010"
@@ -60,12 +63,16 @@ function Signin({ navigation }) {
             {errors.password
             && <Text style={styles.signin__textError}>Le Mot de passe est requis.</Text>}
           </View>
-          <Pressable
-            style={styles.signin__form_button}
-            onPress={handleSubmit(handleSignin)}
-          >
-            <Text style={styles.signin__button_text}>Connexion</Text>
-          </Pressable>
+          <TouchableOpacity onPress={handleSubmit(handleSignin)}>
+            <View
+              style={styles.signin__form_button}
+            >
+              <Text style={styles.signin__button_text}>
+                {isLoading ? 'En cours' : 'Connexion'}
+              </Text>
+              {isLoading && <ActivityIndicator />}
+            </View>
+          </TouchableOpacity>
         </View>
       </Shadow>
 
