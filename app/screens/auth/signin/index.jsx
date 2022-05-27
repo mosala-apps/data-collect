@@ -5,14 +5,14 @@ import React, { useState } from 'react';
 import { Shadow } from 'react-native-shadow-2';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
+import { authSelector} from "../../../store"
 import { styles } from './signin.style';
 import logo from '../../../../assets/img/logo_parteners.png';
 import InputField from '../../../components/inputField/InputField';
 
 function Signin({ navigation }) {
   const { control, handleSubmit, formState: { errors, isValid } } = useForm();
-  const user = useSelector((state)=>state.auth.user)
-  const isAuthenticated= useSelector((state)=>state.auth.isAuthenticated)
+  const {user, isLoading, isAuthenticated, authError }= useSelector(authSelector)
   const handleSignin = (data) => {
     alert(JSON.stringify(data));
     // navigation.navigate('Home');
