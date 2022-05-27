@@ -1,16 +1,16 @@
-import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from '../screens/home/Home';
-import SigninScreen from "../screens/auth/signin"
-const Stack = createNativeStackNavigator();
+import React from 'react'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import HomeScreen from '../screens/home/index'
+import SigninScreen from '../screens/auth/signin'
 
-export function NavigationStack() {
+const Stack = createNativeStackNavigator()
+function NavigationStack() {
   return (
-    <Stack.Navigator initialRouteName='Signin'>
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
-      name='Signin'
-      component={SigninScreen}
-      options={{ headerShown: false }}
+        name="Signin"
+        component={SigninScreen}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Home"
@@ -28,7 +28,8 @@ export function NavigationStack() {
           },
         })}
       />
-    
     </Stack.Navigator>
-  );
+  )
 }
+
+export default NavigationStack

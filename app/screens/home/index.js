@@ -1,17 +1,18 @@
-import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
-import { StyleSheet, Text, View, Button } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TouchableHighlight,
+} from 'react-native'
+import NotificationScreen from '../notification/index'
+import headerRightNavigation from '../../navigations/headerNavigation'
 
 function Home({ navigation }) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => (
-        <Button
-          onPress={() => alert('This is a button!')}
-          title="Icon"
-          color="black"
-        />
-      ),
+      headerRight: headerRightNavigation,
     })
   }, [navigation])
   return (
