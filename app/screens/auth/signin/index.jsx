@@ -32,7 +32,8 @@ const Signin =({ navigation }) =>{
         </View>
         <View style={styles.signin__form_group}>
           <View style={styles.signin__form_label}>
-          <Text>MOT DE PASSE  Mot de passe oublié ?</Text>
+          <Text>MOT DE PASSE</Text>
+          <Text style={styles.signin__forgotPassword}>Mot de passe oublié ?</Text>
           </View>
           <TextInput style={styles.signin__form_input}/>
         </View>

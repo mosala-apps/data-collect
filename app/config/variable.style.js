@@ -1,6 +1,7 @@
 export default {
     primaryColor:'#FBFBFF',
     secondaryColor:'#6384EA',
+    tertiaryColor:'#14244F',
     boxWithShadow: {
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },

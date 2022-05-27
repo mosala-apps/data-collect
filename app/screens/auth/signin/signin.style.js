@@ -8,8 +8,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: variableStyle.primaryColor,
     height: '100%',
-    paddingLeft: '3%',
-    paddingRight: '3%',
+    paddingLeft: '2%',
+    paddingRight: '2%',
   },
   signin__logo:{ 
     width: 220, 
@@ -31,13 +31,13 @@ export const styles = StyleSheet.create({
   signin__form_title: {
     textAlign: 'center',
     fontSize: 20,
-    color: '#14244F',
+    color: variableStyle.tertiaryColor,
 
   },
   signin__form_text: {
     textAlign: 'center',
-    fontSize: 12,
-    color: '#14244F',
+    fontSize: 14,
+    color: variableStyle.tertiaryColor,
 
   },
   signin__form_body: {
@@ -49,9 +49,17 @@ export const styles = StyleSheet.create({
     borderColor: 'rgba(99, 132, 234, 0.48)',
     borderRadius: 5,
     marginTop: 10,
+    paddingLeft:'5%',
+    paddingRight:'5%'
   },
   signin__form_label: {
     marginTop: 10,
+    flexDirection: 'row',
+    justifyContent:'space-between'
+  },
+  signin__forgotPassword:{
+    color: variableStyle.tertiaryColor,
+    textDecorationLine:'underline'
   },
   signin__form_button: {
       marginTop: 20,
@@ -64,7 +72,7 @@ export const styles = StyleSheet.create({
      textAlign:'center',
      color: '#ffff', 
      fontWeight:'bold', 
-     marginTop:2,
+     marginTop:3,
      textTransform:'uppercase'
   }
 });
