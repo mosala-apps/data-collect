@@ -1,12 +1,17 @@
-import { Text, View,TextInput,Pressable} from 'react-native';
+import { Image, Text, View,TextInput,Pressable,ToastAndroid} from 'react-native';
 import React from 'react';
 import { styles } from './signin.style';
 import {Shadow} from 'react-native-shadow-2';
-
+import logo from '../../../../assets/img/logo_parteners.png'; 
 
 const Signin =({ navigation }) =>{
+  const handleSignin =(e)=>{
+    e.preventDefault()
+    ToastAndroid.show("Veuillez vous authentifier!", ToastAndroid.SHORT, ToastAndroid.TOP);
+  }
   return (
     <View style={styles.signin__container}>
+       <Image source={logo} style={styles.signin__logo} /> 
       <Shadow 
        distance={5}
        startColor={'#00000010'}
@@ -31,8 +36,8 @@ const Signin =({ navigation }) =>{
           </View>
           <TextInput style={styles.signin__form_input}/>
         </View>
-        <Pressable style={styles.signin__form_button}>
-         <Text style={{textAlign:'center', color: '#ffff'}}>Connexion</Text>
+        <Pressable style={styles.signin__form_button} onPress={handleSignin}>
+         <Text style={styles.signin__button_text}>Connexion</Text>
         </Pressable>
        </View>
       </Shadow>

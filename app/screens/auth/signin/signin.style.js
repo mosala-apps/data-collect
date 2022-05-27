@@ -8,10 +8,13 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: variableStyle.primaryColor,
     height: '100%',
-    paddingLeft: '2%',
-    paddingRight: '2%',
+    paddingLeft: '3%',
+    paddingRight: '3%',
   },
-
+  signin__logo:{ 
+    width: 220, 
+    height: 80 
+  },
   signin__form: {
     backgroundColor: '#fff',
     shadow: variableStyle.boxWithShadow,
@@ -57,4 +60,11 @@ export const styles = StyleSheet.create({
     backgroundColor: variableStyle.secondaryColor,
     borderRadius: 5,
   },
+  signin__button_text:{
+     textAlign:'center',
+     color: '#ffff', 
+     fontWeight:'bold', 
+     marginTop:2,
+     textTransform:'uppercase'
+  }
 });
