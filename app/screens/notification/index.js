@@ -1,12 +1,12 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React from 'react';
+import { Text, View } from 'react-native';
 
-function Notification({}) {
+function Notification() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Notification Screen</Text>
     </View>
-  )
+  );
 }
 
-export default Notification
+export default Notification;

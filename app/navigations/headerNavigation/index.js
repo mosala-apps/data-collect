@@ -1,10 +1,10 @@
-import React from 'react'
-import { Text, TouchableHighlight, View } from 'react-native'
-import { FontAwesome, Ionicons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
+import React from 'react';
+import { Text, TouchableHighlight, View } from 'react-native';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
-export default function headerRightNavigation({}) {
-  const navigation = useNavigation()
+export default function headerRightNavigation() {
+  const navigation = useNavigation();
   return (
     <Text>
       {' '}
@@ -25,7 +25,7 @@ export default function headerRightNavigation({}) {
         </View>
       </TouchableHighlight>
     </Text>
-  )
+  );
 }
 export function headerLeftNavigation() {
   return (
@@ -42,5 +42,5 @@ export function headerLeftNavigation() {
         </View>
       </TouchableHighlight>
     </Text>
-  )
+  );
 }

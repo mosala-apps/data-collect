@@ -1,20 +1,20 @@
-import React from 'react'
+import React from 'react';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
-} from '@react-navigation/drawer'
-import NavigationStack from '../NavigationStack'
-import Menu from '../../components/menu'
+} from '@react-navigation/drawer';
+import NavigationStack from '../NavigationStack';
+import Menu from '../../components/menu';
 // import indexStyle from './index.style'
 
-const Drawer = createDrawerNavigator()
+const Drawer = createDrawerNavigator();
 
-function CustomDrawerContent(props) {
+function CustomDrawerContent() {
   return (
     <DrawerContentScrollView>
       <Menu />
     </DrawerContentScrollView>
-  )
+  );
 }
 export default function DrawerInitializationScreen() {
   return (
@@ -25,11 +25,10 @@ export default function DrawerInitializationScreen() {
           width: 240,
         },
         headerShown: false,
-
       }}
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
       <Drawer.Screen name="Menu" component={NavigationStack} />
     </Drawer.Navigator>
-  )
+  );
 }

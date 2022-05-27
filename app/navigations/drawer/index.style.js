@@ -3,5 +3,5 @@ const indexStyle = {
     flex: 1,
     with: 150,
   },
-}
-export default indexStyle
+};
+export default indexStyle;

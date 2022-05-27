@@ -1,11 +1,11 @@
-import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import HomeScreen from '../screens/home/index'
-import NotificationScreen from '../screens/notification'
-import ParameterScreen from '../screens/parameter'
-import SigninScreen from '../screens/auth/signin'
+import React from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from '../screens/home/index';
+import NotificationScreen from '../screens/notification';
+import ParameterScreen from '../screens/parameter';
+import SigninScreen from '../screens/auth/signin';
 
-const Stack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator();
 
 function NavigationStack() {
   return (
@@ -18,7 +18,7 @@ function NavigationStack() {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={({ navigation, route }) => ({
+        options={() => ({
           title: 'My home',
           headerStyle: {
             backgroundColor: '#6384EA',
@@ -34,7 +34,7 @@ function NavigationStack() {
       <Stack.Screen
         name="Notification"
         component={NotificationScreen}
-        options={({ navigation, route }) => ({
+        options={() => ({
           title: 'My notification',
           headerStyle: {
             backgroundColor: '#6384EA',
@@ -50,7 +50,7 @@ function NavigationStack() {
       <Stack.Screen
         name="Parameter"
         component={ParameterScreen}
-        options={({ navigation, route }) => ({
+        options={() => ({
           title: 'My parameter',
           headerStyle: {
             backgroundColor: '#6384EA',
@@ -64,7 +64,7 @@ function NavigationStack() {
         })}
       />
     </Stack.Navigator>
-  )
+  );
 }
 
-export default NavigationStack
+export default NavigationStack;
