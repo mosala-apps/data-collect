@@ -1,15 +1,10 @@
 import React from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TouchableHighlight,
-} from 'react-native'
-import NotificationScreen from '../notification/index'
+import { StyleSheet, Text, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import headerRightNavigation from '../../navigations/headerNavigation'
 
-function Home({ navigation }) {
+function Home() {
+  const navigation = useNavigation()
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: headerRightNavigation,
