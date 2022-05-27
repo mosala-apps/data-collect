@@ -5,22 +5,24 @@ import React, { useState } from 'react';
 import { Shadow } from 'react-native-shadow-2';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
-import { authSelector} from "../../../store"
+import { authSelector,login } from "../../../store"
 import { styles } from './signin.style';
 import logo from '../../../../assets/img/logo_parteners.png';
 import InputField from '../../../components/inputField/InputField';
 
 function Signin({ navigation }) {
+  const dispatch = useDispatch()
   const { control, handleSubmit, formState: { errors, isValid } } = useForm();
   const {user, isLoading, isAuthenticated, authError }= useSelector(authSelector)
   const handleSignin = (data) => {
-    alert(JSON.stringify(data));
+    //alert(JSON.stringify(data));
+    dispatch(login(data))
     // navigation.navigate('Home');
   };
   return (
     <View style={styles.signin__container}>
       <Image source={logo} style={styles.signin__logo} />
-      <Text>{JSON.stringify(user)} {JSON.stringify(isAuthenticated)}</Text>
+      <Text>{JSON.stringify(user)} auth:{JSON.stringify(isAuthenticated)} err: {JSON.stringify(authError)}</Text>
       <Shadow
         distance={5}
         startColor="#00000010"
@@ -39,7 +41,7 @@ function Signin({ navigation }) {
             <Text>EMAIL, UTILISATEUR OU  TELEPHONE</Text>
             <InputField
               control={control}
-              name="username"
+              name="email"
               rules={{ required: true }}
             />
             {errors.username && <Text style={styles.signin__textError}>Ce champ est requis.</Text>}

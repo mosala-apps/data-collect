@@ -9,7 +9,6 @@ const AuthSlice = createSlice({
     isAuthenticated: false,
     isLogout: false,
     authError: false,
-    userRoles: [],
     lastDateAuth: null,
   },
   reducers: {},

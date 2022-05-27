@@ -1,6 +1,6 @@
 import axios from 'axios';
 
 export default axios.create({
-  baseURL: `${process.env.API_URL}/api/dashboard/`,
+  baseURL: 'http://localhost:8000/api/dashboard/',
   // timeout: 1000,
 });
