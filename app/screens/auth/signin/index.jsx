@@ -1,19 +1,18 @@
 import {
-  Image, Text, View, TextInput, Pressable, ToastAndroid,
+  Image, Text, View, Pressable,
 } from 'react-native';
 import React, { useState } from 'react';
 import { Shadow } from 'react-native-shadow-2';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import { useSelector, useDispatch } from 'react-redux';
 import { styles } from './signin.style';
 import logo from '../../../../assets/img/logo_parteners.png';
 import InputField from '../../../components/inputField/InputField';
 
 function Signin({ navigation }) {
-  const [isPasswordReveal, setIsPasswordReveal] = useState(false);
-  const { control, handleSubmit, formState: { errors, invalid } } = useForm();
-  const handleRevealPassword = () => {
-    setIsPasswordReveal(true);
-  };
+  const { control, handleSubmit, formState: { errors, isValid } } = useForm();
+  const user = useSelector((state)=>state.auth.user)
+  const isAuthenticated= useSelector((state)=>state.auth.isAuthenticated)
   const handleSignin = (data) => {
     alert(JSON.stringify(data));
     // navigation.navigate('Home');
@@ -21,6 +20,7 @@ function Signin({ navigation }) {
   return (
     <View style={styles.signin__container}>
       <Image source={logo} style={styles.signin__logo} />
+      <Text>{JSON.stringify(user)} {JSON.stringify(isAuthenticated)}</Text>
       <Shadow
         distance={5}
         startColor="#00000010"
@@ -55,11 +55,13 @@ function Signin({ navigation }) {
               rules={{ required: true }}
               secureTextEntry
             />
-            {errors.password && 
-            <Text style={styles.signin__textError}>Le Mot de passe est requis.</Text>
-            }
+            {errors.password
+            && <Text style={styles.signin__textError}>Le Mot de passe est requis.</Text>}
           </View>
-          <Pressable style={styles.signin__form_button} onPress={handleSubmit(handleSignin)}>
+          <Pressable
+            style={styles.signin__form_button}
+            onPress={handleSubmit(handleSignin)}
+          >
             <Text style={styles.signin__button_text}>Connexion</Text>
           </Pressable>
         </View>
