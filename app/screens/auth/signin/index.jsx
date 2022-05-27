@@ -5,31 +5,33 @@ import React, { useState, useEffect } from 'react';
 import { Shadow } from 'react-native-shadow-2';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
-import { authSelector, login, userAuthenticating } from '../../../store';
+import { authSelector, login } from '../../../store';
 import { styles } from './signin.style';
 import logo from '../../../../assets/img/logo_parteners.png';
 import InputField from '../../../components/inputField/InputField';
 
 function Signin({ navigation }) {
   const dispatch = useDispatch();
-  const [authenticateErrorMessage, setAuthenticateErrorMessage] = useState('');
-  const { control, handleSubmit, formState: { errors, isValid } } = useForm();
+  const {
+    control, handleSubmit, formState: { errors, isValid }, reset,
+  } = useForm();
   const {
     user, isLoading, isAuthenticated, authError,
   } = useSelector(authSelector);
 
-  const onSubmit = (data) => {
-    dispatch(userAuthenticating(true));
-    dispatch(login(data));
-    if (isAuthenticated) {
-      return navigation.navigate('Home');
-    }
+  const onSubmit = async (data) => {
+    await dispatch(login(data));
   };
+  if (isAuthenticated) {
+    navigation.push('Home');
+  }
   return (
     <View style={styles.signin__container}>
       <Image source={logo} style={styles.signin__logo} />
       {authError
-            && <Text style={styles.signin__textError}>Mot de passe incorrecte ou Login ne correspondent à aucun utilisateur enregistré</Text>}
+            && <Text style={styles.signin__textError}>
+              Mot de passe incorrecte ou Login ne correspondent à aucun utilisateur enregistré
+            </Text>}
       <Shadow
         distance={5}
         startColor="#00000010"

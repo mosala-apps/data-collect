@@ -12,11 +12,14 @@ const AuthSlice = createSlice({
     lastDateAuth: null,
   },
   reducers: {
-    userAuthenticating: (state, { payload })=> {
-      state.isLoading = payload;
-    },
-    userErrorAuthenticating: (state, { payload })=> {
-      state.authError = payload;
+    logout: (state) => {
+      state.isAuthenticated = false,
+      state.isLogout = true,
+      state.user = null,
+      state.authError = false,
+      state.lastDateAuth = null;
+      // remove toke in the Asynch Storage 
+      
     },
   },
   extraReducers: {
@@ -27,7 +30,7 @@ const AuthSlice = createSlice({
       state.isLoading = false;
       state.isAuthenticated = true;
       state.authError = false;
-      //state.lastDateAuth = new Date();
+      // state.lastDateAuth = new Date();
       state.user = payload.user;
     },
     [login.rejected]: (state) => {
@@ -36,5 +39,5 @@ const AuthSlice = createSlice({
     },
   },
 });
-export const { userAuthenticating, userErrorAuthenticating } = AuthSlice.actions
+
 export default AuthSlice.reducer;
