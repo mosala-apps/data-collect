@@ -74,5 +74,8 @@ export const styles = StyleSheet.create({
      fontWeight:'bold', 
      marginTop:3,
      textTransform:'uppercase'
+  },
+  signin__textError:{
+    color: 'red'
   }
 });
