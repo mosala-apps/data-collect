@@ -1,7 +1,7 @@
 import {
   Image, Text, View, TouchableOpacity, ActivityIndicator,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Shadow } from 'react-native-shadow-2';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,14 +12,18 @@ import InputField from '../../../components/inputField/InputField';
 
 function Signin({ navigation }) {
   const dispatch = useDispatch();
+  const [authenticateErrorMessage, setAuthenticateErrorMessage] = useState('');
   const { control, handleSubmit, formState: { errors, isValid } } = useForm();
   const {
     user, isLoading, isAuthenticated, authError,
   } = useSelector(authSelector);
-  const handleSignin = (data) => {
+
+  const onSubmit = (data) => {
     dispatch(userAuthenticating(true));
     dispatch(login(data));
-    // navigation.navigate('Home');
+    if (isAuthenticated) {
+      return navigation.navigate('Home');
+    }
   };
   return (
     <View style={styles.signin__container}>
@@ -47,7 +51,7 @@ function Signin({ navigation }) {
               name="email"
               rules={{ required: true }}
             />
-            {errors.username && <Text style={styles.signin__textError}>Ce champ est requis.</Text>}
+            {errors.email && <Text style={styles.signin__textError}>Ce champ est requis.</Text>}
           </View>
           <View style={styles.signin__form_group}>
             <View style={styles.signin__form_label}>
@@ -63,7 +67,7 @@ function Signin({ navigation }) {
             {errors.password
             && <Text style={styles.signin__textError}>Le Mot de passe est requis.</Text>}
           </View>
-          <TouchableOpacity onPress={handleSubmit(handleSignin)}>
+          <TouchableOpacity onPress={handleSubmit(onSubmit)}>
             <View
               style={styles.signin__form_button}
             >
