@@ -1,11 +1,11 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { NavigationStack } from './NavigationStack';
+import DrawerInitializationScreen from './drawer/index';
 
 function RootNavigation() {
   return (
     <NavigationContainer>
-      <NavigationStack />
+      <DrawerInitializationScreen />
     </NavigationContainer>
   );
 }

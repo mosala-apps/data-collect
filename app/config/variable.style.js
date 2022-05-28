@@ -9,4 +9,3 @@ export default {
         shadowRadius: 2,  
         elevation: 5
 }
-}
