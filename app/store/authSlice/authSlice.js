@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login } from './authAsyncQuerie';
+import { login, logout } from './authAsyncQuerie';
 
 const AuthSlice = createSlice({
   name: 'user',
@@ -12,15 +12,7 @@ const AuthSlice = createSlice({
     lastDateAuth: null,
   },
   reducers: {
-    logout: (state) => {
-      state.isAuthenticated = false,
-      state.isLogout = true,
-      state.user = null,
-      state.authError = false,
-      state.lastDateAuth = null;
-      // remove toke in the Asynch Storage 
-      
-    },
+
   },
   extraReducers: {
     [login.pending]: (state) => {
@@ -37,6 +29,17 @@ const AuthSlice = createSlice({
       state.isLoading = false;
       state.authError = true;
     },
+    [logout.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [logout.fulfilled]: (state) => {
+      state.isLoading = false;
+      state.isAuthenticated = false,
+      state.isLogout = true,
+      state.user = null,
+      state.authError = false,
+      state.lastDateAuth = null;
+    }
   },
 });
 

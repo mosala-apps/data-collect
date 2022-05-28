@@ -22,16 +22,23 @@ function Signin({ navigation }) {
   const onSubmit = async (data) => {
     await dispatch(login(data));
   };
-  if (isAuthenticated) {
-    navigation.push('Home');
-  }
+  useEffect(() => {
+    pushToHome();
+  }, [isAuthenticated]);
+  const pushToHome = () => {
+    if (isAuthenticated) {
+      navigation.push('Home');
+    }
+  };
   return (
     <View style={styles.signin__container}>
       <Image source={logo} style={styles.signin__logo} />
       {authError
-            && <Text style={styles.signin__textError}>
+            && (
+            <Text style={styles.signin__textError}>
               Mot de passe incorrecte ou Login ne correspondent à aucun utilisateur enregistré
-            </Text>}
+            </Text>
+            )}
       <Shadow
         distance={5}
         startColor="#00000010"

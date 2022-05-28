@@ -10,6 +10,8 @@ export const login = createAsyncThunk(
       const user = await (await apiURL.post('/auth/login', payload)).data;
       // asynch storage
       await AsyncStorage.setItem('token', JSON.stringify(user.token));
+      const data =await AsyncStorage.getItem('token')
+      console.log("asych data:",data);
       return user;
     } catch (error) {
       ToastAndroid.show('Echec', ToastAndroid.SHORT);
