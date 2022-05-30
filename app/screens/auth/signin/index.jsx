@@ -1,17 +1,16 @@
 import {
   Image, Text, View, TouchableOpacity, ActivityIndicator,
 } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Shadow } from 'react-native-shadow-2';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
-import { authSelector, login, loginOffline } from '../../../store';
+import { authSelector, login } from '../../../store';
 import { styles } from './signin.style';
 import logo from '../../../../assets/img/logo_parteners.png';
 import InputField from '../../../components/inputField/InputField';
 
 function Signin({ navigation }) {
-  let isConnected = null;
   const dispatch = useDispatch();
   const {
     control, handleSubmit, formState: { errors, isValid }, reset,
@@ -21,10 +20,7 @@ function Signin({ navigation }) {
   } = useSelector(authSelector);
 
   const onSubmit = async (data) => {
-    if (isConnected) {
-      await dispatch(login(data));
-    }
-      dispatch(loginOffline(data));
+    dispatch(login(data));
   };
 
   const redirectToHomeScreen = () => {
@@ -32,16 +28,9 @@ function Signin({ navigation }) {
       navigation.push('Home');
     }
   };
-
-  const networkSubscribe = NetInfo.addEventListener((state) => {
-    isConnected = state.isConnected;
-    console.log('isConnected', isConnected);
-  });
-
-  networkSubscribe();
   useEffect(() => {
     redirectToHomeScreen();
-  }, [isAuthenticated, isConnected]);
+  }, [isAuthenticated]);
   return (
     <View style={styles.signin__container}>
       <Image source={logo} style={styles.signin__logo} />

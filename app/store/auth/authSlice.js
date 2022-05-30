@@ -1,6 +1,6 @@
 
 import { createSlice } from '@reduxjs/toolkit';
-import { login, loginOffline, logout } from './authAsyncQuerie';
+import { login, logout } from './authAsyncQuerie';
 
 const AuthSlice = createSlice({
   name: 'user',
@@ -26,23 +26,11 @@ const AuthSlice = createSlice({
       state.isAuthenticated = true;
       state.authError = false;
       // state.lastDateAuth = new Date();
-      state.user = payload.user;
+      state.user = payload.user ?? {};
     },
     [login.rejected]: (state) => {
       state.isLoading = false;
       state.authError = true;
-    },
-    [loginOffline.pending]:(state) =>{
-      state.isLoading = true;
-    },
-    [loginOffline.rejected]: (state) => {
-      state.isLoading = false;
-      state.authError = true;
-    },
-    [loginOffline.fulfilled]: (state) => {
-      state.isLoading = false;
-      state.isAuthenticated = true;
-      state.authError = false;
     },
     [logout.pending]: (state) => {
       state.isLoading = true;
