@@ -16,8 +16,6 @@ export const login = createAsyncThunk(
         ToastAndroid.show('La connexion a réussi', ToastAndroid.SHORT);
         return user;
       }
-      // const data =await AsyncStorage.getItem('token')
-      // console.log("asych data:",data);
       ToastAndroid.show('Echec', ToastAndroid.SHORT);
     } catch (error) {
       ToastAndroid.show('Echec', ToastAndroid.SHORT);

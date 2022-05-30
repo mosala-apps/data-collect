@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeScreen from '../screens/home/index';
 import NotificationScreen from '../screens/notification';
@@ -10,11 +9,16 @@ import SigninScreen from '../screens/auth/signin';
 const Stack = createNativeStackNavigator();
 
 function NavigationStack() {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const userToken = AsyncStorage.getItem('userToken');
+  const [userToken, setUserToken] = useState(null);
+  const checkIsAuthenticatedUser = async () => {
+    setUserToken(await AsyncStorage.getItem('userToken'));
+  };
+  useEffect(() => {
+    checkIsAuthenticatedUser();
+  }, [userToken]);
   return (
     <Stack.Navigator initialRouteName="Signin">
-      {userToken == null && !isAuthenticated ? (
+      {userToken == null ? (
         <Stack.Screen
           name="Signin"
           component={SigninScreen}

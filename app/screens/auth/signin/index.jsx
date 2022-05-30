@@ -22,14 +22,14 @@ function Signin({ navigation }) {
   const onSubmit = async (data) => {
     await dispatch(login(data));
   };
-  useEffect(() => {
-    pushToHome();
-  }, [isAuthenticated]);
-  const pushToHome = () => {
+  const redirectToHomeScreen = () => {
     if (isAuthenticated) {
       navigation.push('Home');
     }
   };
+  useEffect(() => {
+    redirectToHomeScreen();
+  }, [isAuthenticated]);
   return (
     <View style={styles.signin__container}>
       <Image source={logo} style={styles.signin__logo} />
