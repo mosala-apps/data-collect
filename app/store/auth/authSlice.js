@@ -13,7 +13,7 @@ const AuthSlice = createSlice({
     lastDateAuth: null,
   },
   reducers: {
-    setUser(state, {payload}) {
+    setUser: (state, {payload}) =>{
       state.user = payload;
     }
   },
