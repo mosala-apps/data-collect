@@ -11,6 +11,9 @@ export const login = createAsyncThunk(
       // asynch storage
       if (user) {
         await AsyncStorage.setItem('userToken', JSON.stringify(user.token));
+        // add the token in axios header for all request
+        apiURL.defaults.headers.common.Authorization = `Bearer ${user.token}`;
+        ToastAndroid.show('La connexion a réussi', ToastAndroid.SHORT);
         return user;
       }
       // const data =await AsyncStorage.getItem('token')
