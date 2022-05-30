@@ -5,14 +5,17 @@ import apiURL from '../../config/apiURL';
 
 export const login = createAsyncThunk(
   'user/login',
-  async (payload, thunkAPI) => {
+  async (payload) => {
     try {
       const user = await (await apiURL.post('/auth/login', payload)).data;
       // asynch storage
-      await AsyncStorage.setItem('token', JSON.stringify(user.token));
-      const data =await AsyncStorage.getItem('token')
-      console.log("asych data:",data);
-      return user;
+      if (user) {
+        await AsyncStorage.setItem('userToken', JSON.stringify(user.token));
+        return user;
+      }
+      // const data =await AsyncStorage.getItem('token')
+      // console.log("asych data:",data);
+      ToastAndroid.show('Echec', ToastAndroid.SHORT);
     } catch (error) {
       ToastAndroid.show('Echec', ToastAndroid.SHORT);
     }
