@@ -1,8 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
 
-function WaitingForm() {
+function PendingForm() {
   return <View>index</View>;
 }
 
-export default WaitingForm;
+export default PendingForm;

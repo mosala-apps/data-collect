@@ -6,7 +6,7 @@ import ParameterScreen from '../screens/parameter'
 import SynchronizationFormScreen from '../screens/synchronizationForm'
 import DraftScreen from '../screens/draft'
 import ConflictHandlingScreen from '../screens/conflictHandling'
-import WaitingFormScreen from '../screens/waitingForm'
+import PendingFormScreen from '../screens/pendingForm'
 import SigninScreen from '../screens/auth/signin'
 
 const Stack = createNativeStackNavigator()
@@ -44,7 +44,7 @@ function NavigationStack() {
         name="Notification"
         component={NotificationScreen}
         options={() => ({
-          title: 'My notification',
+          title: 'Mes notifications',
           headerStyle: headerStyleContainer.headerStyle,
           headerTintColor: headerStyleContainer.headerTintColor,
           headerTitleStyle: headerStyleContainer.headerTitleStyle,
@@ -91,8 +91,8 @@ function NavigationStack() {
         })}
       />
       <Stack.Screen
-        name="WaitingForm"
-        component={WaitingFormScreen}
+        name="PendingForm"
+        component={PendingFormScreen}
         options={() => ({
           title: 'En attente',
           headerStyle: headerStyleContainer.headerStyle,

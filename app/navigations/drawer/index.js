@@ -25,7 +25,7 @@ export default function DrawerInitializationScreen() {
       }}
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
-      <Drawer.Screen name="Menu" component={NavigationStack} />
+      <Drawer.Screen name="homDrawer" component={NavigationStack} />
     </Drawer.Navigator>
   );
 }
