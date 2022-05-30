@@ -4,24 +4,30 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import headerRightNavigation from '../../navigations/headerNavigation';
+import { authSelector } from '../../store';
 
 function Home() {
   const navigation = useNavigation();
   const [userToken, setUserToken] = useState(null);
+  const { user } = useSelector(authSelector);
   const checkIsAuthenticatedUser = async () => {
-    setUserToken(await AsyncStorage.getItem('userToken'));
+    if (user === null) {
+      setUserToken(await AsyncStorage.getItem(JSON.parse('user')));
+      user = {...userToken}
+    }
   };
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: headerRightNavigation,
     });
-    checkIsAuthenticatedUser()
+    checkIsAuthenticatedUser();
   }, [navigation]);
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>
         Token:
-        {userToken}
+        {JSON.stringify(user)}
+
       </Text>
     </View>
   );

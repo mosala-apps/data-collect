@@ -1,3 +1,4 @@
+
 import { createSlice } from '@reduxjs/toolkit';
 import { login, logout } from './authAsyncQuerie';
 
@@ -12,7 +13,9 @@ const AuthSlice = createSlice({
     lastDateAuth: null,
   },
   reducers: {
-
+    setUser(state, {payload}) {
+      state.user = payload;
+    }
   },
   extraReducers: {
     [login.pending]: (state) => {
@@ -42,5 +45,5 @@ const AuthSlice = createSlice({
     }
   },
 });
-
+export const { setUser } = AuthSlice.actions;
 export default AuthSlice.reducer;

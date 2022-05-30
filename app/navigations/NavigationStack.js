@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 function NavigationStack() {
   const [userToken, setUserToken] = useState(null);
   const checkIsAuthenticatedUser = async () => {
-    setUserToken(await AsyncStorage.getItem('userToken'));
+    setUserToken(await AsyncStorage.getItem('token_access'));
   };
   useEffect(() => {
     checkIsAuthenticatedUser();
