@@ -1,7 +1,13 @@
-const indexStyle = {
-  drawerContent: {
+import { StyleSheet } from 'react-native';
+
+const styleSheet = StyleSheet.create({
+  drawerContentStyle: {
     flex: 1,
     with: 150,
   },
-};
-export default indexStyle;
+  drawerInitializationStyle: {
+    backgroundColor: 'white',
+    width: 240,
+  },
+});
+export default styleSheet;

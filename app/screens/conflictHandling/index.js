@@ -1,12 +1,12 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-function Parameter() {
+function ConflictHandling() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Parameter Screen</Text>
+      <Text>Home Screen</Text>
     </View>
   );
 }
 
-export default Parameter;
+export default ConflictHandling;

@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/drawer';
 import NavigationStack from '../NavigationStack';
 import Menu from '../../components/menu';
-// import indexStyle from './index.style'
+import styleSheet from './index.style';
 
 const Drawer = createDrawerNavigator();
 
@@ -20,10 +20,7 @@ export default function DrawerInitializationScreen() {
   return (
     <Drawer.Navigator
       screenOptions={{
-        drawerStyle: {
-          backgroundColor: '#c6cbef',
-          width: 240,
-        },
+        drawerStyle: styleSheet.drawerInitializationStyle,
         headerShown: false,
       }}
       drawerContent={(props) => <CustomDrawerContent {...props} />}

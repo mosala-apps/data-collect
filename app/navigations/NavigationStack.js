@@ -1,12 +1,26 @@
-import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from '../screens/home/index';
-import NotificationScreen from '../screens/notification';
-import ParameterScreen from '../screens/parameter';
-import SigninScreen from '../screens/auth/signin';
+import React from 'react'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import HomeScreen from '../screens/home/index'
+import NotificationScreen from '../screens/notification'
+import ParameterScreen from '../screens/parameter'
+import SynchronizationFormScreen from '../screens/synchronizationForm'
+import DraftScreen from '../screens/draft'
+import ConflictHandlingScreen from '../screens/conflictHandling'
+import WaitingFormScreen from '../screens/waitingForm'
+import SigninScreen from '../screens/auth/signin'
 
-const Stack = createNativeStackNavigator();
-
+const Stack = createNativeStackNavigator()
+const headerStyleContainer = {
+  headerStyle: {
+    backgroundColor: '#6384EA',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+}
 function NavigationStack() {
   return (
     <Stack.Navigator initialRouteName="Home">
@@ -20,15 +34,10 @@ function NavigationStack() {
         component={HomeScreen}
         options={() => ({
           title: 'My home',
-          headerStyle: {
-            backgroundColor: '#6384EA',
-            alignItems: 'center',
-            justifyContent: 'center',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          headerStyle: headerStyleContainer.headerStyle,
+          headerTintColor: headerStyleContainer.headerTintColor,
+          headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          headerShown: false,
         })}
       />
       <Stack.Screen
@@ -36,35 +45,63 @@ function NavigationStack() {
         component={NotificationScreen}
         options={() => ({
           title: 'My notification',
-          headerStyle: {
-            backgroundColor: '#6384EA',
-            alignItems: 'center',
-            justifyContent: 'center',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          headerStyle: headerStyleContainer.headerStyle,
+          headerTintColor: headerStyleContainer.headerTintColor,
+          headerTitleStyle: headerStyleContainer.headerTitleStyle,
         })}
       />
       <Stack.Screen
         name="Parameter"
         component={ParameterScreen}
         options={() => ({
-          title: 'My parameter',
-          headerStyle: {
-            backgroundColor: '#6384EA',
-            alignItems: 'center',
-            justifyContent: 'center',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          title: 'Mes paramètres',
+          headerStyle: headerStyleContainer.headerStyle,
+          headerTintColor: headerStyleContainer.headerTintColor,
+          headerTitleStyle: headerStyleContainer.headerTitleStyle,
+        })}
+      />
+      <Stack.Screen
+        name="SynchronizationForm"
+        component={SynchronizationFormScreen}
+        options={() => ({
+          title: 'Formulaires synchronisés',
+          headerStyle: headerStyleContainer.headerStyle,
+          headerTintColor: headerStyleContainer.headerTintColor,
+          headerTitleStyle: headerStyleContainer.headerTitleStyle,
+        })}
+      />
+      <Stack.Screen
+        name="Draft"
+        component={DraftScreen}
+        options={() => ({
+          title: 'Mes brouillons',
+          headerStyle: headerStyleContainer.headerStyle,
+          headerTintColor: headerStyleContainer.headerTintColor,
+          headerTitleStyle: headerStyleContainer.headerTitleStyle,
+        })}
+      />
+      <Stack.Screen
+        name="ConflictHandling"
+        component={ConflictHandlingScreen}
+        options={() => ({
+          title: 'Gestion des conflicts',
+          headerStyle: headerStyleContainer.headerStyle,
+          headerTintColor: headerStyleContainer.headerTintColor,
+          headerTitleStyle: headerStyleContainer.headerTitleStyle,
+        })}
+      />
+      <Stack.Screen
+        name="WaitingForm"
+        component={WaitingFormScreen}
+        options={() => ({
+          title: 'En attente',
+          headerStyle: headerStyleContainer.headerStyle,
+          headerTintColor: headerStyleContainer.headerTintColor,
+          headerTitleStyle: headerStyleContainer.headerTitleStyle,
         })}
       />
     </Stack.Navigator>
-  );
+  )
 }
 
-export default NavigationStack;
+export default NavigationStack

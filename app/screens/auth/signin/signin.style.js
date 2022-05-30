@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
-import variableStyle from '../../../config/variable.style';
+import { StyleSheet } from 'react-native'
+import variableStyle from '../../../config/variable.style'
 
 export const styles = StyleSheet.create({
   signin__container: {
@@ -18,24 +18,21 @@ export const styles = StyleSheet.create({
     height: '50%',
     width: '100%',
     borderRadius: 10,
-
   },
   signin__form_header: {
     marginTop: '5%',
-    paddingLeft:'5%',
-    paddingRight:'5%'
+    paddingLeft: '5%',
+    paddingRight: '5%',
   },
   signin__form_title: {
     textAlign: 'center',
     fontSize: 20,
     color: '#14244F',
-
   },
   signin__form_text: {
     textAlign: 'center',
     fontSize: 12,
     color: '#14244F',
-
   },
   signin__form_body: {
     marginTop: '5%',
@@ -51,10 +48,10 @@ export const styles = StyleSheet.create({
     marginTop: 10,
   },
   signin__form_button: {
-      marginTop: 20,
+    marginTop: 20,
     width: '100%',
     height: 31,
     backgroundColor: variableStyle.secondaryColor,
     borderRadius: 5,
   },
-});
+})
