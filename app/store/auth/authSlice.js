@@ -1,6 +1,6 @@
 
 import { createSlice } from '@reduxjs/toolkit';
-import { login, logout } from './authAsyncQuerie';
+import { login, loginOffline, logout } from './authAsyncQuerie';
 
 const AuthSlice = createSlice({
   name: 'user',
@@ -39,7 +39,7 @@ const AuthSlice = createSlice({
       state.isLoading = false;
       state.authError = true;
     },
-    [loginOffline.fulfilled]: (state, { payload }) => {
+    [loginOffline.fulfilled]: (state) => {
       state.isLoading = false;
       state.isAuthenticated = true;
       state.authError = false;

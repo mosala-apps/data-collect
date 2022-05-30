@@ -33,7 +33,7 @@ export const logout = createAsyncThunk(
   },
 );
 export const loginOffline = createAsyncThunk(
-  'user/loginOffline',
+  'user/login/Offline',
   async (payload) => {
     try {
       const user = JSON.parse(await AsyncStorage.getItem('user'));
