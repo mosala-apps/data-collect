@@ -5,12 +5,14 @@ import React, { useState, useEffect } from 'react';
 import { Shadow } from 'react-native-shadow-2';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
+import NetInfo from '@react-native-community/netinfo';
 import { authSelector, login } from '../../../store';
 import { styles } from './signin.style';
 import logo from '../../../../assets/img/logo_parteners.png';
 import InputField from '../../../components/inputField/InputField';
 
 function Signin({ navigation }) {
+  const [isConnected, setIsConnected] = useState(null)
   const dispatch = useDispatch();
   const {
     control, handleSubmit, formState: { errors, isValid }, reset,
@@ -22,13 +24,22 @@ function Signin({ navigation }) {
   const onSubmit = async (data) => {
     await dispatch(login(data));
   };
+
   const redirectToHomeScreen = () => {
     if (isAuthenticated) {
       navigation.push('Home');
     }
   };
+  
+  const networkSubscribe = NetInfo.addEventListener(state => {
+    setIsConnected(state.isConnected)
+    alert(JSON.stringify(isConnected))
+  });
+  
+
   useEffect(() => {
     redirectToHomeScreen();
+    networkSubscribe()
   }, [isAuthenticated]);
   return (
     <View style={styles.signin__container}>

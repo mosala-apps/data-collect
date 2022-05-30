@@ -18,14 +18,14 @@ function NavigationStack() {
   }, [userToken]);
   return (
     <Stack.Navigator initialRouteName={userToken ? 'Home' : 'Signin'}>
-      {userToken == null ? (
+      {userToken === null ? (
         <Stack.Screen
           name="Signin"
           component={SigninScreen}
           options={{ headerShown: false }}
         />
       ) : (
-        <>
+        <Stack.Group>
           <Stack.Screen
             name="Home"
             component={HomeScreen}
@@ -75,7 +75,7 @@ function NavigationStack() {
             })}
           />
 
-        </>
+        </Stack.Group>
       )}
     </Stack.Navigator>
   );
