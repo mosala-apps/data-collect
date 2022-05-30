@@ -6,21 +6,17 @@ import apiURL from '../../config/apiURL';
 export const login = createAsyncThunk(
   'user/login',
   async (payload) => {
-    try {
-      const user = await (await apiURL.post('/auth/login', payload)).data;
-      // asynch storage
-      if (user) {
-        await AsyncStorage.setItem('token_access', JSON.stringify(user.token));
-        await AsyncStorage.setItem('user', JSON.stringify(user.user));
-        // add the token in axios header for all request
-        apiURL.defaults.headers.common.Authorization = `Bearer ${user.token}`;
-        ToastAndroid.show('La connexion a réussi', ToastAndroid.SHORT);
-        return user;
-      }
-      ToastAndroid.show('Echec', ToastAndroid.SHORT);
-    } catch (error) {
-      ToastAndroid.show('Echec', ToastAndroid.SHORT);
+    const user = await (await apiURL.post('/auth/login', payload)).data;
+    // asynch storage
+    if (Object.keys(user).length !== 0) {
+      await AsyncStorage.setItem('token_access', JSON.stringify(user.token));
+      await AsyncStorage.setItem('user', JSON.stringify(user.user));
+      // add the token in axios header for all request
+      apiURL.defaults.headers.common.Authorization = `Bearer ${user.token}`;
+      ToastAndroid.show('La connexion a réussi', ToastAndroid.SHORT);
+      return user;
     }
+    ToastAndroid.show('Echec', ToastAndroid.SHORT);
   },
 );
 
@@ -29,6 +25,7 @@ export const logout = createAsyncThunk(
   async () => {
     try {
       await AsyncStorage.removeItem('token_access');
+      await AsyncStorage.removeItem('user');
       return true;
     } catch (error) {
       ToastAndroid.show('Echec de deconnexion', ToastAndroid.SHORT);

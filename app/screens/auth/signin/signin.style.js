@@ -79,5 +79,5 @@ export const styles = StyleSheet.create({
   },
   signin__textError:{
     color: 'red'
-  }
+  },
 });

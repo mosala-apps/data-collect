@@ -24,7 +24,7 @@ function Signin({ navigation }) {
   };
   const redirectToHomeScreen = () => {
     if (isAuthenticated) {
-      navigation.push('Home');
+      navigation.navigate('Home');
     }
   };
   useEffect(() => {

@@ -17,66 +17,60 @@ function NavigationStack() {
     checkIsAuthenticatedUser();
   }, [userToken]);
   return (
-    <Stack.Navigator initialRouteName="Signin">
-      {userToken == null ? (
-        <Stack.Screen
-          name="Signin"
-          component={SigninScreen}
-          options={{ headerShown: false }}
-        />
-      ) : (
-        <>
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={() => ({
-              title: 'My home',
-              headerStyle: {
-                backgroundColor: '#6384EA',
-                alignItems: 'center',
-                justifyContent: 'center',
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              },
-            })}
-          />
-          <Stack.Screen
-            name="Notification"
-            component={NotificationScreen}
-            options={() => ({
-              title: 'My notification',
-              headerStyle: {
-                backgroundColor: '#6384EA',
-                alignItems: 'center',
-                justifyContent: 'center',
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              },
-            })}
-          />
-          <Stack.Screen
-            name="Parameter"
-            component={ParameterScreen}
-            options={() => ({
-              title: 'My parameter',
-              headerStyle: {
-                backgroundColor: '#6384EA',
-                alignItems: 'center',
-                justifyContent: 'center',
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              },
-            })}
-          />
-
-        </>
-      )}
+    <Stack.Navigator initialRouteName={userToken ? 'Home' : 'Signin'}>
+      <Stack.Screen
+        name="Signin"
+        component={SigninScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={() => ({
+          title: 'My home',
+          headerStyle: {
+            backgroundColor: '#6384EA',
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        })}
+      />
+      <Stack.Screen
+        name="Notification"
+        component={NotificationScreen}
+        options={() => ({
+          title: 'My notification',
+          headerStyle: {
+            backgroundColor: '#6384EA',
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        })}
+      />
+      <Stack.Screen
+        name="Parameter"
+        component={ParameterScreen}
+        options={() => ({
+          title: 'My parameter',
+          headerStyle: {
+            backgroundColor: '#6384EA',
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        })}
+      />
     </Stack.Navigator>
   );
 }
