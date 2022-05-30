@@ -2,7 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ToastAndroid } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiURL from '../../config/apiURL';
-import {isConnected} from '../../config/offlineConfig';
+import { isConnected } from '../../config/offlineConfig';
+
 
 const onlineLogin = async (payload) => {
   const user = await (await apiURL.post('/auth/login', payload)).data;
@@ -35,6 +36,7 @@ export const login = createAsyncThunk(
       onlineLogin(payload)
     } else {
       offlineLogin(payload)
+      alert(isConnected)
     }
   },
 );
