@@ -32,3 +32,21 @@ export const logout = createAsyncThunk(
     }
   },
 );
+export const loginOffline = createAsyncThunk(
+  'user/loginOffline',
+  async (payload) => {
+    try {
+      const user = JSON.parse(await AsyncStorage.getItem('user'));
+      if (user.email === payload.email
+        || user.username === payload.email
+         || user.phone_number === payload.email) {
+        ToastAndroid.show('La connexion a réussi', ToastAndroid.SHORT);
+      } else {
+        ToastAndroid.show('Echec de deconnexion', ToastAndroid.SHORT);
+      }
+      return true;
+    } catch (error) {
+      ToastAndroid.show('Echec de deconnexion', ToastAndroid.SHORT);
+    }
+  },
+);

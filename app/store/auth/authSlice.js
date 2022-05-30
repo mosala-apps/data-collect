@@ -32,6 +32,18 @@ const AuthSlice = createSlice({
       state.isLoading = false;
       state.authError = true;
     },
+    [loginOffline.pending]:(state) =>{
+      state.isLoading = true;
+    },
+    [loginOffline.rejected]: (state) => {
+      state.isLoading = false;
+      state.authError = true;
+    },
+    [loginOffline.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.isAuthenticated = true;
+      state.authError = false;
+    },
     [logout.pending]: (state) => {
       state.isLoading = true;
     },

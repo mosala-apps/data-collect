@@ -12,7 +12,7 @@ import logo from '../../../../assets/img/logo_parteners.png';
 import InputField from '../../../components/inputField/InputField';
 
 function Signin({ navigation }) {
-  const [isConnected, setIsConnected] = useState(null)
+  const [isConnected, setIsConnected] = useState(null);
   const dispatch = useDispatch();
   const {
     control, handleSubmit, formState: { errors, isValid }, reset,
@@ -22,7 +22,9 @@ function Signin({ navigation }) {
   } = useSelector(authSelector);
 
   const onSubmit = async (data) => {
-    await dispatch(login(data));
+    if (isConnected) {
+      await dispatch(login(data));
+    }
   };
 
   const redirectToHomeScreen = () => {
@@ -30,17 +32,16 @@ function Signin({ navigation }) {
       navigation.push('Home');
     }
   };
-  
-  const networkSubscribe = NetInfo.addEventListener(state => {
-    setIsConnected(state.isConnected)
-    alert(JSON.stringify(isConnected))
+
+  const networkSubscribe = NetInfo.addEventListener((state) => {
+    setIsConnected(state.isConnected);
+    alert(JSON.stringify(isConnected));
   });
-  
 
   useEffect(() => {
     redirectToHomeScreen();
-    networkSubscribe()
-  }, [isAuthenticated]);
+    networkSubscribe();
+  }, [isAuthenticated, isConnected]);
   return (
     <View style={styles.signin__container}>
       <Image source={logo} style={styles.signin__logo} />
