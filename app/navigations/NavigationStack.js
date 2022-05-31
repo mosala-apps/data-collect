@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeScreen from '../screens/home/index';
-import NotificationScreen from '../screens/notification/index';
-import SettingScreen from '../screens/setting/index';
-import SynchronizationFormScreen from '../screens/synchronizationForm/index';
-import DraftScreen from '../screens/draft/index';
-import ConflictHandlingScreen from '../screens/conflictHandling/index';
-import PendingFormScreen from '../screens/pendingForm/index';
+import NotificationScreen from '../screens/notification';
+import SettingScreen from '../screens/setting';
+import SynchronizationFormScreen from '../screens/synchronizationForm';
+import DraftScreen from '../screens/draft';
+import ConflictHandlingScreen from '../screens/conflictHandling';
+import PendingFormScreen from '../screens/pendingForm';
 import SigninScreen from '../screens/auth/signin';
 
 const Stack = createNativeStackNavigator();
-const styleSheet = {
+const headerStyleContainer = {
   headerStyle: {
     backgroundColor: '#6384EA',
     alignItems: 'center',
@@ -31,68 +31,86 @@ function NavigationStack() {
     checkIsAuthenticatedUser();
   }, [userToken]);
   return (
-    <Stack.Navigator initialRouteName="Signin">
-      {userToken == null ? (
+    <Stack.Navigator initialRouteName={userToken ? 'Home' : 'Signin'}>
+      <Stack.Screen
+        name="Signin"
+        component={SigninScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Group>
         <Stack.Screen
-          name="Signin"
-          component={SigninScreen}
-          options={{ headerShown: false }}
+          name="Home"
+          component={HomeScreen}
+          options={() => ({
+            title: 'My home',
+            headerStyle: headerStyleContainer.headerStyle,
+            headerTintColor: headerStyleContainer.headerTintColor,
+            headerTitleStyle: headerStyleContainer.headerTitleStyle,
+            headerShown: false,
+          })}
         />
-      ) : (
-        <>
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={() => ({
-              title: 'My home',
-              headerStyle: {
-                backgroundColor: '#6384EA',
-                alignItems: 'center',
-                justifyContent: 'center',
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              },
-            })}
-          />
-          <Stack.Screen
-            name="Notification"
-            component={NotificationScreen}
-            options={() => ({
-              title: 'My notification',
-              headerStyle: {
-                backgroundColor: '#6384EA',
-                alignItems: 'center',
-                justifyContent: 'center',
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              },
-            })}
-          />
-          <Stack.Screen
-            name="Parameter"
-            component={SettingScreen}
-            options={() => ({
-              title: 'My parameter',
-              headerStyle: {
-                backgroundColor: '#6384EA',
-                alignItems: 'center',
-                justifyContent: 'center',
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              },
-            })}
-          />
-
-        </>
-      )}
+        <Stack.Screen
+          name="Notification"
+          component={NotificationScreen}
+          options={() => ({
+            title: 'Mes notifications',
+            headerStyle: headerStyleContainer.headerStyle,
+            headerTintColor: headerStyleContainer.headerTintColor,
+            headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          })}
+        />
+        <Stack.Screen
+          name="Settings"
+          component={SettingScreen}
+          options={() => ({
+            title: 'Mes paramètres',
+            headerStyle: headerStyleContainer.headerStyle,
+            headerTintColor: headerStyleContainer.headerTintColor,
+            headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          })}
+        />
+        <Stack.Screen
+          name="SynchronizationForm"
+          component={SynchronizationFormScreen}
+          options={() => ({
+            title: 'Formulaires synchronisés',
+            headerStyle: headerStyleContainer.headerStyle,
+            headerTintColor: headerStyleContainer.headerTintColor,
+            headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          })}
+        />
+        <Stack.Screen
+          name="Draft"
+          component={DraftScreen}
+          options={() => ({
+            title: 'Mes brouillons',
+            headerStyle: headerStyleContainer.headerStyle,
+            headerTintColor: headerStyleContainer.headerTintColor,
+            headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          })}
+        />
+        <Stack.Screen
+          name="ConflictHandling"
+          component={ConflictHandlingScreen}
+          options={() => ({
+            title: 'Gestion des conflicts',
+            headerStyle: headerStyleContainer.headerStyle,
+            headerTintColor: headerStyleContainer.headerTintColor,
+            headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          })}
+        />
+        <Stack.Screen
+          name="PendingForm"
+          component={PendingFormScreen}
+          options={() => ({
+            title: 'En attente',
+            headerStyle: headerStyleContainer.headerStyle,
+            headerTintColor: headerStyleContainer.headerTintColor,
+            headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          })}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 }
-
 export default NavigationStack;

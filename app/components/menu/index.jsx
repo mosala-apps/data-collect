@@ -8,9 +8,15 @@ import {
   Foundation,
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
+import { useDispatch } from 'react-redux';
 import styleSheet from './index.style';
+import { logout } from '../../store';
 
 export default function Menu({ navigation }) {
+  const dispatch = useDispatch();
+  const handleLogout = async () => {
+    dispatch(logout({ navigation}));
+  };
   return (
     <View style={styleSheet.containerMenu}>
       <View style={styleSheet.containerMenuTitle}>
@@ -126,7 +132,10 @@ export default function Menu({ navigation }) {
           <Text>Paramètres</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styleSheet.containerMenuIcon}>
+      <TouchableOpacity
+        onPress={handleLogout}
+        style={styleSheet.containerMenuIcon}
+      >
         <View>
           <FontAwesome
             name="sign-out"

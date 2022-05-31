@@ -26,7 +26,7 @@ const AuthSlice = createSlice({
       state.isAuthenticated = true;
       state.authError = false;
       // state.lastDateAuth = new Date();
-      state.user = payload.user;
+      state.user = payload.user ?? {};
     },
     [login.rejected]: (state) => {
       state.isLoading = false;
