@@ -42,10 +42,17 @@ const styleSheet = StyleSheet.create({
   },
   containerHomeFormTitle: {
     marginVertical: '5%',
-    flex: 1,
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 20,
+  },
+  containerHomeFormCard: {
+    marginTop: '7%',
+    marginHorizontal: '7%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+
   },
 });
 export default styleSheet;

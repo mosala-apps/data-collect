@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from 'axios'
 
 export default axios.create({
-  baseURL: `${process.env.API_URL}/api`,
+  baseURL: `${process.env.API_URL}`,
   // timeout: 1000,
-});
+})
