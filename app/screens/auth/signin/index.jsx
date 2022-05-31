@@ -1,38 +1,48 @@
 import {
   Image, Text, View, TouchableOpacity, ActivityIndicator,
 } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Shadow } from 'react-native-shadow-2';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
-import { authSelector, login } from '../../../store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { authSelector, login} from '../../../store';
 import { styles } from './signin.style';
 import logo from '../../../../assets/img/logo_parteners.png';
 import InputField from '../../../components/inputField/InputField';
 
 function Signin({ navigation }) {
   const dispatch = useDispatch();
+  const [userToken, setUserToken] = useState(null);
   const {
     control, handleSubmit, formState: { errors, isValid }, reset,
   } = useForm();
   const {
-    user, isLoading, isAuthenticated, authError,
+    isLoading, isAuthenticated, authError,
   } = useSelector(authSelector);
-
-  const onSubmit = async (data) => {
-    dispatch(login(data));
+ 
+  const checkIsAuthenticatedUser = async () => {
+    setUserToken(await AsyncStorage.getItem('token_access'));
   };
 
   const redirectToHomeScreen = () => {
-    if (isAuthenticated) {
+    if (userToken || isAuthenticated) {
       navigation.push('Home');
     }
   };
+  const onSubmit = async (data) => {
+    dispatch(login(data));
+    checkIsAuthenticatedUser()
+    redirectToHomeScreen()
+   
+  };
   useEffect(() => {
     redirectToHomeScreen();
-  }, [isAuthenticated]);
+    checkIsAuthenticatedUser()
+  }, [isAuthenticated, userToken]);
   return (
     <View style={styles.signinContainer}>
+      {isAuthenticated}
       <Image source={logo} style={styles.signinLogo} />
       {authError
             && (

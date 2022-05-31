@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableHighlight, View } from 'react-native';
-import { FontAwesome, Ionicons, Feather } from '@expo/vector-icons';
+import { Ionicons, Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import styleSheet from './index.style';
 
@@ -35,10 +35,11 @@ export default function HeaderNavigation() {
         <View>
           <TouchableHighlight onPress={() => navigation.navigate('Settings')}>
             <View>
-              <FontAwesome
-                name="user-circle"
-                style={styleSheet.color}
+              <Ionicons
+                name="settings-outline"
                 size={24}
+                style={styleSheet.color}
+                color="black"
               />
             </View>
           </TouchableHighlight>

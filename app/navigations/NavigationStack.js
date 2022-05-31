@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeScreen from '../screens/home/index';
@@ -25,94 +25,92 @@ const headerStyleContainer = {
 function NavigationStack() {
   const [userToken, setUserToken] = useState(null);
   const checkIsAuthenticatedUser = async () => {
+    // await AsyncStorage.removeItem('token_access')
     setUserToken(await AsyncStorage.getItem('token_access'));
   };
-  useLayoutEffect(() => {
+  useEffect(() => {
     checkIsAuthenticatedUser();
   }, [userToken]);
   return (
     <Stack.Navigator initialRouteName={userToken ? 'Home' : 'Signin'}>
-      {userToken === null ? (
+      <Stack.Screen
+        name="Signin"
+        component={SigninScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Group>
         <Stack.Screen
-          name="Signin"
-          component={SigninScreen}
-          options={{ headerShown: false }}
+          name="Home"
+          component={HomeScreen}
+          options={() => ({
+            title: 'My home',
+            headerStyle: headerStyleContainer.headerStyle,
+            headerTintColor: headerStyleContainer.headerTintColor,
+            headerTitleStyle: headerStyleContainer.headerTitleStyle,
+            headerShown: false,
+          })}
         />
-      ) : (
-        <Stack.Group>
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={() => ({
-              title: 'My home',
-              headerStyle: headerStyleContainer.headerStyle,
-              headerTintColor: headerStyleContainer.headerTintColor,
-              headerTitleStyle: headerStyleContainer.headerTitleStyle,
-              headerShown: false,
-            })}
-          />
-          <Stack.Screen
-            name="Notification"
-            component={NotificationScreen}
-            options={() => ({
-              title: 'Mes notifications',
-              headerStyle: headerStyleContainer.headerStyle,
-              headerTintColor: headerStyleContainer.headerTintColor,
-              headerTitleStyle: headerStyleContainer.headerTitleStyle,
-            })}
-          />
-          <Stack.Screen
-            name="Settings"
-            component={SettingScreen}
-            options={() => ({
-              title: 'Mes paramètres',
-              headerStyle: headerStyleContainer.headerStyle,
-              headerTintColor: headerStyleContainer.headerTintColor,
-              headerTitleStyle: headerStyleContainer.headerTitleStyle,
-            })}
-          />
-          <Stack.Screen
-            name="SynchronizationForm"
-            component={SynchronizationFormScreen}
-            options={() => ({
-              title: 'Formulaires synchronisés',
-              headerStyle: headerStyleContainer.headerStyle,
-              headerTintColor: headerStyleContainer.headerTintColor,
-              headerTitleStyle: headerStyleContainer.headerTitleStyle,
-            })}
-          />
-          <Stack.Screen
-            name="Draft"
-            component={DraftScreen}
-            options={() => ({
-              title: 'Mes brouillons',
-              headerStyle: headerStyleContainer.headerStyle,
-              headerTintColor: headerStyleContainer.headerTintColor,
-              headerTitleStyle: headerStyleContainer.headerTitleStyle,
-            })}
-          />
-          <Stack.Screen
-            name="ConflictHandling"
-            component={ConflictHandlingScreen}
-            options={() => ({
-              title: 'Gestion des conflicts',
-              headerStyle: headerStyleContainer.headerStyle,
-              headerTintColor: headerStyleContainer.headerTintColor,
-              headerTitleStyle: headerStyleContainer.headerTitleStyle,
-            })}
-          />
-          <Stack.Screen
-            name="PendingForm"
-            component={PendingFormScreen}
-            options={() => ({
-              title: 'En attente',
-              headerStyle: headerStyleContainer.headerStyle,
-              headerTintColor: headerStyleContainer.headerTintColor,
-              headerTitleStyle: headerStyleContainer.headerTitleStyle,
-            })}
-          />
-        </Stack.Group>
-      )}
+        <Stack.Screen
+          name="Notification"
+          component={NotificationScreen}
+          options={() => ({
+            title: 'Mes notifications',
+            headerStyle: headerStyleContainer.headerStyle,
+            headerTintColor: headerStyleContainer.headerTintColor,
+            headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          })}
+        />
+        <Stack.Screen
+          name="Settings"
+          component={SettingScreen}
+          options={() => ({
+            title: 'Mes paramètres',
+            headerStyle: headerStyleContainer.headerStyle,
+            headerTintColor: headerStyleContainer.headerTintColor,
+            headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          })}
+        />
+        <Stack.Screen
+          name="SynchronizationForm"
+          component={SynchronizationFormScreen}
+          options={() => ({
+            title: 'Formulaires synchronisés',
+            headerStyle: headerStyleContainer.headerStyle,
+            headerTintColor: headerStyleContainer.headerTintColor,
+            headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          })}
+        />
+        <Stack.Screen
+          name="Draft"
+          component={DraftScreen}
+          options={() => ({
+            title: 'Mes brouillons',
+            headerStyle: headerStyleContainer.headerStyle,
+            headerTintColor: headerStyleContainer.headerTintColor,
+            headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          })}
+        />
+        <Stack.Screen
+          name="ConflictHandling"
+          component={ConflictHandlingScreen}
+          options={() => ({
+            title: 'Gestion des conflicts',
+            headerStyle: headerStyleContainer.headerStyle,
+            headerTintColor: headerStyleContainer.headerTintColor,
+            headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          })}
+        />
+        <Stack.Screen
+          name="PendingForm"
+          component={PendingFormScreen}
+          options={() => ({
+            title: 'En attente',
+            headerStyle: headerStyleContainer.headerStyle,
+            headerTintColor: headerStyleContainer.headerTintColor,
+            headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          })}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 }

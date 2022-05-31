@@ -8,9 +8,14 @@ import {
   Foundation,
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import styleSheet from './index.style';
 
 export default function Menu({ navigation }) {
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('token_access');
+    return navigation.navigate('Signin');
+  };
   return (
     <View style={styleSheet.containerMenu}>
       <View style={styleSheet.containerMenuTitle}>
@@ -126,7 +131,10 @@ export default function Menu({ navigation }) {
           <Text>Paramètres</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styleSheet.containerMenuIcon}>
+      <TouchableOpacity
+        onPress={handleLogout}
+        style={styleSheet.containerMenuIcon}
+      >
         <View>
           <FontAwesome
             name="sign-out"
