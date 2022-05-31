@@ -13,16 +13,20 @@ function Home() {
   const dispatch = useDispatch();
   const forms = useSelector((state) => state.form.forms);
   const user = useSelector((state) => state.auth.user);
+  const [hospitalId, setHospitalId] = useState(null);
   const checkIsAuthenticatedUser = async () => {
     if (Object.keys(user).length === 0) {
       dispatch(setUser(JSON.parse(await AsyncStorage.getItem('user'))));
     }
+    setHospitalId(user.hospital.id);
   };
   useEffect(() => {
     checkIsAuthenticatedUser();
-    dispatch(getForms({ id: user.hospital.id }));
-    console.log('forms ->', forms);
-  }, []);
+    if (hospitalId) {
+      dispatch(getForms({ id: hospitalId }));
+    }
+  }, [hospitalId]);
+  const regexSearch = new RegExp(textInput, 'i');
   return (
     <View style={styleSheet.container}>
       <HeaderNavigation />
@@ -40,13 +44,11 @@ function Home() {
         <View style={styleSheet.containerHomeForm}>
           <Text style={styleSheet.containerHomeFormTitle}>Mes formulaires</Text>
           <View style={styleSheet.containerHomeFormCard}>
-            <CardHome title="formulaire" />
-            <CardHome title="formulaire" />
-            <CardHome title="formulaire" />
-            <CardHome title="formulaire" />
-            <View>
-              <Text>{JSON.stringify(forms.forms)}</Text>
-            </View>
+            { forms && forms.forms
+              ? forms.forms
+                .filter((form) => form.title.match(regexSearch))
+                .map((form) => (<CardHome key={form.id} title={form.title} />))
+              : <Text>Vous n'avez acmes à aucun formulaire</Text>}
           </View>
         </View>
       </View>
