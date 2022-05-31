@@ -39,11 +39,7 @@ export const styles = StyleSheet.create({
     color: variableStyle.tertiaryColor,
 
   },
-<<<<<<< HEAD
-  signin__form_body: {
-=======
   signinFormBody: {
->>>>>>> c83f4e2998689089d1c890e6e3a255d276b14081
     marginTop: '5%',
     padding: '5%',
   },

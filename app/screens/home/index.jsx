@@ -19,8 +19,8 @@ function Home() {
     }
   };
   useEffect(() => {
-    dispatch(getForms({ id: 1 }));
     checkIsAuthenticatedUser();
+    dispatch(getForms({ id: user.hospital.id }));
     console.log('forms ->', forms);
   }, []);
   return (
@@ -45,7 +45,7 @@ function Home() {
             <CardHome title="formulaire" />
             <CardHome title="formulaire" />
             <View>
-              <Text>{JSON.stringify(forms)}</Text>
+              <Text>{JSON.stringify(forms.forms)}</Text>
             </View>
           </View>
         </View>

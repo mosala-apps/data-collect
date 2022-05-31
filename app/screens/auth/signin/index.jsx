@@ -26,7 +26,6 @@ function Signin({ navigation }) {
   };
 
   const redirectToHomeScreen = () => {
-    alert(userToken)
     if (isAuthenticated) {
       navigation.push('Home');
     }
