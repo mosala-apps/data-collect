@@ -1,11 +1,11 @@
 import React from 'react';
 import { Feather } from '@expo/vector-icons';
 import { Text, View, TextInput } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import HeaderNavigation from '../../navigations/headerNavigation';
 import styleSheet from './index.style';
-import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../store';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Home() {
   const [textInput, setTextInput] = React.useState('');
@@ -17,7 +17,6 @@ function Home() {
     }
   };
   React.useLayoutEffect(() => {
-   
     checkIsAuthenticatedUser();
   }, []);
   return (
