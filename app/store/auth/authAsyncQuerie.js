@@ -57,11 +57,11 @@ export const login = createAsyncThunk(
 
 export const logout = createAsyncThunk(
   'user/logout',
-  async () => {
+  async ({ navigation }) => {
     try {
       await AsyncStorage.removeItem('token_access');
       await AsyncStorage.removeItem('user');
-      return true;
+      navigation.navigate('Signin');
     } catch (error) {
       ToastAndroid.show('Echec de deconnexion', ToastAndroid.SHORT);
     }

@@ -8,13 +8,14 @@ import {
   Foundation,
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
 import styleSheet from './index.style';
+import { logout } from '../../store';
 
 export default function Menu({ navigation }) {
+  const dispatch = useDispatch();
   const handleLogout = async () => {
-    await AsyncStorage.removeItem('token_access');
-    return navigation.navigate('Signin');
+    dispatch(logout({ navigation}));
   };
   return (
     <View style={styleSheet.containerMenu}>

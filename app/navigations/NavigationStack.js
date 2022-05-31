@@ -25,7 +25,6 @@ const headerStyleContainer = {
 function NavigationStack() {
   const [userToken, setUserToken] = useState(null);
   const checkIsAuthenticatedUser = async () => {
-    // await AsyncStorage.removeItem('token_access')
     setUserToken(await AsyncStorage.getItem('token_access'));
   };
   useEffect(() => {

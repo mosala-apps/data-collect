@@ -26,7 +26,11 @@ function Signin({ navigation }) {
   };
 
   const redirectToHomeScreen = () => {
-    if (userToken || isAuthenticated) {
+    alert(userToken)
+    if (isAuthenticated) {
+      navigation.push('Home');
+    }
+    else if (userToken!==null) {
       navigation.push('Home');
     }
   };
@@ -39,7 +43,7 @@ function Signin({ navigation }) {
   useEffect(() => {
     redirectToHomeScreen();
     checkIsAuthenticatedUser()
-  }, [isAuthenticated, userToken]);
+  }, [isAuthenticated]);
   return (
     <View style={styles.signinContainer}>
       {isAuthenticated}
