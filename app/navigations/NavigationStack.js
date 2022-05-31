@@ -2,7 +2,7 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import HomeScreen from '../screens/home/index'
 import NotificationScreen from '../screens/notification'
-import ParameterScreen from '../screens/parameter'
+import SettingScreen from '../screens/setting'
 import SynchronizationFormScreen from '../screens/synchronizationForm'
 import DraftScreen from '../screens/draft'
 import ConflictHandlingScreen from '../screens/conflictHandling'
@@ -51,8 +51,8 @@ function NavigationStack() {
         })}
       />
       <Stack.Screen
-        name="Parameter"
-        component={ParameterScreen}
+        name="Settings"
+        component={SettingScreen}
         options={() => ({
           title: 'Mes paramètres',
           headerStyle: headerStyleContainer.headerStyle,

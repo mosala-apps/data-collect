@@ -1,8 +1,12 @@
-import React from 'react';
-import { View } from 'react-native';
+import React from 'react'
+import { View, Text } from 'react-native'
 
 function SynchronizationForm() {
-  return <View>SynchronizationForm</View>;
+  return (
+    <View>
+      <Text>SynchronizationForm</Text>
+    </View>
+  )
 }
 
-export default SynchronizationForm;
+export default SynchronizationForm

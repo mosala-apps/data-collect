@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-function Parameter() {
+function Settings() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Parameter Screen</Text>
@@ -9,4 +9,4 @@ function Parameter() {
   );
 }
 
-export default Parameter;
+export default Settings;

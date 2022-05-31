@@ -1,13 +1,16 @@
-import React from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Text, View, TouchableOpacity } from 'react-native';
 import {
   FontAwesome,
   Ionicons,
+  MaterialIcons,
+  Foundation,
   MaterialCommunityIcons,
-} from '@expo/vector-icons'
-import styleSheet from './index.style'
+} from '@expo/vector-icons';
+import styleSheet from './index.style';
 
-export default function Menu() {
+export default function Menu({ navigation }) {
   return (
     <View style={styleSheet.containerMenu}>
       <View style={styleSheet.containerMenuTitle}>
@@ -21,11 +24,16 @@ export default function Menu() {
             style={styleSheet.containerMenuIconColor}
           />
         </View>
-        <View>
-          <Text style={styleSheet.containerMenuIconText}>Nom utilisateur</Text>
+        <View style={styleSheet.containerMenuIconText}>
+          <Text>Nom utilisateur</Text>
         </View>
       </View>
-      <TouchableOpacity style={styleSheet.containerMenuIcon}>
+      <TouchableOpacity
+        style={styleSheet.containerMenuIcon}
+        onPress={() => {
+          navigation.navigate('Home');
+        }}
+      >
         <View>
           <Ionicons
             name="home"
@@ -33,11 +41,17 @@ export default function Menu() {
             style={styleSheet.containerMenuIconColor}
           />
         </View>
-        <View>
-          <Text style={styleSheet.containerMenuIconText}>index</Text>
+        <View style={styleSheet.containerMenuIconText}>
+          <Text>Mes Formulaires</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styleSheet.containerMenuIcon}>
+      <Text style={styleSheet.lineStyleText}>Toutes les soumissions</Text>
+      <View style={styleSheet.lineStyleBorder} />
+
+      <TouchableOpacity
+        style={styleSheet.containerMenuIcon}
+        onPress={() => navigation.navigate('SynchronizationForm')}
+      >
         <View>
           <MaterialCommunityIcons
             name="send-check"
@@ -45,46 +59,91 @@ export default function Menu() {
             style={styleSheet.containerMenuIconColor}
           />
         </View>
-        <View>
-          <Text style={styleSheet.containerMenuIconText}>index</Text>
+        <View style={styleSheet.containerMenuIconText}>
+          <Text>Synchronisés</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styleSheet.containerMenuIcon}>
+      <TouchableOpacity
+        style={styleSheet.containerMenuIcon}
+        onPress={() => navigation.navigate('PendingForm')}
+      >
         <View>
           <MaterialCommunityIcons
-            name="send-check"
+            name="send-clock"
             size={24}
             style={styleSheet.containerMenuIconColor}
           />
         </View>
-        <View>
-          <Text style={styleSheet.containerMenuIconText}>index</Text>
+        <View style={styleSheet.containerMenuIconText}>
+          <Text>En attente</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styleSheet.containerMenuIcon}>
+      <TouchableOpacity
+        style={styleSheet.containerMenuIcon}
+        onPress={() => navigation.navigate('ConflictHandling')}
+      >
         <View>
-          <MaterialCommunityIcons
-            name="send-check"
+          <MaterialIcons
+            name="cancel-schedule-send"
             size={24}
             style={styleSheet.containerMenuIconColor}
           />
         </View>
-        <View>
-          <Text style={styleSheet.containerMenuIconText}>index</Text>
+        <View style={styleSheet.containerMenuIconText}>
+          <Text>Gestion des conflicts</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styleSheet.containerMenuIcon}>
+      <TouchableOpacity
+        style={styleSheet.containerMenuIcon}
+        onPress={() => navigation.navigate('Draft')}
+      >
         <View>
-          <MaterialCommunityIcons
-            name="send-check"
+          <Foundation
+            name="clipboard-pencil"
             size={24}
             style={styleSheet.containerMenuIconColor}
           />
         </View>
+        <View style={styleSheet.containerMenuIconText}>
+          <Text>Mes brouillons</Text>
+        </View>
+      </TouchableOpacity>
+      <Text style={styleSheet.lineStyleText} />
+      <View style={styleSheet.lineStyleBorder} />
+      <TouchableOpacity
+        style={styleSheet.containerMenuIcon}
+        onPress={() => navigation.navigate('Settings')}
+      >
         <View>
-          <Text style={styleSheet.containerMenuIconText}>index</Text>
+          <Ionicons
+            name="settings-outline"
+            size={24}
+            style={styleSheet.containerMenuIconColor}
+            color="black"
+          />
+        </View>
+        <View style={styleSheet.containerMenuIconText}>
+          <Text>Mes paramètres</Text>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity style={styleSheet.containerMenuIcon}>
+        <View>
+          <FontAwesome
+            name="sign-out"
+            size={24}
+            style={styleSheet.containerMenuIconColor}
+            color="black"
+          />
+        </View>
+        <View style={styleSheet.containerMenuIconText}>
+          <Text>Déconnexion</Text>
         </View>
       </TouchableOpacity>
     </View>
-  )
+  );
 }
+Menu.defaultProps = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.string,
+  }),
+};

@@ -8,17 +8,15 @@ const styleSheet = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: variableStyle.secondaryColor,
     paddingBottom: '4%',
-    paddingTop: '4%',
+    paddingTop: '11%',
   },
   color: {
     color: 'white',
   },
   headerNavigationRight: {
-    display: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: '5%',
   },
 })
 export default styleSheet

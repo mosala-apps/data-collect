@@ -1,8 +1,12 @@
-import React from 'react';
-import { View } from 'react-native';
+import React from 'react'
+import { View, Text } from 'react-native'
 
 function PendingForm() {
-  return <View>index</View>;
+  return (
+    <View>
+      <Text>PendingForm</Text>
+    </View>
+  )
 }
 
-export default PendingForm;
+export default PendingForm
