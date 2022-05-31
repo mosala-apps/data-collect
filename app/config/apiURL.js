@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from 'axios'
 
 export default axios.create({
-  baseURL: 'http://192.168.43.93:8000/api/dashboard/',
+  baseURL: 'https://dev-dashboard.stopcoronavirusrdc.info/api/dashboard',
   // timeout: 1000,
-});
+})

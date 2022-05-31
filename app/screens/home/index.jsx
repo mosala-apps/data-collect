@@ -1,23 +1,27 @@
-import React from 'react';
-import { Feather } from '@expo/vector-icons';
-import { Text, View, TextInput } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Feather } from '@expo/vector-icons';
+import { Text, View, TextInput } from 'react-native';
+import { setUser, getForms } from '../../store';
 import HeaderNavigation from '../../navigations/headerNavigation';
 import styleSheet from './index.style';
-import { setUser } from '../../store';
+import CardHome from '../../components/card';
 
 function Home() {
-  const [textInput, setTextInput] = React.useState('');
+  const [textInput, setTextInput] = useState('');
   const dispatch = useDispatch();
+  const forms = useSelector((state) => state.form.forms);
   const user = useSelector((state) => state.auth.user);
   const checkIsAuthenticatedUser = async () => {
     if (Object.keys(user).length === 0) {
       dispatch(setUser(JSON.parse(await AsyncStorage.getItem('user'))));
     }
   };
-  React.useLayoutEffect(() => {
+  useEffect(() => {
     checkIsAuthenticatedUser();
+    dispatch(getForms({ id: user.hospital.id }));
+    console.log('forms ->', forms);
   }, []);
   return (
     <View style={styleSheet.container}>
@@ -35,7 +39,15 @@ function Home() {
         </View>
         <View style={styleSheet.containerHomeForm}>
           <Text style={styleSheet.containerHomeFormTitle}>Mes formulaires</Text>
-          <Text>{JSON.stringify(user)}</Text>
+          <View style={styleSheet.containerHomeFormCard}>
+            <CardHome title="formulaire" />
+            <CardHome title="formulaire" />
+            <CardHome title="formulaire" />
+            <CardHome title="formulaire" />
+            <View>
+              <Text>{JSON.stringify(forms.forms)}</Text>
+            </View>
+          </View>
         </View>
       </View>
     </View>

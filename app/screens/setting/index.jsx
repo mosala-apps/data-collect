@@ -1,16 +1,17 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
-import {
-  StyleSheet, Text, View, Button,
-} from 'react-native';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../store';
+import { Text, View ,TouchableOpacity} from 'react-native';
 
-// const dispatch = useDispatch();
 function Settings({ navigation }) {
+  const navigated =()=>{
+    navigation.navigate('Home')
+  }
+  console.log('navigation ->',navigation)
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Parameter Screen</Text>
+      <TouchableOpacity onPress={navigated}>
+        <Text>Parameter Screen</Text>
+      </TouchableOpacity>
     </View>
   );
 }
