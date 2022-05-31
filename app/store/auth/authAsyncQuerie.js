@@ -2,8 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ToastAndroid } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiURL from '../../config/apiURL';
+import { RXDB__addUser } from '../../database/user.schema';
 import { isConnected } from '../../config/offlineConfig';
-
 
 const onlineLogin = async (payload) => {
   const user = await (await apiURL.post('/auth/login', payload)).data;
@@ -14,6 +14,13 @@ const onlineLogin = async (payload) => {
     // add the token in axios header for all request
     apiURL.defaults.headers.common.Authorization = `Bearer ${user.token}`;
     ToastAndroid.show('La connexion a réussi', ToastAndroid.SHORT);
+    try {
+      // ad the user in the database
+      await RXDB__addUser(user.user);
+    } catch (error) {
+      throw new Error("Echec d'insertion de l'utilisateur dans la DB local");
+    }
+
     return user;
   }
   ToastAndroid.show('Echec', ToastAndroid.SHORT);
@@ -33,10 +40,10 @@ export const login = createAsyncThunk(
   'user/login',
   async (payload) => {
     if (isConnected) {
-      onlineLogin(payload)
+      onlineLogin(payload);
     } else {
-      offlineLogin(payload)
-      alert(isConnected)
+      offlineLogin(payload);
+      alert(isConnected);
     }
   },
 );
@@ -53,5 +60,3 @@ export const logout = createAsyncThunk(
     }
   },
 );
-
-

@@ -1,4 +1,6 @@
-import {stopCoronaLocal } from "./RxDB"
+import { async } from 'rxjs';
+import { stopCoronaLocal } from './RxDB';
+
 const UserSchema = {
   title: 'user schema',
   version: 0,
@@ -24,9 +26,14 @@ const UserSchema = {
   },
 };
 
-const userCollections = stopCoronaLocal.addCollections({
-    name: 'user',
-    {
-        schema: UserSchema,
-    }
-})
+export const userCollections = async () => {
+  await stopCoronaLocal.addCollections({
+    users: {
+      schema: UserSchema,
+    },
+  });
+};
+userCollections()
+export const RXDB__addUser = async (user) => {
+  await stopCoronaLocal.users.insert(user);
+};
