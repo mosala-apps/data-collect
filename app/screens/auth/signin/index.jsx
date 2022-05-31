@@ -29,14 +29,12 @@ function Signin({ navigation }) {
     if (isAuthenticated) {
       navigation.push('Home');
     }
-    else if (userToken!==null) {
-      navigation.push('Home');
-    }
   };
   const onSubmit = async (data) => {
     dispatch(login(data));
     checkIsAuthenticatedUser()
     redirectToHomeScreen()
+    reset()
    
   };
   useEffect(() => {

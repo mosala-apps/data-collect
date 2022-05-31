@@ -10,6 +10,7 @@ import CardHome from '../../components/card';
 
 function Home() {
   const [textInput, setTextInput] = useState('');
+  const [hospitalId, setHospitalId] = useState(null);
   const dispatch = useDispatch();
   const forms = useSelector((state) => state.form.forms);
   const user = useSelector((state) => state.auth.user);
@@ -17,12 +18,13 @@ function Home() {
     if (Object.keys(user).length === 0) {
       dispatch(setUser(JSON.parse(await AsyncStorage.getItem('user'))));
     }
+    setHospitalId(user.hospital.id)
   };
   useEffect(() => {
     checkIsAuthenticatedUser();
     dispatch(getForms({ id: user.hospital.id }));
     console.log('forms ->', forms);
-  }, []);
+  }, [user]);
   return (
     <View style={styleSheet.container}>
       <HeaderNavigation />
@@ -38,14 +40,14 @@ function Home() {
           />
         </View>
         <View style={styleSheet.containerHomeForm}>
-          <Text style={styleSheet.containerHomeFormTitle}>Mes formulaires</Text>
+          <Text style={styleSheet.containerHomeFormTitle}>Mes formulaires{JSON.stringify(user.id)}</Text>
           <View style={styleSheet.containerHomeFormCard}>
             <CardHome title="formulaire" />
             <CardHome title="formulaire" />
             <CardHome title="formulaire" />
             <CardHome title="formulaire" />
             <View>
-              <Text>{JSON.stringify(forms.forms)}</Text>
+              <Text>{JSON.stringify(forms)}</Text>
             </View>
           </View>
         </View>

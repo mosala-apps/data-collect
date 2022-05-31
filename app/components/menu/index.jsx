@@ -15,7 +15,8 @@ import { logout } from '../../store';
 export default function Menu({ navigation }) {
   const dispatch = useDispatch();
   const handleLogout = async () => {
-    dispatch(logout({ navigation}));
+    navigation.navigate('Signin');
+    dispatch(logout());
   };
   return (
     <View style={styleSheet.containerMenu}>
