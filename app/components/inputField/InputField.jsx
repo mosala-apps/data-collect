@@ -14,7 +14,7 @@ function InputField({
         rules={rules}
         render={({ field: { onChange, value, onBlur } }) => (
           <TextInput
-            style={styles.signin__form_input}
+            style={styles.signinFormInput}
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}

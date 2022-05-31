@@ -32,11 +32,11 @@ function Signin({ navigation }) {
     redirectToHomeScreen();
   }, [isAuthenticated]);
   return (
-    <View style={styles.signin__container}>
-      <Image source={logo} style={styles.signin__logo} />
+    <View style={styles.signinContainer}>
+      <Image source={logo} style={styles.signinLogo} />
       {authError
             && (
-            <Text style={styles.signin__textError}>
+            <Text style={styles.signinTextError}>
               Mot de passe incorrecte ou Login ne correspondent à aucun utilisateur enregistré
             </Text>
             )}
@@ -45,28 +45,28 @@ function Signin({ navigation }) {
         startColor="#00000010"
         containerViewStyle={{ marginVertical: 20 }}
         radius={8}
-        style={styles.signin__form}
+        style={styles.signinForm}
       >
-        <View style={styles.signin__form_header}>
-          <Text style={styles.signin__form_title}>Connexion</Text>
-          <Text style={styles.signin__form_text}>
+        <View style={styles.signinFormHeader}>
+          <Text style={styles.signinFormTitle}>Connexion</Text>
+          <Text style={styles.signinFormText}>
             Entrez vos paramètres de connexion pour continuer
           </Text>
         </View>
-        <View style={styles.signin__form_body}>
-          <View style={styles.signin__form_group}>
+        <View style={styles.signinFormBody}>
+          <View style={styles.signinFormGroup}>
             <Text>EMAIL, UTILISATEUR OU  TELEPHONE</Text>
             <InputField
               control={control}
               name="email"
               rules={{ required: true }}
             />
-            {errors.email && <Text style={styles.signin__textError}>Ce champ est requis.</Text>}
+            {errors.email && <Text style={styles.signinTextError}>Ce champ est requis.</Text>}
           </View>
-          <View style={styles.signin__form_group}>
-            <View style={styles.signin__form_label}>
+          <View style={styles.signinFormGroup}>
+            <View style={styles.signinFormLabel}>
               <Text>MOT DE PASSE</Text>
-              <Text style={styles.signin__forgotPassword}>Mot de passe oublié ?</Text>
+              <Text style={styles.signinForgotPassword}>Mot de passe oublié ?</Text>
             </View>
             <InputField
               control={control}
@@ -75,13 +75,13 @@ function Signin({ navigation }) {
               secureTextEntry
             />
             {errors.password
-            && <Text style={styles.signin__textError}>Le Mot de passe est requis.</Text>}
+            && <Text style={styles.signinTextError}>Le Mot de passe est requis.</Text>}
           </View>
           <TouchableOpacity onPress={handleSubmit(onSubmit)}>
             <View
-              style={styles.signin__form_button}
+              style={styles.signinFormButton}
             >
-              <Text style={styles.signin__button_text}>
+              <Text style={styles.signinButtonText}>
                 {isLoading ? 'En cours' : 'Connexion'}
               </Text>
               {isLoading && <ActivityIndicator />}
