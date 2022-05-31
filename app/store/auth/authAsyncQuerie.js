@@ -7,9 +7,10 @@ import { isConnected } from '../../config/offlineConfig';
 const addOfflineUsers = async (user, password) => {
   let offlineUsers = [];
   const offlineOldUsers = JSON.parse(await AsyncStorage.getItem('offlineUsers'));
-  if (offlineOldUsers.length !== 0) {
-    offlineUsers = offlineOldUsers.filter((item) => item.user.id !== user.user.id);
-  }
+  // if (offlineOldUsers.length !== 0) {
+  //   offlineUsers = offlineOldUsers.filter((item) => item.user.id !== user.user.id);
+  // }
+  
   offlineUsers.push({ ...user, password });
   await AsyncStorage.setItem('offlineUsers', JSON.stringify(offlineUsers));
 };
@@ -42,9 +43,8 @@ export const offlineLogin = async (payload) => {
        && item.password === payload.password);
 
   if (Object.keys(user).length !== 0) {
-    alert(JSON.stringify(user))
-    ToastAndroid.show('La connexion a réussi', ToastAndroid.SHORT);
     addUserToAsyncStorage(user, user.password);
+    addOfflineUsers(user, payload.password);
     return user;
   }
   ToastAndroid.show('Echec de deconnexion', ToastAndroid.SHORT);
