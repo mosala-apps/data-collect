@@ -16,7 +16,7 @@ import FormSlice from './form/formSlice';
 import AuthSlice from './auth/authSlice';
 
 const persistConfig = {
-  key: 'auth',
+  key: 'root',
   storage: AsyncStorage,
 };
 
