@@ -1,11 +1,11 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React from 'react';
+import { View, Text } from 'react-native';
 
 export default function Draft() {
   return (
     <View>
       {' '}
-      <Text>PendingForm</Text>
+      <Text>DraftForm</Text>
     </View>
-  )
+  );
 }

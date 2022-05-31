@@ -105,7 +105,7 @@ export default function Menu({ navigation }) {
           />
         </View>
         <View style={styleSheet.containerMenuIconText}>
-          <Text>Mes brouillons</Text>
+          <Text>Brouillons</Text>
         </View>
       </TouchableOpacity>
       <Text style={styleSheet.lineStyleText} />
@@ -123,7 +123,7 @@ export default function Menu({ navigation }) {
           />
         </View>
         <View style={styleSheet.containerMenuIconText}>
-          <Text>Mes paramètres</Text>
+          <Text>Paramètres</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity style={styleSheet.containerMenuIcon}>
