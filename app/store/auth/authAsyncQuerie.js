@@ -5,7 +5,7 @@ import apiURL from '../../config/apiURL';
 import { isConnected } from '../../config/offlineConfig';
 
 const addOfflineUsers = async (user, password) => {
-  let offlineUsers = [];
+  const offlineUsers = [];
   offlineUsers.push({ ...user, password });
   await AsyncStorage.setItem('offlineUsers', JSON.stringify(offlineUsers));
 };
