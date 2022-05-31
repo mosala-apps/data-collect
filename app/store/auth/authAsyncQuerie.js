@@ -25,7 +25,11 @@ const onlineLogin = async (payload) => {
   const user = await (await apiURL.post('/auth/login', payload)).data;
 
   if (Object.keys(user).length !== 0) {
-    addUserToAsyncStorage(user);
+    await AsyncStorage.setItem('token_access', JSON.stringify(user.token));
+    await AsyncStorage.setItem('user', JSON.stringify({ ...user.user, password: payload.password }));
+
+    apiURL.defaults.headers.common.Authorization = `Bearer ${user.token}`;
+    ToastAndroid.show('La connexion a réussi', ToastAndroid.SHORT);
     return user;
   }
   ToastAndroid.show('Echec', ToastAndroid.SHORT);
