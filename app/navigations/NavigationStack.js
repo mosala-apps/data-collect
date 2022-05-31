@@ -1,16 +1,16 @@
-import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import HomeScreen from '../screens/home/index'
-import NotificationScreen from '../screens/notification'
-import SettingScreen from '../screens/setting'
-import SynchronizationFormScreen from '../screens/synchronizationForm'
-import DraftScreen from '../screens/draft'
-import ConflictHandlingScreen from '../screens/conflictHandling'
-import PendingFormScreen from '../screens/pendingForm'
-import SigninScreen from '../screens/auth/signin'
+import React from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from '../screens/home/index';
+import NotificationScreen from '../screens/notification/index';
+import SettingScreen from '../screens/setting/index';
+import SynchronizationFormScreen from '../screens/synchronizationForm/index';
+import DraftScreen from '../screens/draft/index';
+import ConflictHandlingScreen from '../screens/conflictHandling/index';
+import PendingFormScreen from '../screens/pendingForm/index';
+import SigninScreen from '../screens/auth/signin';
 
-const Stack = createNativeStackNavigator()
-const headerStyleContainer = {
+const Stack = createNativeStackNavigator();
+const styleSheet = {
   headerStyle: {
     backgroundColor: '#6384EA',
     alignItems: 'center',
@@ -20,7 +20,7 @@ const headerStyleContainer = {
   headerTitleStyle: {
     fontWeight: 'bold',
   },
-}
+};
 function NavigationStack() {
   return (
     <Stack.Navigator initialRouteName="Home">
@@ -34,9 +34,9 @@ function NavigationStack() {
         component={HomeScreen}
         options={() => ({
           title: 'My home',
-          headerStyle: headerStyleContainer.headerStyle,
-          headerTintColor: headerStyleContainer.headerTintColor,
-          headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          headerStyle: styleSheet.headerStyle,
+          headerTintColor: styleSheet.headerTintColor,
+          headerTitleStyle: styleSheet.headerTitleStyle,
           headerShown: false,
         })}
       />
@@ -45,9 +45,9 @@ function NavigationStack() {
         component={NotificationScreen}
         options={() => ({
           title: 'Mes notifications',
-          headerStyle: headerStyleContainer.headerStyle,
-          headerTintColor: headerStyleContainer.headerTintColor,
-          headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          headerStyle: styleSheet.headerStyle,
+          headerTintColor: styleSheet.headerTintColor,
+          headerTitleStyle: styleSheet.headerTitleStyle,
         })}
       />
       <Stack.Screen
@@ -55,9 +55,9 @@ function NavigationStack() {
         component={SettingScreen}
         options={() => ({
           title: 'Mes paramètres',
-          headerStyle: headerStyleContainer.headerStyle,
-          headerTintColor: headerStyleContainer.headerTintColor,
-          headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          headerStyle: styleSheet.headerStyle,
+          headerTintColor: styleSheet.headerTintColor,
+          headerTitleStyle: styleSheet.headerTitleStyle,
         })}
       />
       <Stack.Screen
@@ -65,9 +65,9 @@ function NavigationStack() {
         component={SynchronizationFormScreen}
         options={() => ({
           title: 'Formulaires synchronisés',
-          headerStyle: headerStyleContainer.headerStyle,
-          headerTintColor: headerStyleContainer.headerTintColor,
-          headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          headerStyle: styleSheet.headerStyle,
+          headerTintColor: styleSheet.headerTintColor,
+          headerTitleStyle: styleSheet.headerTitleStyle,
         })}
       />
       <Stack.Screen
@@ -75,9 +75,9 @@ function NavigationStack() {
         component={DraftScreen}
         options={() => ({
           title: 'Mes brouillons',
-          headerStyle: headerStyleContainer.headerStyle,
-          headerTintColor: headerStyleContainer.headerTintColor,
-          headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          headerStyle: styleSheet.headerStyle,
+          headerTintColor: styleSheet.headerTintColor,
+          headerTitleStyle: styleSheet.headerTitleStyle,
         })}
       />
       <Stack.Screen
@@ -85,9 +85,9 @@ function NavigationStack() {
         component={ConflictHandlingScreen}
         options={() => ({
           title: 'Gestion des conflicts',
-          headerStyle: headerStyleContainer.headerStyle,
-          headerTintColor: headerStyleContainer.headerTintColor,
-          headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          headerStyle: styleSheet.headerStyle,
+          headerTintColor: styleSheet.headerTintColor,
+          headerTitleStyle: styleSheet.headerTitleStyle,
         })}
       />
       <Stack.Screen
@@ -95,13 +95,13 @@ function NavigationStack() {
         component={PendingFormScreen}
         options={() => ({
           title: 'En attente',
-          headerStyle: headerStyleContainer.headerStyle,
-          headerTintColor: headerStyleContainer.headerTintColor,
-          headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          headerStyle: styleSheet.headerStyle,
+          headerTintColor: styleSheet.headerTintColor,
+          headerTitleStyle: styleSheet.headerTitleStyle,
         })}
       />
     </Stack.Navigator>
-  )
+  );
 }
 
-export default NavigationStack
+export default NavigationStack;
