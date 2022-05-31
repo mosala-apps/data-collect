@@ -4,14 +4,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiURL from '../../config/apiURL';
 import { isConnected } from '../../config/offlineConfig';
 
-const addUser = async (user, password) => {
-  const offlineUsers = [];
-  if (user) {
-    offlineUsers.push({ ...user, password });
-    await AsyncStorage.setItem('offlineUsers', offlineUsers);
+const addOfflineUsers = async (user, password) => {
+  let offlineUsers = [];
+  const offlineOldUsers = JSON.parse(await AsyncStorage.getItem('offlineUsers'));
+  if (offlineOldUsers.length !== 0) {
+    offlineUsers = offlineOldUsers.filter((item) => item.user.id !== user.user.id);
   }
+  offlineUsers.push({ ...user, password });
+  await AsyncStorage.setItem('offlineUsers', JSON.stringify(offlineUsers));
 };
-const addUserToAsyncStorage = async (user, password) => {
+export const addUserToAsyncStorage = async (user, password) => {
   if (user) {
     await AsyncStorage.setItem('token_access', JSON.stringify(user.token));
     await AsyncStorage.setItem('user', JSON.stringify({ ...user.user, password }));
@@ -21,27 +23,28 @@ const addUserToAsyncStorage = async (user, password) => {
   }
 };
 
-const onlineLogin = async (payload) => {
+export const onlineLogin = async (payload) => {
   const user = await (await apiURL.post('/auth/login', payload)).data;
 
   if (Object.keys(user).length !== 0) {
-    await AsyncStorage.setItem('token_access', JSON.stringify(user.token));
-    await AsyncStorage.setItem('user', JSON.stringify({ ...user.user, password: payload.password }));
-
-    apiURL.defaults.headers.common.Authorization = `Bearer ${user.token}`;
-    ToastAndroid.show('La connexion a réussi', ToastAndroid.SHORT);
+    addUserToAsyncStorage(user, payload.password);
+    addOfflineUsers(user, payload.password);
     return user;
   }
-  ToastAndroid.show('Echec', ToastAndroid.SHORT);
+  return ToastAndroid.show('Echec', ToastAndroid.SHORT);
 };
-const offlineLogin = async (payload) => {
-  const offlineUsers = await AsyncStorage.getItem('offlineUsers');
-  const user = JSON.parse(offlineUsers).find((user) => (user.email === payload.email
-        || user.username === payload.email
-        || user.phone_number === payload.email)
-       && user.password === payload.password);
-  if (user) {
+export const offlineLogin = async (payload) => {
+  const offlineUsers = JSON.parse(await AsyncStorage.getItem('offlineUsers'));
+
+  const user = offlineUsers.find((item) => (item.user.email === payload.email
+        || item.user.usernmae === payload.email
+        || item.user.phone_number === payload.email)
+       && item.password === payload.password);
+
+  if (Object.keys(user).length !== 0) {
+    alert(JSON.stringify(user))
     ToastAndroid.show('La connexion a réussi', ToastAndroid.SHORT);
+    addUserToAsyncStorage(user, user.password);
     return user;
   }
   ToastAndroid.show('Echec de deconnexion', ToastAndroid.SHORT);
@@ -51,10 +54,9 @@ export const login = createAsyncThunk(
   'user/login',
   async (payload) => {
     if (isConnected) {
-      onlineLogin(payload);
-    } else {
-      offlineLogin(payload);
+      return onlineLogin(payload);
     }
+    return offlineLogin(payload);
   },
 );
 
