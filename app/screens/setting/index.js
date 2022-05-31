@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { logout } from '../../store';
 
 // const dispatch = useDispatch();
-function Parameter({ navigation }) {
+function Settings({ navigation }) {
   const handleLogout = async (e) => {
     // e.preventDefault();
     // await dispatch(logout());
@@ -23,4 +23,4 @@ function Parameter({ navigation }) {
   );
 }
 
-export default Parameter;
+export default Settings;

@@ -30,7 +30,7 @@ function Home() {
 
       </Text>
     </View>
-  );
+  )
 }
 
-export default Home;
+export default Home
