@@ -16,7 +16,12 @@ function Signin({ navigation }) {
   const [userToken, setUserToken] = useState(null);
   const {
     control, handleSubmit, formState: { errors, isValid }, reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: ''
+    }
+  });
   const {
     isLoading, isAuthenticated, authError,
   } = useSelector(authSelector);
@@ -28,13 +33,13 @@ function Signin({ navigation }) {
   const redirectToHomeScreen = () => {
     if (isAuthenticated) {
       navigation.push('Home');
+      reset()
     }
   };
   const onSubmit = async (data) => {
     dispatch(login(data));
     checkIsAuthenticatedUser()
     redirectToHomeScreen()
-    reset()
    
   };
   useEffect(() => {
