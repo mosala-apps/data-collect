@@ -42,7 +42,7 @@ function Home() {
           />
         </View>
         <View style={styleSheet.containerHomeForm}>
-          <Text style={styleSheet.containerHomeFormTitle}>Mes formulaires{JSON.stringify(user.id)}</Text>
+          <Text style={styleSheet.containerHomeFormTitle}>Mes formulaires</Text>
           <View style={styleSheet.containerHomeFormCard}>
             { forms && forms.forms
               ? forms.forms
