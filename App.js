@@ -1,28 +1,15 @@
-/* eslint-disable react/jsx-filename-extension */
-/* eslint-disable react/react-in-jsx-scope */
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    flex: 1,
-    justifyContent: 'center',
-  },
-});
+import 'react-native-gesture-handler';
+import { Provider } from 'react-redux';
+import RootNavigation from './app/navigations/RootNavigation';
+import {store, persistor} from './app/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <Text>
-        {' '}
-        {process.env.APP_NAME}
-      </Text>
-
-      <StatusBar />
-    </View>
-
+    <Provider store={store}>
+       <PersistGate persistor={persistor}>
+      <RootNavigation />
+       </PersistGate>
+    </Provider>
   );
 }
