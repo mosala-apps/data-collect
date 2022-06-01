@@ -13,7 +13,6 @@ import InputField from '../../../components/inputField/InputField';
 
 function Signin({ navigation }) {
   const dispatch = useDispatch();
-  const [userToken, setUserToken] = useState(null);
   const {
     control, handleSubmit, formState: { errors, isValid }, reset,
   } = useForm({
@@ -26,10 +25,6 @@ function Signin({ navigation }) {
     isLoading, isAuthenticated, authError,
   } = useSelector(authSelector);
  
-  const checkIsAuthenticatedUser = async () => {
-    setUserToken(await AsyncStorage.getItem('token_access'));
-  };
-
   const redirectToHomeScreen = () => {
     if (isAuthenticated) {
       navigation.push('Home');
@@ -38,13 +33,11 @@ function Signin({ navigation }) {
   };
   const onSubmit = async (data) => {
     dispatch(login(data));
-    checkIsAuthenticatedUser()
     redirectToHomeScreen()
    
   };
   useEffect(() => {
     redirectToHomeScreen();
-    checkIsAuthenticatedUser()
   }, [isAuthenticated]);
   return (
     <View style={styles.signinContainer}>

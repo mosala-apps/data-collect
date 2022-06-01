@@ -4,7 +4,7 @@ import { Controller } from 'react-hook-form';
 import { styles } from '../../screens/auth/signin/signin.style';
 
 function InputField({
-  control, rules, name,secureTextEntry
+  control, rules, name,secureTextEntry,placeholder
 }) {
   return (
     <View>
@@ -19,6 +19,7 @@ function InputField({
             onChangeText={onChange}
             value={value}
             secureTextEntry={secureTextEntry}
+            placeholder={placeholder}
           />
         )}
       />
