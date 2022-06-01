@@ -14,6 +14,7 @@ import {
 
 import FormSlice from './form/formSlice';
 import AuthSlice from './auth/authSlice';
+import hospitalManagerNameSlice from './hospitalManagerName/hospitalManagerNameSlice';
 
 const persistConfig = {
   key: 'root',
@@ -23,6 +24,7 @@ const persistConfig = {
 const reducers = combineReducers({
   auth: AuthSlice,
   form: FormSlice,
+  hospitalManagerName: hospitalManagerNameSlice
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

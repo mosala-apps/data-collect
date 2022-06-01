@@ -4,38 +4,36 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
-import { authSelector, login } from '../../store';
 import { styles } from './index.style';
 
 import InputField from '../../components/inputField/InputField';
+import { hospitalManagerNamesSelector } from '../../store/hospitalManagerName/hospitalManagerNameSelectors';
+import { addHospitalManagerNames } from '../../store';
 
 function Settings({ navigation }) {
   const dispatch = useDispatch();
   const {
+    name, firstName,isLoading, isUpdated, isError,
+  } = useSelector(hospitalManagerNamesSelector);
+  const {
     control, handleSubmit, formState: { errors, isValid }, reset,
   } = useForm({
     defaultValues: {
-      email: '',
-      password: '',
+      name,
+      firstName,
     },
   });
-  const {
-    isLoading, isAuthenticated, authError,
-  } = useSelector(authSelector);
 
   const redirectToHomeScreen = () => {
-    if (isAuthenticated) {
+    if (isUpdated) {
       navigation.push('Home');
       reset();
     }
   };
   const onSubmit = async (data) => {
-    dispatch(login(data));
+    dispatch(addHospitalManagerNames(data));
     redirectToHomeScreen();
   };
-  useEffect(() => {
-    // redirectToHomeScreen();
-  }, [isAuthenticated]);
   return (
     <View style={styles.settingsContainer}>
       <View

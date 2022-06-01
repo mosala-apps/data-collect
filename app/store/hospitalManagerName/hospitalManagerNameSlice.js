@@ -16,12 +16,14 @@ const HospitalManagerName = createSlice({
   extraReducers: {
     [addHospitalManagerNames.pending]: (state) => {
       state.isUpdating = true;
+      state.isLoading = true;
     },
     [addHospitalManagerNames.fulfilled]: (state, { payload }) => {
       state.isUpdating = false;
       state.name = payload.name;
       state.firstName = payload.firstName,
       state.isUpdated = true;
+      state.isLoading = false;
     },
     [addHospitalManagerNames.rejected]: (state) => {
       state.isLoading = false;
