@@ -6,7 +6,7 @@ import { Shadow } from 'react-native-shadow-2';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { authSelector, login} from '../../../store';
+import { authSelector, login } from '../../../store';
 import { styles } from './signin.style';
 import logo from '../../../../assets/img/logo_parteners.png';
 import InputField from '../../../components/inputField/InputField';
@@ -18,23 +18,22 @@ function Signin({ navigation }) {
   } = useForm({
     defaultValues: {
       email: '',
-      password: ''
-    }
+      password: '',
+    },
   });
   const {
     isLoading, isAuthenticated, authError
   } = useSelector(authSelector);
- 
+
   const redirectToHomeScreen = () => {
     if (isAuthenticated) {
       navigation.push('Home');
-      reset()
+      reset();
     }
   };
   const onSubmit = async (data) => {
     dispatch(login(data));
-    redirectToHomeScreen()
-   
+    redirectToHomeScreen();
   };
   useEffect(() => {
     redirectToHomeScreen();
@@ -42,7 +41,6 @@ function Signin({ navigation }) {
   return (
     <View style={styles.signinContainer}>
       <Image source={logo} style={styles.signinLogo} />
-      {isAuthenticated && <Text style={styles.logoutText}>Vous êtes deconnecté</Text>}
       {authError
             && (
             <Text style={styles.signinTextError}>

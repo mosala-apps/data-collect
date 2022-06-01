@@ -32,7 +32,7 @@ export default function Menu({ navigation }) {
   };
   useEffect(() => {
     checkIsAuthenticatedUser();
-  }, []);
+  }, [hospitalName, userName]);
   return (
     <View style={styleSheet.containerMenu}>
       <View style={styleSheet.containerMenuTitle}>
