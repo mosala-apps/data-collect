@@ -79,4 +79,5 @@ export const styles = StyleSheet.create({
   signinTextError: {
     color: 'red',
   },
+  logoutText: { color: 'green', textAlign: 'center', marginTop: '5%' },
 });

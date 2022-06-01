@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Text, View, TouchableOpacity } from 'react-native';
 import {
@@ -11,27 +11,28 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styleSheet from './index.style';
-import { logout, setUser } from '../../store';
-import { useState } from 'react';
+import { authSelector, logout, setUser } from '../../store';
 
 export default function Menu({ navigation }) {
-  const [hospitalName, setHospitalName] = useState('Nom de l\'hôpital');
-  const [userName, setUserName] = useState('Nom de l\'Utilisateur');
-  const user = useSelector((state) => state.auth.user);
+  const [hospitalName, setHospitalName] = useState('');
+  const [userName, setUserName] = useState('');
+  const {
+    user, isLoading, isAuthenticated, authError,
+  } = useSelector(authSelector);
   const dispatch = useDispatch();
   const handleLogout = async () => {
     navigation.navigate('Signin');
     dispatch(logout());
   };
   const checkIsAuthenticatedUser = async () => {
-    if (user !== null) {
-      setHospitalName(user.hospital.name)
-      setUserName(user.name)
+    if (user && isAuthenticated) {
+      setHospitalName(user.hospital.name);
+      setUserName(user.name);
     }
   };
   useEffect(() => {
     checkIsAuthenticatedUser();
-  }, []);
+  }, [hospitalName, userName]);
   return (
     <View style={styleSheet.containerMenu}>
       <View style={styleSheet.containerMenuTitle}>
