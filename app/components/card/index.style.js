@@ -8,10 +8,9 @@ const styleSheet = StyleSheet.create({
     borderWidth: 0.5,
     shadowColor: 'rgba(255,255,255,0)',
     shadowOpacity: 0.5,
-    textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: '5%',
+    margin: '5%',
     borderColor: 'rgba(0,0,0,0)',
     width: '50%',
     paddingHorizontal: '3%',
@@ -20,6 +19,8 @@ const styleSheet = StyleSheet.create({
   containerText: {
     color: 'white',
     fontWeight: 'bold',
+    textAlign: 'center',
+
   },
 })
 export default styleSheet
