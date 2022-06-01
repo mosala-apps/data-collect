@@ -50,7 +50,7 @@ const styleSheet = StyleSheet.create({
     marginTop: '7%',
     marginHorizontal: '7%',
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     flexWrap: 'wrap',
   },

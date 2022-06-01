@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import variableStyle from '../../config/variable.style'
+import { StyleSheet } from 'react-native';
+import variableStyle from '../../config/variable.style';
 
 const styleSheet = StyleSheet.create({
   container: {
@@ -10,17 +10,16 @@ const styleSheet = StyleSheet.create({
     shadowOpacity: 0.5,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: '5%',
+    marginTop: '5%',
     borderColor: 'rgba(0,0,0,0)',
-    width: '50%',
+    width: '49%',
     paddingHorizontal: '3%',
-    height: '50%',
+    height: 100,
   },
   containerText: {
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
-
   },
-})
-export default styleSheet
+});
+export default styleSheet;
