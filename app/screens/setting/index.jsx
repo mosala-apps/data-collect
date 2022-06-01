@@ -1,13 +1,12 @@
 import {
-  Image, Text, View, TouchableOpacity, ActivityIndicator,
+  Text, View, TouchableOpacity, ActivityIndicator,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { Shadow } from 'react-native-shadow-2';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { authSelector, login } from '../../store';
 import { styles } from './index.style';
-import logo from '../../../assets/img/logo_parteners.png';
+
 import InputField from '../../components/inputField/InputField';
 
 function Settings({ navigation }) {
