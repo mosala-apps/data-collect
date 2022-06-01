@@ -10,10 +10,11 @@ import CardHome from '../../components/card';
 
 function Home() {
   const [textInput, setTextInput] = useState('');
+  const [hospitalId, setHospitalId] = useState(null);
   const dispatch = useDispatch();
   const forms = useSelector((state) => state.form.forms);
   const user = useSelector((state) => state.auth.user);
-  const [hospitalId, setHospitalId] = useState(null);
+  const [ hospitalId, setHospitalId] = useState(null);
   const checkIsAuthenticatedUser = async () => {
     if (Object.keys(user).length === 0) {
       dispatch(setUser(JSON.parse(await AsyncStorage.getItem('user'))));
@@ -42,7 +43,7 @@ function Home() {
           />
         </View>
         <View style={styleSheet.containerHomeForm}>
-          <Text style={styleSheet.containerHomeFormTitle}>Mes formulaires</Text>
+          <Text style={styleSheet.containerHomeFormTitle}>Mes formulaires{JSON.stringify(user.id)}</Text>
           <View style={styleSheet.containerHomeFormCard}>
             { forms && forms.forms
               ? forms.forms
