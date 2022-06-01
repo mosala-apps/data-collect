@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import variableStyle from '../../config/variable.style'
+import { StyleSheet } from 'react-native';
+import variableStyle from '../../config/variable.style';
 
 const styleSheet = StyleSheet.create({
   container: {
@@ -8,14 +8,18 @@ const styleSheet = StyleSheet.create({
     borderWidth: 0.5,
     shadowColor: 'rgba(255,255,255,0)',
     shadowOpacity: 0.5,
-    textAlign: 'center',
-    padding: '10%',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: '5%',
     borderColor: 'rgba(0,0,0,0)',
+    width: '49%',
+    paddingHorizontal: '3%',
+    height: 100,
   },
   containerText: {
     color: 'white',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
-})
-export default styleSheet
+});
+export default styleSheet;

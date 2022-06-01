@@ -18,13 +18,15 @@ function Home() {
     if (Object.keys(user).length === 0) {
       dispatch(setUser(JSON.parse(await AsyncStorage.getItem('user'))));
     }
-    setHospitalId(user.hospital.id)
+    setHospitalId(user.hospital.id);
   };
   useEffect(() => {
     checkIsAuthenticatedUser();
-    dispatch(getForms({ id: user.hospital.id }));
-    console.log('forms ->', forms);
-  }, [user]);
+    if (hospitalId) {
+      dispatch(getForms({ id: hospitalId }));
+    }
+  }, [hospitalId]);
+  const regexSearch = new RegExp(textInput, 'i');
   return (
     <View style={styleSheet.container}>
       <HeaderNavigation />
@@ -40,15 +42,13 @@ function Home() {
           />
         </View>
         <View style={styleSheet.containerHomeForm}>
-          <Text style={styleSheet.containerHomeFormTitle}>Mes formulaires{JSON.stringify(user.id)}</Text>
+          <Text style={styleSheet.containerHomeFormTitle}>Mes formulaires</Text>
           <View style={styleSheet.containerHomeFormCard}>
-            <CardHome title="formulaire" />
-            <CardHome title="formulaire" />
-            <CardHome title="formulaire" />
-            <CardHome title="formulaire" />
-            <View>
-              <Text>{JSON.stringify(forms)}</Text>
-            </View>
+            { forms && forms.forms
+              ? forms.forms
+                .filter((form) => form.title.match(regexSearch))
+                .map((form) => (<CardHome key={form.id} title={form.title} />))
+              : <Text>Vous n'avez acmes à aucun formulaire</Text>}
           </View>
         </View>
       </View>

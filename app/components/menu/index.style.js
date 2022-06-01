@@ -33,6 +33,7 @@ const styleSheet = StyleSheet.create({
     opacity: 0.4,
     marginTop: '7%',
     marginBottom: '3%',
+    paddingLeft: '6%',
   },
 })
 export default styleSheet

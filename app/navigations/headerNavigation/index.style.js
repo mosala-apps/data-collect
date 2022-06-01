@@ -9,6 +9,7 @@ const styleSheet = StyleSheet.create({
     backgroundColor: variableStyle.secondaryColor,
     paddingBottom: '4%',
     paddingTop: '11%',
+    paddingLeft: '5%',
   },
   color: {
     color: 'white',
