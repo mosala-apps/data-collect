@@ -22,7 +22,7 @@ function Signin({ navigation }) {
     }
   });
   const {
-    isLoading, isAuthenticated, authError,
+    isLoading, isAuthenticated, authError
   } = useSelector(authSelector);
  
   const redirectToHomeScreen = () => {
@@ -41,8 +41,8 @@ function Signin({ navigation }) {
   }, [isAuthenticated]);
   return (
     <View style={styles.signinContainer}>
-      {isAuthenticated}
       <Image source={logo} style={styles.signinLogo} />
+      {isAuthenticated && <Text style={styles.logoutText}>Vous êtes deconnecté</Text>}
       {authError
             && (
             <Text style={styles.signinTextError}>
