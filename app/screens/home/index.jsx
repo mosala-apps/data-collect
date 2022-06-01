@@ -14,7 +14,6 @@ function Home() {
   const dispatch = useDispatch();
   const forms = useSelector((state) => state.form.forms);
   const user = useSelector((state) => state.auth.user);
-  const [ hospitalId, setHospitalId] = useState(null);
   const checkIsAuthenticatedUser = async () => {
     if (Object.keys(user).length === 0) {
       dispatch(setUser(JSON.parse(await AsyncStorage.getItem('user'))));
