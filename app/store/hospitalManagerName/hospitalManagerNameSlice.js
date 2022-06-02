@@ -12,9 +12,6 @@ const HospitalManagerName = createSlice({
     hospitalManagerNameError: false,
   },
   reducers: {
-    getHospitalManagerNames: (state) => {
-      return state.name
-    },
   },
   extraReducers: {
     [addHospitalManagerNames.pending]: (state) => {
@@ -34,5 +31,4 @@ const HospitalManagerName = createSlice({
     },
   },
 });
-export const { getHospitalManagerNames } = HospitalManagerName.actions;
 export default HospitalManagerName.reducer;

@@ -1,22 +1,19 @@
 import {
   Text, View, TouchableOpacity, ActivityIndicator,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from './index.style';
 
 import InputField from '../../components/inputField/InputField';
-import { hospitalManagerNamesSelector } from '../../store/hospitalManagerName/hospitalManagerNameSelectors';
-import { addHospitalManagerNames } from '../../store';
+import { hospitalManagerNamesSelector, addHospitalManagerNames } from '../../store';
 
 function Settings({ navigation }) {
-  const [name, setName] = useState('');
-  const [firstName, setFirstName] = useState('');
   const dispatch = useDispatch();
   const {
-    isLoading, isUpdated, isError,
+    name,firstName, isLoading, isUpdated, isError,
   } = useSelector(hospitalManagerNamesSelector);
   const {
     control, handleSubmit, formState: { errors, isValid }, reset,
@@ -27,31 +24,20 @@ function Settings({ navigation }) {
     },
   });
 
-  const redirectToHomeScreen = () => {
-    if (isUpdated) {
-      navigation.push('Home');
-      reset();
-    }
-  };
-  const getHospitalManagerNames = async () => {
-    const user = await JSON.parse(await AsyncStorage.getItem('hospitalManagerName'));
-    setName(user.name);
-    setFirstName(user.firstName);
-    alert(JSON.stringify(user))
-  };
+
   const onSubmit = async (data) => {
     dispatch(addHospitalManagerNames(data));
-    redirectToHomeScreen();
   };
-  useEffect(() => {
-    dispatch(getHospitalManagerNames());
-  }, []);
+
   return (
     <View style={styles.settingsContainer}>
       <View
         style={styles.settingsFormBody}
       >
-        <Text style={styles.settingsFormTitle}>Paramètres</Text>
+        <Text style={styles.settingsFormTitle}>
+          Paramètres
+
+        </Text>
         <View style={styles.settingsFormGroup}>
           <View style={styles.settingsFormLabel}>
             <Text>Nom</Text>

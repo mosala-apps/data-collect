@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import DrawerInitializationScreen from './drawer/index';
+import DrawerInitializationScreen from './drawer';
 
 function RootNavigation() {
   return (
