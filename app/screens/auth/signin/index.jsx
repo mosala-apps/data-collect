@@ -22,7 +22,7 @@ function Signin({ navigation }) {
     },
   });
   const {
-    isLoading, isAuthenticated, authError
+    isLoading, isAuthenticated, authError,
   } = useSelector(authSelector);
 
   const redirectToHomeScreen = () => {
@@ -41,12 +41,6 @@ function Signin({ navigation }) {
   return (
     <View style={styles.signinContainer}>
       <Image source={logo} style={styles.signinLogo} />
-      {authError
-            && (
-            <Text style={styles.signinTextError}>
-              Mot de passe incorrecte ou Login ne correspondent à aucun utilisateur enregistré
-            </Text>
-            )}
       <Shadow
         distance={5}
         startColor="#00000010"
@@ -60,9 +54,19 @@ function Signin({ navigation }) {
             Entrez vos paramètres de connexion pour continuer
           </Text>
         </View>
+
+        {authError
+            && (
+              <View style={styles.signinAlertError}>
+                <Text style={styles.signinTextError}>
+                  Mot de passe incorrecte ou Login ne correspondent à aucun utilisateur enregistré
+                </Text>
+              </View>
+            )}
+
         <View style={styles.signinFormBody}>
           <View style={styles.signinFormGroup}>
-            <Text>EMAIL, UTILISATEUR OU  TELEPHONE</Text>
+            <Text>Email, Utilisateur ou Téléphone</Text>
             <InputField
               control={control}
               name="email"
@@ -72,7 +76,7 @@ function Signin({ navigation }) {
           </View>
           <View style={styles.signinFormGroup}>
             <View style={styles.signinFormLabel}>
-              <Text>MOT DE PASSE</Text>
+              <Text>Mot de passe</Text>
               <Text style={styles.signinForgotPassword}>Mot de passe oublié ?</Text>
             </View>
             <InputField

@@ -76,6 +76,15 @@ export const styles = StyleSheet.create({
     marginTop: 3,
     textTransform: 'uppercase',
   },
+  signinAlertError:{
+    width: '90%',
+    backgroundColor:'#F8D7DA',
+    borderColor: '#F5C6CB',
+    marginLeft: '5%',
+    marginTop: '3%',
+    borderRadius:5,
+    padding: '5%',
+  },
   signinTextError: {
     color: 'red',
   },
