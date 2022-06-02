@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: variableStyle.primaryColor,
+    backgroundColor: 'white',
     height: '100%',
     paddingLeft: '2%',
     paddingRight: '2%',
@@ -89,4 +89,12 @@ export const styles = StyleSheet.create({
     color: 'red',
   },
   logoutText: { color: 'green', textAlign: 'center', marginTop: '5%' },
+  connectStatusContainer:{
+    flex: 1,
+    justifyContent:'flex-end',
+    width: '100%',
+    position: 'absolute',
+    top: '1%',
+    right: '-60%'
+  },
 });
