@@ -29,7 +29,7 @@ export function Offline() {
     <View style={styles.offlineStatusContainer}>
       <Text style={styles.offlineStatusButton} />
       <Text>
-        Hors connexion
+        Aucune connexion internet
       </Text>
     </View>
   );

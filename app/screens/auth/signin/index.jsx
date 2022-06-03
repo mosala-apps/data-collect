@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 import { Shadow } from 'react-native-shadow-2';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNetInfo } from '@react-native-community/netinfo';
 import { authSelector, login } from '../../../store';
 import { styles } from './signin.style';
 import logo from '../../../../assets/img/logo_parteners.png';
@@ -12,6 +13,7 @@ import InputField from '../../../components/inputField/InputField';
 import OnlineStatus from '../../../components/onlineStatus';
 
 function Signin({ navigation }) {
+  const { isConnected } = useNetInfo();
   const dispatch = useDispatch();
   const {
     control, handleSubmit, formState: { errors, isValid }, reset,
@@ -40,7 +42,7 @@ function Signin({ navigation }) {
   }, [isAuthenticated]);
   return (
     <View style={styles.signinContainer}>
-      <View style={styles.connectStatusContainer}>
+      <View style={isConnected ? styles.onlineStatusContainer : styles.offlineStatusContainer}>
         <OnlineStatus />
       </View>
       <Image source={logo} style={styles.signinLogo} />

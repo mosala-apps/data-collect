@@ -89,12 +89,22 @@ export const styles = StyleSheet.create({
     color: 'red',
   },
   logoutText: { color: 'green', textAlign: 'center', marginTop: '5%' },
-  connectStatusContainer:{
+  onlineStatusContainer:{
     flex: 1,
-    justifyContent:'flex-end',
+    justifyContent:'center',
+    alignItems:'center',
     width: '100%',
     position: 'absolute',
     top: '1%',
-    right: '-60%'
+    left: '40%'
+  },
+  offlineStatusContainer:{
+    flex: 1,
+    justifyContent:'center',
+    alignItems:'center',
+    width: '100%',
+    position: 'absolute',
+    top: '1%',
+    left: '25%'
   },
 });
