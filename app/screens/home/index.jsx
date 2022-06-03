@@ -1,19 +1,29 @@
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Feather } from '@expo/vector-icons';
-import { Text, View, TextInput } from 'react-native';
+import {
+  SafeAreaView, Text, View, TextInput, FlatList, RefreshControl, ActivityIndicator,
+} from 'react-native';
 import { setUser, getForms } from '../../store';
 import HeaderNavigation from '../../navigations/headerNavigation';
 import styleSheet from './index.style';
 import CardHome from '../../components/card';
+import variableStyle from '../../config/variable.style';
 
 function Home() {
   const [textInput, setTextInput] = useState('');
   const [hospitalId, setHospitalId] = useState(null);
   const dispatch = useDispatch();
+  const [refreshing, setRefreshing] = React.useState(false);
+
   const forms = useSelector((state) => state.form.forms);
   const user = useSelector((state) => state.auth.user);
+  const isLoading = useSelector((state) => state.form.isLoading);
+  const regexSearch = new RegExp(textInput, 'i');
+
   const checkIsAuthenticatedUser = async () => {
     if (Object.keys(user).length === 0) {
       dispatch(setUser(JSON.parse(await AsyncStorage.getItem('user'))));
@@ -26,9 +36,26 @@ function Home() {
       dispatch(getForms({ id: hospitalId }));
     }
   }, [hospitalId]);
-  const regexSearch = new RegExp(textInput, 'i');
+  const onRefresh = () => {
+    dispatch(getForms({ id: 1 }));
+    setRefreshing(isLoading);
+  };
+
+  const onFlatListEmpty = ({ item }) => (
+    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+
+      <Text style={{ fontSize: 24, fontWeight: 'bold' }}>
+        No Data Found in FlatList
+      </Text>
+
+    </View>
+  );
+  const renderforms = ({ item }) => (
+    <CardHome key={item.id} title={item.title} recurrence={item.form_recurrence.name} />
+
+  );
   return (
-    <View style={styleSheet.container}>
+    <SafeAreaView style={styleSheet.container}>
       <HeaderNavigation />
       <View style={styleSheet.containerHome}>
         <View style={styleSheet.containerHomeSearch}>
@@ -44,15 +71,26 @@ function Home() {
         <View style={styleSheet.containerHomeForm}>
           <Text style={styleSheet.containerHomeFormTitle}>Mes formulaires</Text>
           <View style={styleSheet.containerHomeFormCard}>
-            { forms && forms.forms
-              ? forms.forms
-                .filter((form) => form.title.match(regexSearch))
-                .map((form) => (<CardHome key={form.id} title={form.title} />))
-              : <Text>Vous n'avez acmes à aucun formulaire</Text>}
+            {isLoading
+              ? <ActivityIndicator size="large" />
+              : <FlatList
+                  numColumns={2}
+                  data={forms.forms ? forms.forms.filter((form) => form.title.match(regexSearch)) : []}
+                  renderItem={renderforms}
+                  refreshControl={<RefreshControl
+                    colors={[variableStyle.secondaryColor, variableStyle.tertiaryColor]}
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                    ListHeaderComponent={() => (
+                      !forms.forms.length
+                        ? <Text>The list is empty</Text>
+                        : null)}
+                  />}
+              />}
           </View>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

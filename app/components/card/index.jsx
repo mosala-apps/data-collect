@@ -1,12 +1,15 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableHighlight } from 'react-native';
 import styleSheet from './index.style';
 
-function CardHome({ title }) {
+function CardHome({ title, recurrence }) {
   return (
-    <View style={styleSheet.container}>
-      <Text style={styleSheet.containerText}>{title}</Text>
-    </View>
+    <TouchableHighlight style={styleSheet.container}>
+      <View>
+        <Text style={styleSheet.containerText}>{title}</Text>
+        <Text style={styleSheet.containerTextRecurrence}>{recurrence}</Text>
+      </View>
+    </TouchableHighlight>
   );
 }
 
