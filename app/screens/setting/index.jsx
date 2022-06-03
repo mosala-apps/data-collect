@@ -34,10 +34,6 @@ function Settings({ navigation }) {
       <View
         style={styles.settingsFormBody}
       >
-        <Text style={styles.settingsFormTitle}>
-          Paramètres
-
-        </Text>
         <View style={styles.settingsFormGroup}>
           <View style={styles.settingsFormLabel}>
             <Text>Nom</Text>
