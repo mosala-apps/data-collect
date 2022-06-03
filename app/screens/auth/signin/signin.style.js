@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
   },
   signinFormInputError:{
     borderWidth: 0.5,
-    borderColor: 'red',
+    borderColor: '#dc3549',
     borderRadius: 5,
     marginTop: 10,
     paddingLeft: '5%',
@@ -97,7 +97,7 @@ export const styles = StyleSheet.create({
     padding: '5%',
   },
   signinTextError: {
-    color: 'red',
+    color: '#dc3540',
   },
   logoutText: { color: 'green', textAlign: 'center', marginTop: '5%' },
   onlineStatusContainer:{
