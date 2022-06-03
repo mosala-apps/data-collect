@@ -43,8 +43,8 @@ export const styles = StyleSheet.create({
     marginTop: '5%',
     padding: '10%',
      width: '96%',
-     borderWidth:0.5,
-     borderColor: '#cdec',
+     borderWidth:0.1,
+     borderColor: 'rgba(0, 0, 255, 0.09)',
      borderRadius: 5,
   },
   settingsFormInput: {
