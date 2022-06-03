@@ -52,6 +52,16 @@ export const styles = StyleSheet.create({
     paddingRight: '5%',
     padding: '1.5%'
   },
+  signinFormInputError:{
+    borderWidth: 0.5,
+    borderColor: 'red',
+    borderRadius: 5,
+    marginTop: 10,
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    padding: '1.5%'
+  },
+
   signinFormLabel: {
     marginTop: 10,
     flexDirection: 'row',

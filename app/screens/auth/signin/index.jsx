@@ -76,8 +76,9 @@ function Signin({ navigation }) {
               control={control}
               name="email"
               rules={{ required: true }}
+              errors={errors.email}
+              labelTextError="Ce champ est requis."
             />
-            {errors.email && <Text style={styles.signinTextError}>Ce champ est requis.</Text>}
           </View>
           <View style={styles.signinFormGroup}>
             <View style={styles.signinFormLabel}>
@@ -89,9 +90,9 @@ function Signin({ navigation }) {
               name="password"
               rules={{ required: true }}
               secureTextEntry
+              errors={errors.password}
+              labelTextError="Le Mot de passe est requis."
             />
-            {errors.password
-            && <Text style={styles.signinTextError}>Le Mot de passe est requis.</Text>}
           </View>
           <TouchableOpacity onPress={handleSubmit(onSubmit)}>
             <View
