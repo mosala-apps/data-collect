@@ -50,6 +50,7 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     paddingLeft: '5%',
     paddingRight: '5%',
+    padding: '1.5%'
   },
   signinFormLabel: {
     marginTop: 10,
