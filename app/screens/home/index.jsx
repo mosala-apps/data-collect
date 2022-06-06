@@ -37,23 +37,39 @@ function Home() {
     }
   }, [hospitalId]);
   const onRefresh = () => {
-    dispatch(getForms({ id: 1 }));
+    dispatch(getForms({ id: hospitalId }));
     setRefreshing(isLoading);
   };
-
-  const onFlatListEmpty = ({ item }) => (
-    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-
-      <Text style={{ fontSize: 24, fontWeight: 'bold' }}>
-        No Data Found in FlatList
-      </Text>
-
-    </View>
-  );
   const renderforms = ({ item }) => (
     <CardHome key={item.id} title={item.title} recurrence={item.form_recurrence.name} />
 
   );
+  const onFlatList = () => {
+    if (forms.forms.length === 0) {
+      return (
+        <View>
+
+          <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+            Vous n'avez accès à aucun formulaire
+          </Text>
+
+        </View>
+      );
+    }
+    return (
+      <FlatList
+        numColumns={2}
+        data={forms.forms ? forms.forms.filter((form) => form.title.match(regexSearch)) : []}
+        renderItem={renderforms}
+        refreshControl={<RefreshControl
+          colors={[variableStyle.secondaryColor, variableStyle.tertiaryColor]}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />}
+      />
+    );
+  };
+
   return (
     <SafeAreaView style={styleSheet.container}>
       <HeaderNavigation />
@@ -73,20 +89,7 @@ function Home() {
           <View style={styleSheet.containerHomeFormCard}>
             {isLoading
               ? <ActivityIndicator size="large" />
-              : <FlatList
-                  numColumns={2}
-                  data={forms.forms ? forms.forms.filter((form) => form.title.match(regexSearch)) : []}
-                  renderItem={renderforms}
-                  refreshControl={<RefreshControl
-                    colors={[variableStyle.secondaryColor, variableStyle.tertiaryColor]}
-                    refreshing={refreshing}
-                    onRefresh={onRefresh}
-                    ListHeaderComponent={() => (
-                      !forms.forms.length
-                        ? <Text>The list is empty</Text>
-                        : null)}
-                  />}
-              />}
+              : <View>{onFlatList()}</View>}
           </View>
         </View>
       </View>
