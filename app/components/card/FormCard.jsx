@@ -6,16 +6,13 @@ import PropTypes from 'prop-types';
 import styleSheet from './FormCard.style';
 
 function FormCard({ form, navigation }) {
-  console.log('form', form.id);
   const handlePress = () => {
-    console.log('FormCard pressed');
     navigation.navigate('ShowForm', { id: form.id });
   };
   return (
     <TouchableHighlight
       style={styleSheet.container}
       onPress={handlePress}
-      // background={Platform.OS === 'android' ? TouchableHighlight.SelectableBackground() : ''}
     >
       <View>
         <Text style={styleSheet.containerText}>{form.title}</Text>
