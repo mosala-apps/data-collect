@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Feather } from '@expo/vector-icons';
@@ -26,7 +26,15 @@ function Home() {
       dispatch(getForms({ id: hospitalId }));
     }
   }, [hospitalId]);
-  const regexSearch = new RegExp(textInput, 'i');
+
+  const formsFiltered = useMemo(() => {
+    const regexSearch = new RegExp(textInput, 'i');
+    if (forms && forms.forms) {
+      return forms.forms.filter((form) => form.title.match(regexSearch));
+    }
+    return [];
+  }, [textInput]);
+
   return (
     <View style={styleSheet.container}>
       <HeaderNavigation />
@@ -44,11 +52,21 @@ function Home() {
         <View style={styleSheet.containerHomeForm}>
           <Text style={styleSheet.containerHomeFormTitle}>Mes formulaires</Text>
           <View style={styleSheet.containerHomeFormCard}>
-            { forms && forms.forms
-              ? forms.forms
-                .filter((form) => form.title.match(regexSearch))
-                .map((form) => (<CardHome key={form.id} title={form.title} />))
-              : <Text style={{textAlign: 'center'}}>Vous n'avez accès à aucun formulaire</Text>}
+            { forms && forms.forms && forms.forms.length > 0 && formsFiltered.length > 0
+              ? formsFiltered.map((form) => (<CardHome key={form.id} title={form.title} />))
+              : (
+                <Text style={styleSheet.messageStateForm}>
+                  Aucun formualire ne correspond à votre recherche
+                </Text>
+              )}
+            {
+              (!forms || !forms.forms || forms.forms.length === 0)
+                && (
+                <Text style={styleSheet.messageStateForm}>
+                  Vous n'avez accès à aucun formulaire
+                </Text>
+                )
+            }
           </View>
         </View>
       </View>

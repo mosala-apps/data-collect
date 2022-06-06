@@ -54,5 +54,9 @@ const styleSheet = StyleSheet.create({
     alignItems: 'center',
     flexWrap: 'wrap',
   },
+  messageStateForm: {
+    textAlign: 'center',
+    width: '100%',
+  }
 })
-export default styleSheet
+export default styleSheet;
