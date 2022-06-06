@@ -1,35 +1,43 @@
-/* eslint-disable react/jsx-wrap-multilines */
-/* eslint-disable max-len */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Feather } from '@expo/vector-icons';
 import {
   SafeAreaView, Text, View, TextInput, FlatList, RefreshControl, ActivityIndicator,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import { setUser, getHospital } from '../../store';
 import HeaderNavigation from '../../navigations/headerNavigation';
 import styleSheet from './index.style';
-import CardHome from '../../components/card/cardIndex';
+import FormCard from '../../components/card/FormCard;
 import variableStyle from '../../config/variable.style';
 
 function Home() {
+  /**
+   * States
+   */
   const [textInput, setTextInput] = useState('');
   const [hospitalId, setHospitalId] = useState(null);
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = React.useState(false);
 
+  /**
+   * Store
+   */
   const hospital = useSelector((state) => state.hospital.hospital);
   const user = useSelector((state) => state.auth.user);
   const isLoading = useSelector((state) => state.hospital.isLoading);
-  const regexSearch = new RegExp(textInput, 'i');
 
+  /**
+   * hooks
+   */
   const checkIsAuthenticatedUser = async () => {
     if (Object.keys(user).length === 0) {
       dispatch(setUser(JSON.parse(await AsyncStorage.getItem('user'))));
     }
     setHospitalId(user.hospital.id);
   };
+
   useEffect(() => {
     checkIsAuthenticatedUser();
 
@@ -37,31 +45,50 @@ function Home() {
       dispatch(getHospital({ id: hospitalId }));
     }
   }, [hospitalId]);
+
+  const formsFiltered = useMemo(() => {
+    const regexSearch = new RegExp(textInput, 'i');
+    if (forms && forms.forms) {
+      return forms.forms.filter((form) => form.title.match(regexSearch));
+    }
+    return [];
+  }, [textInput]);
+
   const onRefresh = () => {
     dispatch(getHospital({ id: hospitalId }));
     setRefreshing(isLoading);
   };
-  const renderforms = ({ item }) => (
-    <CardHome key={item.id} title={item.title} recurrence={item.form_recurrence.name} />
-
+  const renderForms = ({ item }) => (
+    <FormCard
+      key={item.id}
+      form={item}
+    />
   );
   const onFlatList = () => {
-    if (hospital.forms.length === 0) {
+    if (!hospital || !hospital.forms || hospital.forms.length === 0) {
       return (
         <View>
-
-          <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+          <Text style={styleSheet.messageStateForm}>
             Vous n'avez accès à aucun formulaire
           </Text>
+        </View>
+      );
+    }
 
+    if (formsFiltered.length === 0) {
+      return (
+        <View>
+          <Text>
+            Aucun formulaire ne correspond à votre recherche
+          </Text>
         </View>
       );
     }
 
     return <FlatList
       numColumns={2}
-      data={hospital && hospital.forms ? hospital.forms.filter((form) => form.title.match(regexSearch)) : []}
-      renderItem={renderforms}
+      data={formsFiltered}
+      renderItem={renderForms}
       refreshControl={<RefreshControl
         colors={[variableStyle.secondaryColor, variableStyle.tertiaryColor]}
         refreshing={refreshing}
@@ -69,6 +96,7 @@ function Home() {
       />}
     />;
   };
+
   return (
     <SafeAreaView style={styleSheet.container}>
       <HeaderNavigation />

@@ -50,16 +50,16 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     paddingLeft: '5%',
     paddingRight: '5%',
-    padding: '1.5%'
+    padding: '1.5%',
   },
-  signinFormInputError:{
+  signinFormInputError: {
     borderWidth: 0.5,
     borderColor: '#dc3549',
     borderRadius: 5,
     marginTop: 10,
     paddingLeft: '5%',
     paddingRight: '5%',
-    padding: '1.5%'
+    padding: '1.5%',
   },
 
   signinFormLabel: {
@@ -87,35 +87,35 @@ export const styles = StyleSheet.create({
     marginTop: 3,
     textTransform: 'uppercase',
   },
-  signinAlertError:{
+  signinAlertError: {
     width: '90%',
-    backgroundColor:'#F8D7DA',
+    backgroundColor: '#F8D7DA',
     borderColor: '#F5C6CB',
     marginLeft: '5%',
     marginTop: '3%',
-    borderRadius:5,
+    borderRadius: 5,
     padding: '5%',
   },
   signinTextError: {
     color: '#dc3540',
   },
   logoutText: { color: 'green', textAlign: 'center', marginTop: '5%' },
-  onlineStatusContainer:{
+  onlineStatusContainer: {
     flex: 1,
-    justifyContent:'center',
-    alignItems:'center',
+    justifyContent: 'center',
+    alignItems: 'center',
     width: '100%',
     position: 'absolute',
     top: '1%',
-    left: '40%'
+    left: '40%',
   },
-  offlineStatusContainer:{
+  offlineStatusContainer: {
     flex: 1,
-    justifyContent:'center',
-    alignItems:'center',
+    justifyContent: 'center',
+    alignItems: 'center',
     width: '100%',
     position: 'absolute',
     top: '1%',
-    left: '25%'
+    left: '25%',
   },
 });

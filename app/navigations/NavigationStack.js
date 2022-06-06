@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeScreen from '../screens/home/index';
-import NotificationScreen from '../screens/notification';
+import NotificationsScreen from '../screens/notifications';
 import SettingScreen from '../screens/setting';
-import SynchronizationFormScreen from '../screens/synchronizationForm';
-import DraftScreen from '../screens/draft';
-import ConflictHandlingScreen from '../screens/conflictHandling';
-import PendingFormScreen from '../screens/pendingForm';
+import SynchronizedFormsScreen from '../screens/synchronizedForms';
+import DraftsScreen from '../screens/drafts';
+import ConflictsHandlingScreen from '../screens/conflictsHandling';
+import PendingFormsScreen from '../screens/pendingForms';
+import FormShowScreen from '../screens/forms/ShowForm';
 import SigninScreen from '../screens/auth/signin';
 
 const Stack = createNativeStackNavigator();
@@ -50,8 +51,8 @@ function NavigationStack() {
           })}
         />
         <Stack.Screen
-          name="Notification"
-          component={NotificationScreen}
+          name="Notifications"
+          component={NotificationsScreen}
           options={() => ({
             title: 'Mes notifications',
             headerStyle: headerStyleContainer.headerStyle,
@@ -70,8 +71,8 @@ function NavigationStack() {
           })}
         />
         <Stack.Screen
-          name="SynchronizationForm"
-          component={SynchronizationFormScreen}
+          name="SynchronizedForms"
+          component={SynchronizedFormsScreen}
           options={() => ({
             title: 'Formulaires synchronisés',
             headerStyle: headerStyleContainer.headerStyle,
@@ -80,8 +81,8 @@ function NavigationStack() {
           })}
         />
         <Stack.Screen
-          name="Draft"
-          component={DraftScreen}
+          name="Drafts"
+          component={DraftsScreen}
           options={() => ({
             title: 'Mes brouillons',
             headerStyle: headerStyleContainer.headerStyle,
@@ -90,8 +91,8 @@ function NavigationStack() {
           })}
         />
         <Stack.Screen
-          name="ConflictHandling"
-          component={ConflictHandlingScreen}
+          name="ConflictsHandling"
+          component={ConflictsHandlingScreen}
           options={() => ({
             title: 'Gestion des conflicts',
             headerStyle: headerStyleContainer.headerStyle,
@@ -100,10 +101,20 @@ function NavigationStack() {
           })}
         />
         <Stack.Screen
-          name="PendingForm"
-          component={PendingFormScreen}
+          name="PendingForms"
+          component={PendingFormsScreen}
           options={() => ({
             title: 'En attente',
+            headerStyle: headerStyleContainer.headerStyle,
+            headerTintColor: headerStyleContainer.headerTintColor,
+            headerTitleStyle: headerStyleContainer.headerTitleStyle,
+          })}
+        />
+        <Stack.Screen
+          name="ShowForm"
+          component={FormShowScreen}
+          options={() => ({
+            title: 'Nom du formulaire',
             headerStyle: headerStyleContainer.headerStyle,
             headerTintColor: headerStyleContainer.headerTintColor,
             headerTitleStyle: headerStyleContainer.headerTitleStyle,

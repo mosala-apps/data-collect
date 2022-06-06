@@ -21,7 +21,7 @@ export default function HeaderNavigation() {
       <View style={styleSheet.headerNavigationRight}>
         <View style={{ marginRight: '15%' }}>
           <TouchableHighlight
-            onPress={() => navigation.navigate('Notification')}
+            onPress={() => navigation.navigate('Notifications')}
           >
             <View>
               <Ionicons

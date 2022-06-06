@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import variableStyle from '../../config/variable.style'
+import { StyleSheet } from 'react-native';
+
 export const styles = StyleSheet.create({
   onlineStatusContainer: {
     flex: 1,
