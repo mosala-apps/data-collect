@@ -10,6 +10,7 @@ import {
 } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import OnlineStatus from '../onlineStatus';
 import styleSheet from './index.style';
 import { authSelector, logout, setUser } from '../../store';
 
@@ -37,7 +38,9 @@ export default function Menu({ navigation }) {
     <View style={styleSheet.containerMenu}>
       <View style={styleSheet.containerMenuTitle}>
         <Text>{hospitalName}</Text>
+        <OnlineStatus />
       </View>
+      <View style={styleSheet.lineStyleBorder} />
       <View style={styleSheet.containerMenuIcon}>
         <View>
           <FontAwesome

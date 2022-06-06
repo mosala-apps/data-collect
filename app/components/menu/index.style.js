@@ -5,9 +5,10 @@ const styleSheet = StyleSheet.create({
     marginTop: '5%',
   },
   containerMenuTitle: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     marginBottom: '5%',
+    marginLeft:'6%'
   },
   containerMenuIcon: {
     flexDirection: 'row',
@@ -16,7 +17,7 @@ const styleSheet = StyleSheet.create({
     marginHorizontal: '5%',
   },
   containerMenuIconText: {
-    width: '70%',
+    width: '80%',
   },
   containerMenuIconColor: {
     color: 'black',
