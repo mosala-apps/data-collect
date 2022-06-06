@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Feather } from '@expo/vector-icons';
 import { Text, View, TextInput } from 'react-native';
+import PropTypes from 'prop-types';
 import { setUser, getForms } from '../../store';
 import HeaderNavigation from '../../navigations/headerNavigation';
 import styleSheet from './index.style';
 import CardHome from '../../components/card';
 
-function Home() {
+function Home({ navigation }) {
   const [textInput, setTextInput] = useState('');
   const [hospitalId, setHospitalId] = useState(null);
   const dispatch = useDispatch();
@@ -53,10 +54,10 @@ function Home() {
           <Text style={styleSheet.containerHomeFormTitle}>Mes formulaires</Text>
           <View style={styleSheet.containerHomeFormCard}>
             { forms && forms.forms && forms.forms.length > 0 && formsFiltered.length > 0
-              ? formsFiltered.map((form) => (<CardHome key={form.id} title={form.title} />))
+              ? formsFiltered.map((form) => (<CardHome key={form.id} title={form.title} onPress={() => navigation.navigate('Details')} />))
               : (
                 <Text style={styleSheet.messageStateForm}>
-                  Aucun formualire ne correspond à votre recherche
+                  Aucun formulaire ne correspond à votre recherche
                 </Text>
               )}
             {
@@ -73,5 +74,11 @@ function Home() {
     </View>
   );
 }
+
+Home.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default Home;

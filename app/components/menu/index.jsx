@@ -75,7 +75,7 @@ export default function Menu({ navigation }) {
 
       <TouchableOpacity
         style={styleSheet.containerMenuIcon}
-        onPress={() => navigation.navigate('SynchronizationForm')}
+        onPress={() => navigation.navigate('SynchronizedForms')}
       >
         <View>
           <MaterialCommunityIcons
@@ -90,7 +90,7 @@ export default function Menu({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styleSheet.containerMenuIcon}
-        onPress={() => navigation.navigate('PendingForm')}
+        onPress={() => navigation.navigate('PendingForms')}
       >
         <View>
           <MaterialCommunityIcons
@@ -105,7 +105,7 @@ export default function Menu({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styleSheet.containerMenuIcon}
-        onPress={() => navigation.navigate('ConflictHandling')}
+        onPress={() => navigation.navigate('ConflictsHandling')}
       >
         <View>
           <MaterialIcons
@@ -120,7 +120,7 @@ export default function Menu({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styleSheet.containerMenuIcon}
-        onPress={() => navigation.navigate('Draft')}
+        onPress={() => navigation.navigate('Drafts')}
       >
         <View>
           <Foundation
@@ -173,5 +173,11 @@ export default function Menu({ navigation }) {
 Menu.defaultProps = {
   navigation: PropTypes.shape({
     navigate: PropTypes.string,
+  }),
+};
+
+Menu.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
   }),
 };

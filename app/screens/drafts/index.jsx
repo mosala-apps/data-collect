@@ -1,12 +1,10 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-function SynchronizationForm() {
+export default function Drafts() {
   return (
     <View>
-      <Text>SynchronizationForm</Text>
+      <Text>DraftForm</Text>
     </View>
   );
 }
-
-export default SynchronizationForm;
