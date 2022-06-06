@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: variableStyle.primaryColor,
+    backgroundColor: 'white',
     height: '100%',
     paddingLeft: '2%',
     paddingRight: '2%',
@@ -50,7 +50,18 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     paddingLeft: '5%',
     paddingRight: '5%',
+    padding: '1.5%'
   },
+  signinFormInputError:{
+    borderWidth: 0.5,
+    borderColor: '#dc3549',
+    borderRadius: 5,
+    marginTop: 10,
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    padding: '1.5%'
+  },
+
   signinFormLabel: {
     marginTop: 10,
     flexDirection: 'row',
@@ -86,7 +97,25 @@ export const styles = StyleSheet.create({
     padding: '5%',
   },
   signinTextError: {
-    color: 'red',
+    color: '#dc3540',
   },
   logoutText: { color: 'green', textAlign: 'center', marginTop: '5%' },
+  onlineStatusContainer:{
+    flex: 1,
+    justifyContent:'center',
+    alignItems:'center',
+    width: '100%',
+    position: 'absolute',
+    top: '1%',
+    left: '40%'
+  },
+  offlineStatusContainer:{
+    flex: 1,
+    justifyContent:'center',
+    alignItems:'center',
+    width: '100%',
+    position: 'absolute',
+    top: '1%',
+    left: '25%'
+  },
 });

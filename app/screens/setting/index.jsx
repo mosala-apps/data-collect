@@ -34,10 +34,6 @@ function Settings({ navigation }) {
       <View
         style={styles.settingsFormBody}
       >
-        <Text style={styles.settingsFormTitle}>
-          Paramètres
-
-        </Text>
         <View style={styles.settingsFormGroup}>
           <View style={styles.settingsFormLabel}>
             <Text>Nom</Text>
@@ -48,8 +44,9 @@ function Settings({ navigation }) {
             name="name"
             rules={{ required: true }}
             placeholder="Entrer le Nom"
+            errors={errors.name}
+            labelTextError="Ce champ est requis."
           />
-          {errors.name && <Text style={styles.settingsTextError}>Ce champ est requis.</Text>}
         </View>
         <View style={styles.settingsFormGroup}>
           <View style={styles.settingsFormLabel}>
@@ -61,9 +58,9 @@ function Settings({ navigation }) {
             name="firstName"
             rules={{ required: true }}
             placeholder="Entrer le prénom"
+            errors={errors.firstName}
+            labelTextError="Ce champ est requis."
           />
-          {errors.firstName
-            && <Text style={styles.settingsTextError}>Ce champ est requis.</Text>}
         </View>
         <TouchableOpacity onPress={handleSubmit(onSubmit)}>
           <View
