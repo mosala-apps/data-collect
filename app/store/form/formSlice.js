@@ -17,7 +17,7 @@ const FormSlice = createSlice({
       state.forms = payload
       state.isLoading = false
     },
-    [getForms.pending]: (state, { payload }) => {
+    [getForms.rejected]: (state, { payload }) => {
       state.formError = payload
       state.isLoading = false
     },

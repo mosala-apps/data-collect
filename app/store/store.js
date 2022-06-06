@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore  } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { combineReducers } from 'redux';
 import {
@@ -13,6 +13,7 @@ import {
 } from 'redux-persist';
 
 import FormSlice from './form/formSlice';
+import NotificationSlice from './notification/notificationSlice';
 import AuthSlice from './auth/authSlice';
 import hospitalManagerNameSlice from './hospitalManagerName/hospitalManagerNameSlice';
 
@@ -24,6 +25,7 @@ const persistConfig = {
 const reducers = combineReducers({
   auth: AuthSlice,
   form: FormSlice,
+  notification: NotificationSlice,
   hospitalManagerName: hospitalManagerNameSlice
 });
 

@@ -1,11 +1,30 @@
-import React from 'react';
-import { TouchableHighlight, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TouchableHighlight, View,Text } from 'react-native';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { setUser, getNotificationNotRead } from '../../store';
 import styleSheet from './index.style';
 
 export default function HeaderNavigation() {
   const navigation = useNavigation();
+  const [hospitalId, setHospitalId] = useState(null);
+  const dispatch = useDispatch();
+  const notifications = useSelector((state) => state.notification.notificationNotReads);
+  const user = useSelector((state) => state.auth.user);
+  const checkIsAuthenticatedUser = async () => {
+    if (Object.keys(user).length === 0) {
+      dispatch(setUser(JSON.parse(await AsyncStorage.getItem('user'))));
+    }
+    setHospitalId(user.hospital.id);
+  };
+  useEffect(() => {
+    checkIsAuthenticatedUser();
+    if (hospitalId) {
+      dispatch(getNotificationNotRead({ id: hospitalId }));
+    }
+  }, [hospitalId]);
   return (
     <View style={styleSheet.header}>
       <View>
@@ -29,6 +48,7 @@ export default function HeaderNavigation() {
                 style={styleSheet.color}
                 size={24}
               />
+              <Text style={styleSheet.notificationCount}>{notifications.length}</Text>
             </View>
           </TouchableHighlight>
         </View>
