@@ -7,7 +7,7 @@ import { Feather } from '@expo/vector-icons';
 import {
   SafeAreaView, Text, View, TextInput, FlatList, RefreshControl, ActivityIndicator,
 } from 'react-native';
-import { setUser, getForms } from '../../store';
+import { setUser, getHospital } from '../../store';
 import HeaderNavigation from '../../navigations/headerNavigation';
 import styleSheet from './index.style';
 import CardHome from '../../components/card';
@@ -19,7 +19,7 @@ function Home() {
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = React.useState(false);
 
-  const forms = useSelector((state) => state.form.forms);
+  const forms = useSelector((state) => state.form.hospital);
   const user = useSelector((state) => state.auth.user);
   const isLoading = useSelector((state) => state.form.isLoading);
   const regexSearch = new RegExp(textInput, 'i');
@@ -32,12 +32,13 @@ function Home() {
   };
   useEffect(() => {
     checkIsAuthenticatedUser();
+
     if (hospitalId) {
-      dispatch(getForms({ id: hospitalId }));
+      dispatch(getHospital({ id: hospitalId }));
     }
   }, [hospitalId]);
   const onRefresh = () => {
-    dispatch(getForms({ id: hospitalId }));
+    dispatch(getHospital({ id: hospitalId }));
     setRefreshing(isLoading);
   };
   const renderforms = ({ item }) => (
@@ -56,20 +57,18 @@ function Home() {
         </View>
       );
     }
-    return (
-      <FlatList
-        numColumns={2}
-        data={forms.forms ? forms.forms.filter((form) => form.title.match(regexSearch)) : []}
-        renderItem={renderforms}
-        refreshControl={<RefreshControl
-          colors={[variableStyle.secondaryColor, variableStyle.tertiaryColor]}
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-        />}
-      />
-    );
-  };
 
+    return <FlatList
+      numColumns={2}
+      data={forms && forms.forms ? forms.forms.filter((form) => form.title.match(regexSearch)) : []}
+      renderItem={renderforms}
+      refreshControl={<RefreshControl
+        colors={[variableStyle.secondaryColor, variableStyle.tertiaryColor]}
+        refreshing={refreshing}
+        onRefresh={onRefresh}
+      />}
+    />;
+  };
   return (
     <SafeAreaView style={styleSheet.container}>
       <HeaderNavigation />

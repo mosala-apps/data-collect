@@ -3,36 +3,50 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiURL from '../../config/apiURL';
 import { isConnected } from '../../config/offlineConfig';
 
-export const OfflineForms = async (id) => {
-  const offlineForms = JSON.parse(await AsyncStorage.getItem('offlineUsers'));
-  const forms = offlineForms.find((form) => form.id === id);
-  return forms;
+export const offlineHospital = async (id) => {
+  const offlineHospitals = JSON.parse(await AsyncStorage.getItem('offlineHospitals')) ?? [];
+  const hospital = offlineHospitals.find((hospitals) => hospitals.id === id);
+  return hospital;
+};
+export const addOffLineHospital = async (offlineHospitals, hospital) => {
+  offlineHospitals.push({ ...hospital });
+  await AsyncStorage.setItem(
+    'offlineHospitals',
+    JSON.stringify(offlineHospitals),
+  );
 };
 
-export const OnlineForms = async (id) => {
-  const forms = await (await apiURL.get(`/hospitals-data/${id}`)).data;
-  const offlineForms = JSON.parse(await AsyncStorage.getItem('offlineUsers'));
-  const foundFormId = offlineForms.findIndex((form) => form.id === id);
+export const onlineHospital = async (id) => {
+  const hospital = await (await apiURL.get(`/hospitals-data/${id}`)).data;
+  const offlineHospitals = JSON.parse(await AsyncStorage.getItem('offlineHospitals')) ?? [];
 
-  if (foundFormId) {
-    offlineForms[foundFormId] = forms;
-    await AsyncStorage.setItem('offlineForms', JSON.stringify(offlineForms));
-    return forms;
+  if (offlineHospitals.length === 0) {
+    addOffLineHospital(offlineHospitals, hospital);
+    return hospital;
   }
-
-  offlineForms.push(...forms);
-  await AsyncStorage.setItem('offlineForms', JSON.stringify(offlineForms));
-  return forms;
+  const foundHospitalId = offlineHospitals.findIndex(
+    (hospitals) => hospitals.id === id,
+  );
+  if (foundHospitalId >= 0) {
+    offlineHospitals[foundHospitalId] = hospital;
+    await AsyncStorage.setItem(
+      'offlineHospitals',
+      JSON.stringify(offlineHospitals),
+    );
+    return hospital;
+  }
+  addOffLineHospital(offlineHospitals, hospital);
+  return hospital;
 };
 
-export const getForms = createAsyncThunk(
-  'form/getForms',
+export const getHospital = createAsyncThunk(
+  'form/getHospital',
   async (payload) => {
     try {
       if (isConnected) {
-        return OnlineForms(payload.id);
+        return onlineHospital(payload.id);
       }
-      return OfflineForms(payload.id);
+      return offlineHospital(payload.id);
     } catch (error) {
       return error;
     }
