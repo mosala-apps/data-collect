@@ -12,7 +12,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-import FormSlice from './form/formSlice';
+import HospitalSlice from './hospital/hospitalSlice';
 import AuthSlice from './auth/authSlice';
 import hospitalManagerNameSlice from './hospitalManagerName/hospitalManagerNameSlice';
 
@@ -23,7 +23,7 @@ const persistConfig = {
 
 const reducers = combineReducers({
   auth: AuthSlice,
-  form: FormSlice,
+  hospital: HospitalSlice,
   hospitalManagerName: hospitalManagerNameSlice
 });
 
