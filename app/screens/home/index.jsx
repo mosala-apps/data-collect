@@ -36,6 +36,10 @@ function Home({ navigation }) {
     return [];
   }, [textInput]);
 
+  const handlePressFormCard = (form) => {
+    navigation.navigate('ShowForm', {id: form.id});
+  };
+
   return (
     <View style={styleSheet.container}>
       <HeaderNavigation />
@@ -54,12 +58,22 @@ function Home({ navigation }) {
           <Text style={styleSheet.containerHomeFormTitle}>Mes formulaires</Text>
           <View style={styleSheet.containerHomeFormCard}>
             { forms && forms.forms && forms.forms.length > 0 && formsFiltered.length > 0
-              ? formsFiltered.map((form) => (<CardHome key={form.id} title={form.title} onPress={() => navigation.navigate('Details')} />))
-              : (
+              && formsFiltered.map(
+                (form) => (
+                  <CardHome
+                    key={form.id}
+                    title={form.title}
+                    payload={form}
+                    onPress={handlePressFormCard}
+                  />
+                ),
+              )}
+            { forms && forms.forms && forms.forms.length > 0 && formsFiltered.length === 0
+                && (
                 <Text style={styleSheet.messageStateForm}>
                   Aucun formulaire ne correspond à votre recherche
                 </Text>
-              )}
+                )}
             {
               (!forms || !forms.forms || forms.forms.length === 0)
                 && (

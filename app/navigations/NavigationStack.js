@@ -8,7 +8,7 @@ import SynchronizedFormsScreen from '../screens/synchronizedForms';
 import DraftsScreen from '../screens/drafts';
 import ConflictsHandlingScreen from '../screens/conflictsHandling';
 import PendingFormsScreen from '../screens/pendingForms';
-import FormShowScreen from '../screens/forms/show';
+import FormShowScreen from '../screens/forms/ShowForm';
 import SigninScreen from '../screens/auth/signin';
 
 const Stack = createNativeStackNavigator();

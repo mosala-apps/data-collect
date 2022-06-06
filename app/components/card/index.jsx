@@ -1,13 +1,30 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import {
+  Platform, View, Text, TouchableNativeFeedback,
+} from 'react-native';
+import PropTypes from 'prop-types';
 import styleSheet from './index.style';
 
-function CardHome({ title }) {
+function CardHome({ title, onPress }) {
   return (
-    <View style={styleSheet.container}>
-      <Text style={styleSheet.containerText}>{title}</Text>
-    </View>
+    <TouchableNativeFeedback
+      onPress={onPress}
+      background={Platform.OS === 'android' ? TouchableNativeFeedback.SelectableBackground() : ''}
+    >
+      <View style={styleSheet.container}>
+        <Text style={styleSheet.containerText}>{title}</Text>
+      </View>
+    </TouchableNativeFeedback>
   );
 }
 
 export default CardHome;
+
+CardHome.defaultProps = {
+  onPress: () => null,
+};
+
+CardHome.propTypes = {
+  title: PropTypes.string.isRequired,
+  onPress: PropTypes.func,
+};
