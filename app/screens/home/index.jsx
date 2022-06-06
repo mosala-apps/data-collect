@@ -80,7 +80,7 @@ function Home() {
             style={styleSheet.containerHomeSearchTextInput}
             onChangeText={(text) => setTextInput(text)}
             value={textInput}
-            placeholder="Rechercher par formulaire"
+            placeholder="Rechercher un formulaire"
           />
         </View>
         <View style={styleSheet.containerHomeForm}>

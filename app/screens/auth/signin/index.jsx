@@ -1,17 +1,19 @@
 import {
   Image, Text, View, TouchableOpacity, ActivityIndicator,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Shadow } from 'react-native-shadow-2';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNetInfo } from '@react-native-community/netinfo';
 import { authSelector, login } from '../../../store';
 import { styles } from './signin.style';
 import logo from '../../../../assets/img/logo_parteners.png';
 import InputField from '../../../components/inputField/InputField';
+import OnlineStatus from '../../../components/onlineStatus';
 
 function Signin({ navigation }) {
+  const { isConnected } = useNetInfo();
   const dispatch = useDispatch();
   const {
     control, handleSubmit, formState: { errors, isValid }, reset,
@@ -22,7 +24,7 @@ function Signin({ navigation }) {
     },
   });
   const {
-    isLoading, isAuthenticated, authError
+    isLoading, isAuthenticated, authError,
   } = useSelector(authSelector);
 
   const redirectToHomeScreen = () => {
@@ -40,13 +42,10 @@ function Signin({ navigation }) {
   }, [isAuthenticated]);
   return (
     <View style={styles.signinContainer}>
+      <View style={isConnected ? styles.onlineStatusContainer : styles.offlineStatusContainer}>
+        <OnlineStatus />
+      </View>
       <Image source={logo} style={styles.signinLogo} />
-      {authError
-            && (
-            <Text style={styles.signinTextError}>
-              Mot de passe incorrecte ou Login ne correspondent à aucun utilisateur enregistré
-            </Text>
-            )}
       <Shadow
         distance={5}
         startColor="#00000010"
@@ -60,19 +59,30 @@ function Signin({ navigation }) {
             Entrez vos paramètres de connexion pour continuer
           </Text>
         </View>
+
+        {authError
+            && (
+              <View style={styles.signinAlertError}>
+                <Text style={styles.signinTextError}>
+                  Mot de passe incorrecte ou Login ne correspondent à aucun utilisateur enregistré
+                </Text>
+              </View>
+            )}
+
         <View style={styles.signinFormBody}>
           <View style={styles.signinFormGroup}>
-            <Text>EMAIL, UTILISATEUR OU  TELEPHONE</Text>
+            <Text>Email, Utilisateur ou Téléphone</Text>
             <InputField
               control={control}
               name="email"
               rules={{ required: true }}
+              errors={errors.email}
+              labelTextError="Ce champ est requis."
             />
-            {errors.email && <Text style={styles.signinTextError}>Ce champ est requis.</Text>}
           </View>
           <View style={styles.signinFormGroup}>
             <View style={styles.signinFormLabel}>
-              <Text>MOT DE PASSE</Text>
+              <Text>Mot de passe</Text>
               <Text style={styles.signinForgotPassword}>Mot de passe oublié ?</Text>
             </View>
             <InputField
@@ -80,9 +90,9 @@ function Signin({ navigation }) {
               name="password"
               rules={{ required: true }}
               secureTextEntry
+              errors={errors.password}
+              labelTextError="Le Mot de passe est requis."
             />
-            {errors.password
-            && <Text style={styles.signinTextError}>Le Mot de passe est requis.</Text>}
           </View>
           <TouchableOpacity onPress={handleSubmit(onSubmit)}>
             <View
