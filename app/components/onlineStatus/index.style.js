@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import variableStyle from '../../config/variable.style';
 
 export const styles = StyleSheet.create({
   onlineStatusContainer: {
@@ -16,7 +15,6 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'green',
     marginRight: '2%',
-
   },
   offlineStatusContainer: {
     flex: 1,
@@ -32,6 +30,5 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'red',
     marginRight: '2%',
-
   },
-});
+})

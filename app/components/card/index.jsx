@@ -3,7 +3,7 @@ import {
   Platform, View, Text, TouchableNativeFeedback,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import styleSheet from './index.style';
+import styleSheet from './FormCard.style';
 
 function CardHome({ title, onPress }) {
   return (
