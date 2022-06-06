@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   settingsContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     backgroundColor: variableStyle.primaryColor,
     width: '100%',
     height: '100%',
@@ -29,6 +29,7 @@ export const styles = StyleSheet.create({
   },
   settingsFormTitle: {
     textAlign: 'left',
+    fontWeight: 'bold',
     fontSize: 20,
     color: variableStyle.tertiaryColor,
 
@@ -40,12 +41,9 @@ export const styles = StyleSheet.create({
 
   },
   settingsFormBody: {
-    marginTop: '5%',
+    marginTop: '3%',
     padding: '10%',
      width: '96%',
-     borderWidth:0.5,
-     borderColor: '#cdec',
-     borderRadius: 5,
   },
   settingsFormInput: {
     borderWidth: 0.5,

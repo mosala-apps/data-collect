@@ -38,7 +38,7 @@ function Home() {
             style={styleSheet.containerHomeSearchTextInput}
             onChangeText={(text) => setTextInput(text)}
             value={textInput}
-            placeholder="Rechercher par formulaire"
+            placeholder="Rechercher un formulaire"
           />
         </View>
         <View style={styleSheet.containerHomeForm}>
@@ -48,7 +48,7 @@ function Home() {
               ? forms.forms
                 .filter((form) => form.title.match(regexSearch))
                 .map((form) => (<CardHome key={form.id} title={form.title} />))
-              : <Text>Vous n'avez acmes à aucun formulaire</Text>}
+              : <Text style={{textAlign: 'center'}}>Vous n'avez accès à aucun formulaire</Text>}
           </View>
         </View>
       </View>

@@ -1,19 +1,19 @@
 import {
   Text, View, TouchableOpacity, ActivityIndicator,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from './index.style';
 
 import InputField from '../../components/inputField/InputField';
-import { hospitalManagerNamesSelector } from '../../store/hospitalManagerName/hospitalManagerNameSelectors';
-import { addHospitalManagerNames } from '../../store';
+import { hospitalManagerNamesSelector, addHospitalManagerNames } from '../../store';
 
 function Settings({ navigation }) {
   const dispatch = useDispatch();
   const {
-    name, firstName,isLoading, isUpdated, isError,
+    name,firstName, isLoading, isUpdated, isError,
   } = useSelector(hospitalManagerNamesSelector);
   const {
     control, handleSubmit, formState: { errors, isValid }, reset,
@@ -24,21 +24,16 @@ function Settings({ navigation }) {
     },
   });
 
-  const redirectToHomeScreen = () => {
-    if (isUpdated) {
-      navigation.push('Home');
-      reset();
-    }
-  };
+
   const onSubmit = async (data) => {
     dispatch(addHospitalManagerNames(data));
-    redirectToHomeScreen();
   };
+
   return (
     <View style={styles.settingsContainer}>
       <View
-        style={styles.settingsFormBody}>
-        <Text style={styles.settingsFormTitle}>Parametres</Text>
+        style={styles.settingsFormBody}
+      >
         <View style={styles.settingsFormGroup}>
           <View style={styles.settingsFormLabel}>
             <Text>Nom</Text>
@@ -46,11 +41,12 @@ function Settings({ navigation }) {
           </View>
           <InputField
             control={control}
-            name="agentName"
+            name="name"
             rules={{ required: true }}
             placeholder="Entrer le Nom"
+            errors={errors.name}
+            labelTextError="Ce champ est requis."
           />
-          {errors.agentName && <Text style={styles.settingsTextError}>Ce champ est requis.</Text>}
         </View>
         <View style={styles.settingsFormGroup}>
           <View style={styles.settingsFormLabel}>
@@ -59,12 +55,12 @@ function Settings({ navigation }) {
           </View>
           <InputField
             control={control}
-            name="agentFistName"
+            name="firstName"
             rules={{ required: true }}
             placeholder="Entrer le prénom"
+            errors={errors.firstName}
+            labelTextError="Ce champ est requis."
           />
-          {errors.agentFistName
-            && <Text style={styles.settingsTextError}>Ce champ est requis.</Text>}
         </View>
         <TouchableOpacity onPress={handleSubmit(onSubmit)}>
           <View
