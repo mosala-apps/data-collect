@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getHospital } from './formAsyncQuerie';
+import { getHospital } from './hospitalAsyncQuerie';
 
-const FormSlice = createSlice({
-  name: 'form',
+const HospitalSlice = createSlice({
+  name: 'hospital',
   initialState: {
     hospital: {},
     isLoading: false,
-    formError: '',
+    hospitalError: '',
   },
   reducers: {},
   extraReducers: {
@@ -18,10 +18,10 @@ const FormSlice = createSlice({
       state.isLoading = false;
     },
     [getHospital.pending]: (state, { payload }) => {
-      state.formError = payload;
+      state.hospitalError = payload;
       state.isLoading = false;
     },
   },
 });
 
-export default FormSlice.reducer;
+export default HospitalSlice.reducer;

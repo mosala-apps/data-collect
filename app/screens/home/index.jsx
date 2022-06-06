@@ -10,7 +10,7 @@ import {
 import { setUser, getHospital } from '../../store';
 import HeaderNavigation from '../../navigations/headerNavigation';
 import styleSheet from './index.style';
-import CardHome from '../../components/card';
+import CardHome from '../../components/card/cardIndex';
 import variableStyle from '../../config/variable.style';
 
 function Home() {
@@ -19,9 +19,9 @@ function Home() {
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = React.useState(false);
 
-  const forms = useSelector((state) => state.form.hospital);
+  const hospital = useSelector((state) => state.hospital.hospital);
   const user = useSelector((state) => state.auth.user);
-  const isLoading = useSelector((state) => state.form.isLoading);
+  const isLoading = useSelector((state) => state.hospital.isLoading);
   const regexSearch = new RegExp(textInput, 'i');
 
   const checkIsAuthenticatedUser = async () => {
@@ -46,7 +46,7 @@ function Home() {
 
   );
   const onFlatList = () => {
-    if (forms.forms.length === 0) {
+    if (hospital.forms.length === 0) {
       return (
         <View>
 
@@ -60,7 +60,7 @@ function Home() {
 
     return <FlatList
       numColumns={2}
-      data={forms && forms.forms ? forms.forms.filter((form) => form.title.match(regexSearch)) : []}
+      data={hospital && hospital.forms ? hospital.forms.filter((form) => form.title.match(regexSearch)) : []}
       renderItem={renderforms}
       refreshControl={<RefreshControl
         colors={[variableStyle.secondaryColor, variableStyle.tertiaryColor]}

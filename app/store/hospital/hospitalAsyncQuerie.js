@@ -19,7 +19,6 @@ export const addOffLineHospital = async (offlineHospitals, hospital) => {
 export const onlineHospital = async (id) => {
   const hospital = await (await apiURL.get(`/hospitals-data/${id}`)).data;
   const offlineHospitals = JSON.parse(await AsyncStorage.getItem('offlineHospitals')) ?? [];
-
   if (offlineHospitals.length === 0) {
     addOffLineHospital(offlineHospitals, hospital);
     return hospital;
@@ -40,7 +39,7 @@ export const onlineHospital = async (id) => {
 };
 
 export const getHospital = createAsyncThunk(
-  'form/getHospital',
+  'hospital/getHospital',
   async (payload) => {
     try {
       if (isConnected) {
