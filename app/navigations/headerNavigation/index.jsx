@@ -29,7 +29,7 @@ export default function HeaderNavigation() {
 
   const goToPageNotification = () => {
     dispatch(setNotificationNotRead({ id: hospitalId }));
-    navigation.navigate('Notification');
+    navigation.navigate('Notifications');
     dispatch(getNotificationNotRead({ id: hospitalId }));
   }
 
