@@ -1,15 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { notificationsHospital, getNotificationNotRead } from './notificationAsyncQuerie'
+import { notificationsHospital } from './notificationAsyncQuerie'
 
 const NotificationSlice = createSlice({
   name: 'notification',
   initialState: {
     notifications: [],
-    notificationNotReads: [],
     isLoading: false,
-    isLoadingNotRead: false,
     notificationError: '',
-    notificationErrorNotRead: '',
   },
   reducers: {},
   extraReducers: {
@@ -23,18 +20,7 @@ const NotificationSlice = createSlice({
     [notificationsHospital.rejected]: (state, { payload }) => {
       state.notificationError = payload
       state.isLoading = false
-    },
-    [getNotificationNotRead.pending]: (state) => {
-      state.isLoadingNotRead = true
-    },
-    [getNotificationNotRead.fulfilled]: (state, { payload }) => {
-      state.notificationNotReads = payload
-      state.isLoadingNotRead = false
-    },
-    [getNotificationNotRead.rejected]: (state, { payload }) => {
-      state.notificationErrorNotRead = payload
-      state.isLoadingNotRead = false
-    },
+    }
   },
 })
 

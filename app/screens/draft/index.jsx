@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 export default function Draft() {
   return (
     <View>
-      <Text>DraftForm</Text>
+      <Text>on va faire un test</Text>
     </View>
   );
 }

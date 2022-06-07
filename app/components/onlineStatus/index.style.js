@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     onlineStatusButton:{
         height: 10,
         width: 10,
-        borderRadius:'100%',
+        borderRadius:10,
         backgroundColor:'green',
         marginRight:'2%'
         
@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     offlineStatusButton:{
         height: 10,
         width: 10,
-        borderRadius:'100%',
+        borderRadius:10,
         backgroundColor:'red',
         marginRight:'2%'
         

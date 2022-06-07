@@ -4,14 +4,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TouchableHighlight, View,Text } from 'react-native';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { setUser, getNotificationNotRead } from '../../store';
+import { setUser, getNotificationNotRead,setNotificationNotRead } from '../../store';
 import styleSheet from './index.style';
+
 
 export default function HeaderNavigation() {
   const navigation = useNavigation();
   const [hospitalId, setHospitalId] = useState(null);
   const dispatch = useDispatch();
-  const notifications = useSelector((state) => state.notification.notificationNotReads);
+  const notifications = useSelector((state) => state.notificationNotRead.notificationNotReads);
   const user = useSelector((state) => state.auth.user);
   const checkIsAuthenticatedUser = async () => {
     if (Object.keys(user).length === 0) {
@@ -25,6 +26,13 @@ export default function HeaderNavigation() {
       dispatch(getNotificationNotRead({ id: hospitalId }));
     }
   }, [hospitalId]);
+
+  const goToPageNotification = () => {
+    dispatch(setNotificationNotRead({ id: hospitalId }));
+    navigation.navigate('Notification');
+    dispatch(getNotificationNotRead({ id: hospitalId }));
+  }
+
   return (
     <View style={styleSheet.header}>
       <View>
@@ -40,7 +48,7 @@ export default function HeaderNavigation() {
       <View style={styleSheet.headerNavigationRight}>
         <View style={{ marginRight: '15%' }}>
           <TouchableHighlight
-            onPress={() => navigation.navigate('Notification')}
+            onPress={() => goToPageNotification()}
           >
             <View>
               <Ionicons

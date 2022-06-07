@@ -27,3 +27,16 @@ export const getNotificationNotRead = createAsyncThunk(
     }
   },
 );
+export const setNotificationNotRead = createAsyncThunk(
+  'notification/setNotificationNotRead',
+  async (payload) => {
+    try {
+      const notificationRead = await (
+        await apiURL.get(`/notifications/set-notification-by-hospital/${payload.id}`)
+      ).data;
+      return notificationRead;
+    } catch (error) {
+      return error;
+    }
+  },
+);
