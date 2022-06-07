@@ -7,9 +7,9 @@ import { store, persistor } from './app/store';
 export default function App() {
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <RootNavigation />
-      </PersistGate>
+       <PersistGate loading={null} persistor={persistor}>
+      <RootNavigation />
+       </PersistGate>
     </Provider>
   );
 }

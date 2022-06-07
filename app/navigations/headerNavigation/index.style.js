@@ -19,5 +19,17 @@ const styleSheet = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  notificationCount: {
+    position:'absolute',
+    top:-10,
+    right: -4,
+    height: 20,
+    width: 20,
+    color: '#ffffff',
+    backgroundColor: 'red',
+    borderRadius:50,
+    fontSize:15,
+    textAlign:'center'
+  }
 })
 export default styleSheet
