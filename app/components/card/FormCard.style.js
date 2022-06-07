@@ -12,7 +12,7 @@ const styleSheet = StyleSheet.create({
     alignItems: 'center',
     marginTop: '5%',
     borderColor: 'rgba(0,0,0,0)',
-    width: 180,
+    width: '48%',
     paddingHorizontal: '3%',
     marginHorizontal: '1%',
     height: 100,
@@ -30,8 +30,9 @@ const styleSheet = StyleSheet.create({
     borderWidth: 0.5,
     marginVertical: 10,
     paddingVertical: 3,
-    borderColor: variableStyle.tertiaryColor,
-    backgroundColor: 'white',
+    paddingHorizontal: 10,
+    borderColor: variableStyle.secondaryColor,
+    backgroundColor: 'rgba(255,255,255,0.5)',
   },
 });
 export default styleSheet;
