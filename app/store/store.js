@@ -12,7 +12,6 @@ import {
   // REGISTER,
 } from 'redux-persist';
 
-import FormSlice from './form/formSlice';
 import NotificationSlice from './notification/notificationSlice';
 import NotificationNotReadSlice from './notification/notificationNotReadSlice';
 import SetNotificationNotReadSlice from './notification/setNotificationNotRead';
@@ -27,7 +26,6 @@ const persistConfig = {
 
 const reducers = combineReducers({
   auth: AuthSlice,
-  form: FormSlice,
   notification: NotificationSlice,
   notificationNotRead: NotificationNotReadSlice ,
   setNotificationNotRead:SetNotificationNotReadSlice,
