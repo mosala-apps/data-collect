@@ -106,7 +106,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     position: 'absolute',
-    top: '1%',
+    top: '7%',
     left: '40%',
   },
   offlineStatusContainer: {
@@ -115,7 +115,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     position: 'absolute',
-    top: '1%',
+    top: '7%',
     left: '25%',
   },
 });
