@@ -9,10 +9,10 @@ import PropTypes from 'prop-types';
 import { setUser, getHospital } from '../../store';
 import HeaderNavigation from '../../navigations/headerNavigation';
 import styleSheet from './index.style';
-import FormCard from '../../components/card/FormCard;
+import FormCard from '../../components/card/FormCard';
 import variableStyle from '../../config/variable.style';
 
-function Home() {
+function Home({ navigation }) {
   /**
    * States
    */
@@ -48,8 +48,8 @@ function Home() {
 
   const formsFiltered = useMemo(() => {
     const regexSearch = new RegExp(textInput, 'i');
-    if (forms && forms.forms) {
-      return forms.forms.filter((form) => form.title.match(regexSearch));
+    if (hospital && hospital.forms) {
+      return hospital.forms.filter((form) => form.title.match(regexSearch));
     }
     return [];
   }, [textInput]);
@@ -62,6 +62,7 @@ function Home() {
     <FormCard
       key={item.id}
       form={item}
+      navigation={navigation}
     />
   );
   const onFlatList = () => {
@@ -85,16 +86,20 @@ function Home() {
       );
     }
 
-    return <FlatList
-      numColumns={2}
-      data={formsFiltered}
-      renderItem={renderForms}
-      refreshControl={<RefreshControl
-        colors={[variableStyle.secondaryColor, variableStyle.tertiaryColor]}
-        refreshing={refreshing}
-        onRefresh={onRefresh}
-      />}
-    />;
+    return (
+      <FlatList
+        numColumns={2}
+        data={formsFiltered}
+        renderItem={renderForms}
+        refreshControl={(
+          <RefreshControl
+            colors={[variableStyle.secondaryColor, variableStyle.tertiaryColor]}
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+)}
+      />
+    );
   };
 
   return (

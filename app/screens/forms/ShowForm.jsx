@@ -1,8 +1,10 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 
 export default function ShowForm() {
   return (
-    <Text>Form Show</Text>
+    <View>
+      <Text>Form Show</Text>
+    </View>
   );
 }
