@@ -1,19 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ToastAndroid } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import bcrypt from 'bcrypt';
 import apiURL from '../../config/apiURL';
 import { isConnected } from '../../config/offlineConfig';
 
-// const onHashPassword = (password) => {
-//   const hash = bcrypt.hash(password, 5);
-//   console.log(hash);
-//   return hash;
-// };
 const addOfflineUsers = async (user, password) => {
-  const offlineUsers = [];
-  const passwordHashed = password;
-  offlineUsers.push({ ...user, password: passwordHashed });
+  const offlineUsers = JSON.parse(await AsyncStorage.getItem('offlineUsers')) ?? [];
+
+  offlineUsers.push({ ...user, password });
   await AsyncStorage.setItem('offlineUsers', JSON.stringify(offlineUsers));
 };
 
@@ -51,6 +45,7 @@ export const offlineLogin = async (payload) => {
         || item.user.phone_number === email)
       && item.password === password,
   );
+  console.log('offlineUsers', offlineUsers);
   if (Object.keys(user).length !== 0) {
     addUserToAsyncStorage(user, user.password);
     addOfflineUsers(user, payload.password);
