@@ -5,8 +5,7 @@ import { isConnected } from '../../config/offlineConfig';
 
 export const offlineHospital = async (id) => {
   const offlineHospitals = JSON.parse(await AsyncStorage.getItem('offlineHospitals')) ?? [];
-  const hospital = offlineHospitals.find((hospitals) => hospitals.id === id);
-  return hospital;
+  return offlineHospitals.find((hospitals) => hospitals.id === id);
 };
 export const addOffLineHospital = async (offlineHospitals, hospital) => {
   offlineHospitals.push({ ...hospital });

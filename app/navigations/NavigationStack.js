@@ -113,12 +113,7 @@ function NavigationStack() {
         <Stack.Screen
           name="ShowForm"
           component={FormShowScreen}
-          options={() => ({
-            title: 'Nom du formulaire',
-            headerStyle: headerStyleContainer.headerStyle,
-            headerTintColor: headerStyleContainer.headerTintColor,
-            headerTitleStyle: headerStyleContainer.headerTitleStyle,
-          })}
+          options={{ headerShown: false }}
         />
       </Stack.Group>
     </Stack.Navigator>

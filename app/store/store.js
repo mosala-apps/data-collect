@@ -14,6 +14,7 @@ import {
 
 import HospitalSlice from './hospital/hospitalSlice';
 import AuthSlice from './auth/authSlice';
+import FormSlice from './form/formSlice';
 import hospitalManagerNameSlice from './hospitalManagerName/hospitalManagerNameSlice';
 
 const persistConfig = {
@@ -24,7 +25,8 @@ const persistConfig = {
 const reducers = combineReducers({
   auth: AuthSlice,
   hospital: HospitalSlice,
-  hospitalManagerName: hospitalManagerNameSlice
+  hospitalManagerName: hospitalManagerNameSlice,
+  formSlice: FormSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -97,7 +97,7 @@ function Home({ navigation }) {
             refreshing={refreshing}
             onRefresh={onRefresh}
           />
-)}
+        )}
       />
     );
   };
