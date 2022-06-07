@@ -45,7 +45,6 @@ export const offlineLogin = async (payload) => {
         || item.user.phone_number === email)
       && item.password === password,
   );
-  console.log('offlineUsers', offlineUsers);
   if (Object.keys(user).length !== 0) {
     addUserToAsyncStorage(user, user.password);
     addOfflineUsers(user, payload.password);
