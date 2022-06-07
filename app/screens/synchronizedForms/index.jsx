@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-function PendingForm() {
+function SynchronizedForms() {
   return (
     <View>
-      <Text>PendingForm</Text>
+      <Text>SynchronizationForm</Text>
     </View>
   );
 }
 
-export default PendingForm;
+export default SynchronizedForms;

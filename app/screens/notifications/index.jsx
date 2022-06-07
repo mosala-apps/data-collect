@@ -7,7 +7,7 @@ import { setUser, notificationsHospital } from '../../store';
 import styleSheet from './index.style';
 
 
-function Notification() {
+function Notifications() {
   const [hospitalId, setHospitalId] = useState(null);
   const dispatch = useDispatch();
   const notifications = useSelector((state) => state.notification.notifications);
@@ -41,4 +41,4 @@ function Notification() {
   );
 }
 
-export default Notification;
+export default Notifications;

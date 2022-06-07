@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import variableStyle from '../../config/variable.style'
+import { StyleSheet } from 'react-native';
+import variableStyle from '../../config/variable.style';
 
 const styleSheet = StyleSheet.create({
   container: {
@@ -47,12 +47,11 @@ const styleSheet = StyleSheet.create({
     fontSize: 20,
   },
   containerHomeFormCard: {
-    marginTop: '7%',
-    marginHorizontal: '7%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexWrap: 'wrap',
+    marginHorizontal: '2%',
   },
+  messageStateForm: {
+    textAlign: 'center',
+    width: '100%',
+  }
 })
-export default styleSheet
+export default styleSheet;

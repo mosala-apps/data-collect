@@ -16,6 +16,7 @@ import FormSlice from './form/formSlice';
 import NotificationSlice from './notification/notificationSlice';
 import NotificationNotReadSlice from './notification/notificationNotReadSlice';
 import SetNotificationNotReadSlice from './notification/setNotificationNotRead';
+import HospitalSlice from './hospital/hospitalSlice';
 import AuthSlice from './auth/authSlice';
 import hospitalManagerNameSlice from './hospitalManagerName/hospitalManagerNameSlice';
 
@@ -30,6 +31,7 @@ const reducers = combineReducers({
   notification: NotificationSlice,
   notificationNotRead: NotificationNotReadSlice ,
   setNotificationNotRead:SetNotificationNotReadSlice,
+  hospital: HospitalSlice,
   hospitalManagerName: hospitalManagerNameSlice
 });
 
