@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
   settingsFormBody: {
     marginTop: '3%',
     padding: '10%',
-     width: '96%',
+    width: '96%',
   },
   settingsFormInput: {
     borderWidth: 0.5,
@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     flexDirection: 'row',
     justifyContent: 'center',
-    marginLeft: 50
+    marginLeft: 50,
   },
   settingsButtonText: {
     textAlign: 'center',
@@ -76,6 +76,6 @@ export const styles = StyleSheet.create({
   },
   settingsTextError: {
     color: 'red',
-    marginLeft:10,
+    marginLeft: 10,
   },
 });

@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export default function Draft() {
+function PendingForms() {
   return (
     <View>
-      <Text>DraftForm</Text>
+      <Text>PendingForm</Text>
     </View>
   );
 }
+
+export default PendingForms;
