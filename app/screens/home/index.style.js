@@ -48,15 +48,10 @@ const styleSheet = StyleSheet.create({
   },
   containerHomeFormCard: {
     marginHorizontal: '2%',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   messageStateForm: {
     textAlign: 'center',
     width: '100%',
-    fontSize: 18,
-    fontWeight: 'bold',
   }
 })
 export default styleSheet;

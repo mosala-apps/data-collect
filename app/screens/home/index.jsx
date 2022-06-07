@@ -79,7 +79,7 @@ function Home({ navigation }) {
     if (formsFiltered.length === 0) {
       return (
         <View>
-          <Text>
+          <Text style={styleSheet.messageStateForm}>
             Aucun formulaire ne correspond à votre recherche
           </Text>
         </View>
@@ -129,4 +129,11 @@ function Home({ navigation }) {
   );
 }
 
+Home.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
 export default Home;
+
