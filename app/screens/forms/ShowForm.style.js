@@ -11,7 +11,8 @@ const styleSheet = StyleSheet.create({
     padding: 20,
     display: 'flex',
     alignItems: 'center',
-    alignContent: 'flex-start',
+    alignContent: 'center',
+    justifyContent: 'space-between',
     height: 60,
     flexWrap: 'nowrap',
     flexDirection: 'row',
@@ -26,6 +27,7 @@ const styleSheet = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white',
   },
   headerFilterContainer: {
     marginLeft: 20,
@@ -49,6 +51,14 @@ const styleSheet = StyleSheet.create({
   textMuted: {
     fontSize: 12,
     color: variableStyle.textMuted,
+  },
+  filterDate: {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    padding: 5,
+    height: 30,
+    borderRadius: 5,
+    width: 100,
+    textAlign: 'center',
   }
 });
 export default styleSheet;
