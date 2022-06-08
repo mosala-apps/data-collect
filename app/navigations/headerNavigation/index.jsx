@@ -21,6 +21,7 @@ export default function HeaderNavigation() {
     setHospitalId(user.hospital.id);
   };
   useEffect(() => {
+    console.log('notifications', notifications);
     checkIsAuthenticatedUser();
     if (hospitalId) {
       dispatch(getNotificationNotRead({ id: hospitalId }));
@@ -56,7 +57,9 @@ export default function HeaderNavigation() {
                 style={styleSheet.color}
                 size={24}
               />
-              <Text style={styleSheet.notificationCount}>{notifications.length}</Text>
+              { notifications && notifications.length > 0 ?
+                <Text style={styleSheet.notificationCount}>{notifications.length}</Text>:<Text style={styleSheet.notificationCount}>0</Text>
+              }
             </View>
           </TouchableHighlight>
         </View>

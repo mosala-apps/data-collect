@@ -4,12 +4,12 @@ import { combineReducers } from 'redux';
 import {
   persistStore,
   persistReducer,
-  // FLUSH,
-  // REHYDRATE,
-  // PAUSE,
-  // PERSIST,
-  // PURGE,
-  // REGISTER,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
 } from 'redux-persist';
 
 import NotificationSlice from './notification/notificationSlice';
@@ -41,8 +41,7 @@ export const store = configureStore({
     // serializableCheck: {
     //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     // },
-    immutableCheck: false,
-    serializableCheck: false,
+    serializableCheck: false
   }),
 });
 export const persistor = persistStore(store);

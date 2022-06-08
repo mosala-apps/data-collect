@@ -14,8 +14,9 @@ const NotificationNotReadSlice = createSlice({
       state.isLoadingNotRead = true
     },
     [getNotificationNotRead.fulfilled]: (state, { payload }) => {
-      state.notificationNotReads = payload
-      state.isLoadingNotRead = false
+        state.notificationNotReads = payload
+        state.isLoadingNotRead = false
+      
     },
     [getNotificationNotRead.rejected]: (state, { payload }) => {
       state.notificationErrorNotRead = payload
