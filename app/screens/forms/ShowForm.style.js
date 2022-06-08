@@ -40,10 +40,15 @@ const styleSheet = StyleSheet.create({
   titleForm: {
     fontWeight: 'bold',
     fontSize: 20,
-    borderBottomWidth: 2,
-    borderBottomColor: variableStyle.secondaryColor,
+    borderBottomWidth: 1,
+    borderBottomColor: variableStyle.textMuted,
     paddingBottom: 5,
-    marginVertical: 10,
+    marginTop: 10,
+    marginBottom: 5,
+  },
+  textMuted: {
+    fontSize: 12,
+    color: variableStyle.textMuted,
   }
 });
 export default styleSheet;

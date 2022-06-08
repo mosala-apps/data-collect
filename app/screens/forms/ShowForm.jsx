@@ -8,6 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 import styleSheet from './ShowForm.style';
+import CompletedFormCard from '../../components/card/CompletedFormCard';
 
 export default function ShowForm({ route, navigation }) {
   const { id } = route.params;
@@ -50,9 +51,14 @@ export default function ShowForm({ route, navigation }) {
         </View>
       </View>
       <View style={styleSheet.bodyContainer}>
-        <View style={{display: 'flex', justifyContent: 'center'}}>
+        <View style={{display: 'flex', justifyContent: 'center', marginBottom: 20}}>
           <Text style={styleSheet.titleForm}>{ selectedForm.title }</Text>
-          <Text>{ JSON.stringify(selectedForm.completed_forms) }</Text>
+          <Text style={styleSheet.textMuted}>
+            Résultats : { selectedForm.completed_forms.length }
+          </Text>
+        </View>
+        <View>
+          { selectedForm.completed_forms.map(completedForm => <CompletedFormCard completedForm={completedForm} key={`completed-form-${completedForm.id}`} /> )}
         </View>
       </View>
     </SafeAreaView>
