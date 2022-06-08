@@ -5,7 +5,7 @@ import {
 import styleSheet from './createForm.style';
 import FormView from '../../components/form/formView';
 
-function CreatForm({ navigation }) {
+function CreateForm({ navigation }) {
   return (
     <SafeAreaView style={styleSheet.container}>
       <ScrollView>
@@ -16,4 +16,4 @@ function CreatForm({ navigation }) {
   );
 }
 
-export default CreatForm;
+export default CreateForm;

@@ -44,7 +44,7 @@ function FormView({ navigation }) {
       <View>
         {
             items.map((item, index) => (
-              <View style={styleSheet.containerForm} key={item.index}>
+              <View style={styleSheet.containerForm} key={item.key}>
                 {index === 0 ? (
                   <View style={styleSheet.containerFormStep}>
                     <Text style={styleSheet.containerFormStepTitle}>{item.name}</Text>
@@ -52,14 +52,15 @@ function FormView({ navigation }) {
                 ) : <Text />}
                 <View style={styleSheet.containerFormInput}>
                   <View style={styleSheet.containerFormInputLabel}>
-                    <Text style={styleSheet.containerFormInputLabelText}>Topical</Text>
+                    <Text style={styleSheet.containerFormInputLabelText} >Topical</Text>
                     <Text style={styleSheet.containerFormInputLabelIcon}>*</Text>
                   </View>
 
                   <TextInput
+                 
                     editable
                     style={styleSheet.containerFormInputComponent}
-                    value={0}
+                    value={''}
                     placeholder="Rechercher un formulaire"
                   />
                 </View>

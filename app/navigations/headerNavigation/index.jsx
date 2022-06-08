@@ -1,5 +1,6 @@
-import React from 'react';
-import { TouchableWithoutFeedback, View } from 'react-native';
+import React,{useState,useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { TouchableWithoutFeedback, View,Text } from 'react-native';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { setUser, getNotificationNotRead,setNotificationNotRead } from '../../store';
