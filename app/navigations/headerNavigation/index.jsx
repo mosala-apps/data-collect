@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableHighlight, View } from 'react-native';
+import { TouchableWithoutFeedback, View } from 'react-native';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import styleSheet from './index.style';
@@ -9,18 +9,18 @@ export default function HeaderNavigation() {
   return (
     <View style={styleSheet.header}>
       <View>
-        <TouchableHighlight
+        <TouchableWithoutFeedback
           onPress={() => navigation.toggleDrawer()}
           style={{ marginRight: '10%' }}
         >
           <View>
             <Feather size={24} name="menu" style={styleSheet.color} />
           </View>
-        </TouchableHighlight>
+        </TouchableWithoutFeedback>
       </View>
       <View style={styleSheet.headerNavigationRight}>
         <View style={{ marginRight: '15%' }}>
-          <TouchableHighlight
+          <TouchableWithoutFeedback
             onPress={() => navigation.navigate('Notifications')}
           >
             <View>
@@ -30,10 +30,10 @@ export default function HeaderNavigation() {
                 size={24}
               />
             </View>
-          </TouchableHighlight>
+          </TouchableWithoutFeedback>
         </View>
         <View>
-          <TouchableHighlight onPress={() => navigation.navigate('Settings')}>
+          <TouchableWithoutFeedback onPress={() => navigation.navigate('Settings')}>
             <View>
               <Ionicons
                 name="settings-outline"
@@ -42,7 +42,7 @@ export default function HeaderNavigation() {
                 color="black"
               />
             </View>
-          </TouchableHighlight>
+          </TouchableWithoutFeedback>
         </View>
       </View>
     </View>

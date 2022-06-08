@@ -9,7 +9,6 @@ import {
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import OnlineStatus from '../onlineStatus';
 import styleSheet from './index.style';
 import { authSelector, logout, setUser } from '../../store';
