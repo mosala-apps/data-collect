@@ -2,7 +2,8 @@ import React, { useMemo } from 'react'
 import PropTypes from 'prop-types';
 import styleSheet from './CompletedFormCard.style';
 import { View, Text, TouchableNativeFeedback } from 'react-native';
-import { Feather } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons';
+import { format } from 'date-fns';
 
 function CompletedFormCard ({completedForm, showEditAction}) {
   const createdManagerNameAvatar = useMemo(() => {
@@ -17,7 +18,9 @@ function CompletedFormCard ({completedForm, showEditAction}) {
       </View>
       <View style={{flex: 2, textAlign: 'center'}}>
         <Text style={{textAlign: 'left', textTransform: 'capitalize'}}>{completedForm.created_manager_name} {completedForm.created_manager_first_name}</Text>
-        <Text style={{textAlign: 'left', color: '#aaa'}}>{completedForm.last_update}</Text>
+        <Text style={{textAlign: 'left', color: '#aaa'}}>
+          {format(new Date(completedForm.last_update), 'dd/MM/yyyy')}
+        </Text>
       </View>
       <View style={styleSheet.actions}>
         <TouchableNativeFeedback
