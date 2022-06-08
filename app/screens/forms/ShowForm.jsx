@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import {
-  Platform, Text, View, TouchableNativeFeedback,
+  Platform, Text, View, TouchableNativeFeedback, RefreshControl, FlatList,
 } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { TextInput } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 import styleSheet from './ShowForm.style';
 import CompletedFormCard from '../../components/card/CompletedFormCard';
+import variableStyle from '../../config/variable.style';
+import { getHospital } from '../../store';
 
 export default function ShowForm({ route, navigation }) {
   const { id } = route.params;
@@ -16,17 +18,32 @@ export default function ShowForm({ route, navigation }) {
    * States
    */
   const [dateFilter, setDateFilter] = useState();
+  const [refreshing, setRefreshing] = React.useState(false);
 
   /**
    * Store
    */
+  const dispatch = useDispatch();
   const hospital = useSelector((state) => state.hospital.hospital);
   const selectedForm = hospital.forms.find((form) => form.id === id);
+  const isLoading = useSelector((state) => state.hospital.isLoading);
+
 
   /**
-   * Hooks
+   * Actions
    */
+  const onRefresh = () => {
+    dispatch(getHospital({ id: hospital.id }));
+    setRefreshing(isLoading);
+  };
 
+  const flatListRenderedItem = ({ item }) => (
+    <CompletedFormCard
+      completedForm={item}
+      key={`completed-form-${item.id}`}
+      showEditAction={false}
+    />
+  );
 
   return (
     <SafeAreaView style={styleSheet.container}>
@@ -58,7 +75,19 @@ export default function ShowForm({ route, navigation }) {
           </Text>
         </View>
         <View>
-          { selectedForm.completed_forms.map(completedForm => <CompletedFormCard completedForm={completedForm} key={`completed-form-${completedForm.id}`} /> )}
+          <FlatList
+            style={{backgroundColor: 'white'}}
+            numColumns={1}
+            data={selectedForm.completed_forms}
+            renderItem={flatListRenderedItem}
+            refreshControl={(
+              <RefreshControl
+                colors={[variableStyle.secondaryColor, variableStyle.tertiaryColor]}
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+              />
+            )}
+          />
         </View>
       </View>
     </SafeAreaView>

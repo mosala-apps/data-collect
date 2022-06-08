@@ -4,7 +4,7 @@ import styleSheet from './CompletedFormCard.style';
 import { View, Text, TouchableNativeFeedback } from 'react-native';
 import { Feather } from '@expo/vector-icons'; 
 
-function CompletedFormCard ({completedForm}) {
+function CompletedFormCard ({completedForm, showEditAction}) {
   const createdManagerNameAvatar = useMemo(() => {
     return completedForm.created_manager_name ? completedForm.created_manager_name[0] : '-'
   }, [completedForm])
@@ -16,17 +16,10 @@ function CompletedFormCard ({completedForm}) {
         </View>
       </View>
       <View style={{flex: 2, textAlign: 'center'}}>
-        <Text style={{textAlign: 'center'}}>{completedForm.created_manager_name} {completedForm.created_manager_first_name}</Text>
-        <Text style={{textAlign: 'center'}}>{completedForm.last_update}</Text>
+        <Text style={{textAlign: 'left', textTransform: 'capitalize'}}>{completedForm.created_manager_name} {completedForm.created_manager_first_name}</Text>
+        <Text style={{textAlign: 'left', color: '#aaa'}}>{completedForm.last_update}</Text>
       </View>
       <View style={styleSheet.actions}>
-        <TouchableNativeFeedback
-          background={Platform.OS === 'android' ? TouchableNativeFeedback.SelectableBackground() : ''}
-        >
-          <View style={{...styleSheet.actionIconView, ...styleSheet.actionIconEditView}}>
-            <Feather name="edit-2" size={15} color="white" />
-          </View>
-        </TouchableNativeFeedback>
         <TouchableNativeFeedback
           background={Platform.OS === 'android' ? TouchableNativeFeedback.SelectableBackground() : ''}
         >
@@ -34,13 +27,28 @@ function CompletedFormCard ({completedForm}) {
             <Feather name="eye" size={15} color="white" />
           </View>
         </TouchableNativeFeedback>
+        {
+          showEditAction && 
+          <TouchableNativeFeedback
+            background={Platform.OS === 'android' ? TouchableNativeFeedback.SelectableBackground() : ''}
+          >
+            <View style={{...styleSheet.actionIconView, ...styleSheet.actionIconEditView}}>
+              <Feather name="edit-2" size={15} color="white" />
+            </View>
+          </TouchableNativeFeedback>
+        }
       </View>
     </View>
   )
 }
 
+CompletedFormCard.defaultProps = {
+  showEditAction: true
+}
+
 CompletedFormCard.propTypes = {
   completedForm: PropTypes.object.isRequired,
+  showEditAction: PropTypes.bool,
 };
 
 export default CompletedFormCard;

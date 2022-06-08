@@ -48,7 +48,7 @@ function Home({ navigation }) {
 
   const formsFiltered = useMemo(() => {
     if (!textInput) {
-      return hospital.forms;
+      return hospital.forms || [];
     }
     const regexSearch = new RegExp(textInput, 'i');
     if (hospital && hospital.forms) {

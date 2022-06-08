@@ -7,10 +7,10 @@ const styleSheet = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     padding: 20,
-    marginBottom: 20,
     shadowColor: 'rgba(0,0,0, .2)',
     borderWidth: 1,
-    borderColor: 'rgba(0,0,0, 0)'
+    borderColor: 'rgba(0,0,0, 0)',
+    borderRadius: 5,
   },
   avatar: {
     borderRadius: 15,
