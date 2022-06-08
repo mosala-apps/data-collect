@@ -59,6 +59,12 @@ const styleSheet = StyleSheet.create({
     borderRadius: 5,
     width: 100,
     textAlign: 'center',
+  },
+  fab: {
+    position: 'fixed',
+    margin: 16,
+    right: 0,
+    bottom: 0,
   }
 });
 export default styleSheet;

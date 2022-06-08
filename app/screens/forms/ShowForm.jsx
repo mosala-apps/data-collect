@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Platform, Text, View, TouchableNativeFeedback, RefreshControl, FlatList, TouchableOpacity,
 } from 'react-native';
@@ -14,7 +14,7 @@ import styleSheet from './ShowForm.style';
 import CompletedFormCard from '../../components/card/CompletedFormCard';
 import variableStyle from '../../config/variable.style';
 import { getHospital } from '../../store';
-import { useMemo } from 'react';
+import { Fab } from 'native-base';
 export default function ShowForm({ route, navigation }) {
   const { id } = route.params;
   /**
@@ -99,6 +99,10 @@ export default function ShowForm({ route, navigation }) {
     setStartDate(null);
   };
 
+  const handleClickOnNewForm = () => {
+    console.log('handleClickOnNewForm');
+  }
+
   return (
     <SafeAreaView style={styleSheet.container}>
       <View style={styleSheet.headerContainer}>
@@ -173,6 +177,17 @@ export default function ShowForm({ route, navigation }) {
           />
         </View>
       </View>
+
+      <Fab
+        renderInPortal={false}
+        colorScheme='blue'
+        shadow={2}
+        placement="bottom-right"
+        size="sm"
+        label="Nouvelle soumission"
+        icon={<AntDesign name="plus" size={18} color="white" />}
+        onPress={handleClickOnNewForm}
+      />
     </SafeAreaView>
   );
 }
