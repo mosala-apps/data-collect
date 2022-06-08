@@ -12,6 +12,9 @@ function FormCard({ form, navigation }) {
 
   const formRecurrenceName = useMemo(
     () => {
+      if (!form || !form.form_recurrence) {
+        return '-'
+      }
       switch (form.form_recurrence.name) {
         case 'jour':
           return 'Journalier';
