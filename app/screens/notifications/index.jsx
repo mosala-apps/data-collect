@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Card,Paragraph } from 'react-native-paper';
-import { Text, View } from 'react-native';
+import { Text, View,ScrollView } from 'react-native';
 import { setUser, notificationsHospital } from '../../store';
 import styleSheet from './index.style';
 
@@ -25,19 +25,21 @@ function Notifications() {
     }
   }, [hospitalId]);
   return (
-    <View>
-      {
-        notifications.length > 0 ?
-        notifications.map((notification) => (
-          <Card style={ styleSheet.container} key={notification.id}>
-          <Card.Title  title={notification.title} />
-          <Card.Content>
-            <Paragraph>{notification.message}</Paragraph>
-          </Card.Content>
-        </Card>
-        )):<Text>Vous n'avez aucune notification</Text>
-      }
-    </View>
+    <ScrollView>
+      <View>
+        {
+          notifications.length > 0 ?
+          notifications.map((notification) => (
+            <Card style={ styleSheet.container} key={notification.id}>
+            <Card.Title  title={notification.title} />
+            <Card.Content>
+              <Paragraph>{notification.message}</Paragraph>
+            </Card.Content>
+          </Card>
+          )):<Text>Vous n'avez aucune notification</Text>
+        }
+      </View>
+    </ScrollView>
   );
 }
 
