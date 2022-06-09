@@ -112,7 +112,7 @@ export default function ShowForm({ route, navigation }) {
             background={Platform.OS === 'android' ? TouchableNativeFeedback.SelectableBackground() : ''}
           >
             <View style={styleSheet.headerIconView}>
-              <Ionicons name="arrow-back" size={20} color="#6384EA" />
+              <Ionicons name="arrow-back" size={20} color="white" />
             </View>
           </TouchableNativeFeedback>
         </View>
