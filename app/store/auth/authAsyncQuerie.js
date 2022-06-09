@@ -26,14 +26,14 @@ export const addUserToAsyncStorage = async (user, password) => {
 
 export const onlineLogin = async (payload) => {
   const user = await (await apiURL.post('/auth/login', payload)).data;
-
   if (Object.keys(user).length !== 0) {
     addUserToAsyncStorage(user, payload.password);
     addOfflineUsers(user, payload.password);
     return user;
   }
-  return ToastAndroid.show('Echec', ToastAndroid.SHORT);
+  return ToastAndroid.show('Échec', ToastAndroid.SHORT);
 };
+
 export const offlineLogin = async (payload) => {
   const offlineUsers = JSON.parse(await AsyncStorage.getItem('offlineUsers'));
   const email = payload.email.trim();

@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Feather } from '@expo/vector-icons';
 import {
   SafeAreaView, Text, View, TextInput, FlatList, RefreshControl, ActivityIndicator,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { setUser, getHospital } from '../../store';
+import { getHospital } from '../../store';
 import HeaderNavigation from '../../navigations/headerNavigation';
 import styleSheet from './index.style';
 import FormCard from '../../components/card/FormCard';
@@ -17,7 +16,6 @@ function Home({ navigation }) {
    * States
    */
   const [textInput, setTextInput] = useState('');
-  const [hospitalId, setHospitalId] = useState(null);
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = React.useState(false);
 
@@ -31,20 +29,12 @@ function Home({ navigation }) {
   /**
    * hooks
    */
-  const checkIsAuthenticatedUser = async () => {
-    if (Object.keys(user).length === 0) {
-      dispatch(setUser(JSON.parse(await AsyncStorage.getItem('user'))));
-    }
-    setHospitalId(user.hospital.id);
-  };
 
   useEffect(() => {
-    checkIsAuthenticatedUser();
-
-    if (hospitalId) {
-      dispatch(getHospital({ id: hospitalId }));
+    if (user && user.hospital && user.hospital.id) {
+      dispatch(getHospital({ id: user.hospital.id }));
     }
-  }, [hospitalId]);
+  }, [user]);
 
   const formsFiltered = useMemo(() => {
     if (!textInput) {
@@ -55,10 +45,10 @@ function Home({ navigation }) {
       return hospital.forms.filter((form) => form.title.match(regexSearch));
     }
     return [];
-  }, [textInput]);
+  }, [textInput, hospital]);
 
   const onRefresh = () => {
-    dispatch(getHospital({ id: hospitalId }));
+    dispatch(getHospital({ id: user.hospital.id }));
     setRefreshing(isLoading);
   };
   const renderForms = ({ item }) => (

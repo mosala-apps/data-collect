@@ -6,11 +6,14 @@ import { Shadow } from 'react-native-shadow-2';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNetInfo } from '@react-native-community/netinfo';
+import { Button } from 'react-native-paper';
+
 import { authSelector, login } from '../../../store';
 import { styles } from './signin.style';
 import logo from '../../../../assets/img/logo_parteners.png';
 import InputField from '../../../components/inputField/InputField';
 import OnlineStatus from '../../../components/onlineStatus';
+import variableStyle from '../../../config/variable.style';
 
 function Signin({ navigation }) {
   const { isConnected } = useNetInfo();
@@ -94,16 +97,20 @@ function Signin({ navigation }) {
               labelTextError="Le Mot de passe est requis."
             />
           </View>
-          <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-            <View
-              style={styles.signinFormButton}
+          <View
+            style={styles.signinFormButton}
+          >
+            <Button
+              loading={isLoading}
+              disabled={isLoading}
+              color={variableStyle.secondaryColor}
+              labelStyle={{color: 'white'}}
+              mode="contained"
+              onPress={handleSubmit(onSubmit)}
             >
-              <Text style={styles.signinButtonText}>
-                {isLoading ? 'En cours' : 'Connexion'}
-              </Text>
-              {isLoading && <ActivityIndicator />}
-            </View>
-          </TouchableOpacity>
+              Connexion
+            </Button>
+          </View>
         </View>
       </Shadow>
 

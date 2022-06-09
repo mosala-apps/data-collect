@@ -6,25 +6,6 @@ const styleSheet = StyleSheet.create({
     flex: 1,
     marginHorizontal: '7%',
   },
-  containerArrowGoBack: {},
-  containerHeader: {
-    flex: 1,
-    justifyContent: 'center',
-    borderWidth: 0.5,
-    borderColor: variableStyle.secondaryColor,
-    height: 100,
-    backgroundColor: variableStyle.secondaryColor,
-    paddingHorizontal: '3%',
-  },
-  containerHeaderTitle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  containerHeaderHospital: {
-    textAlign: 'right',
-    color: 'white',
-  },
   containerForm: {
     backgroundColor: 'white',
     flex: 1,

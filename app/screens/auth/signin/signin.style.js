@@ -73,19 +73,6 @@ export const styles = StyleSheet.create({
   },
   signinFormButton: {
     marginTop: 20,
-    width: '100%',
-    height: 31,
-    backgroundColor: variableStyle.secondaryColor,
-    borderRadius: 5,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  signinButtonText: {
-    textAlign: 'center',
-    color: '#ffff',
-    fontWeight: 'bold',
-    marginTop: 3,
-    textTransform: 'uppercase',
   },
   signinAlertError: {
     width: '90%',

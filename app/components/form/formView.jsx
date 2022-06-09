@@ -32,15 +32,6 @@ function FormView({ navigation }) {
   });
   return (
     <View style={styleSheet.container}>
-      <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-        <View style={styleSheet.containerArrowGoBack}>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </View>
-      </TouchableWithoutFeedback>
-      <View style={styleSheet.containerHeader}>
-        <Text style={styleSheet.containerHeaderTitle}>FormView</Text>
-        <Text style={styleSheet.containerHeaderHospital}>Hopital</Text>
-      </View>
       <View>
         {
             items.map((item, index) => (

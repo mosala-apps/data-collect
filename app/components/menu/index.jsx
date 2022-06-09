@@ -32,11 +32,11 @@ export default function Menu({ navigation }) {
   };
   useEffect(() => {
     checkIsAuthenticatedUser();
-  }, [hospitalName, userName]);
+  }, [user, isAuthenticated]);
   return (
     <View style={styleSheet.containerMenu}>
       <View style={styleSheet.containerMenuTitle}>
-        <Text>{hospitalName}</Text>
+        <Text style={{'textTransform': 'uppercase'}}>{hospitalName}</Text>
         <OnlineStatus />
       </View>
       <View style={styleSheet.lineStyleBorder} />
@@ -49,7 +49,7 @@ export default function Menu({ navigation }) {
           />
         </View>
         <View style={styleSheet.containerMenuIconText}>
-          <Text>{userName}</Text>
+          <Text style={{'textTransform': 'capitalize'}}>{userName}</Text>
         </View>
       </View>
       <TouchableOpacity

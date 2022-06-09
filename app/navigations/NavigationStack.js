@@ -121,7 +121,6 @@ function NavigationStack() {
           name="CreateForm"
           component={CreateFormScreen}
           options={() => ({
-            title: 'Création du formulaire',
             headerShown: false,
           })}
         />
