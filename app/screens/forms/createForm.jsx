@@ -2,7 +2,7 @@ import React from 'react';
 import {
   SafeAreaView, ScrollView, Text, View,
 } from 'react-native';
-import styleSheet from './createForm.style';
+import styleSheet from './CreateForm.style';
 import FormView from '../../components/form/formView';
 
 function CreateForm({ navigation }) {

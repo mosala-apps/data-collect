@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Card,Paragraph } from 'react-native-paper';
 import { Text, View,ScrollView } from 'react-native';
 import { setUser, notificationsHospital } from '../../store';
-import styleSheet from './index.style';
+import styleSheet from './Notifications.style';
 
 
 function Notifications() {

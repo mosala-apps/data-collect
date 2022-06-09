@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeScreen from '../screens/home/index';
-import NotificationsScreen from '../screens/notifications';
+import NotificationsScreen from '../screens/notifications/Notifications';
 import SettingScreen from '../screens/setting';
 import SynchronizedFormsScreen from '../screens/synchronizedForms';
 import DraftsScreen from '../screens/drafts';
@@ -10,7 +10,7 @@ import ConflictsHandlingScreen from '../screens/conflictsHandling';
 import PendingFormsScreen from '../screens/pendingForms';
 import FormShowScreen from '../screens/forms/ShowForm';
 import SigninScreen from '../screens/auth/signin';
-import CreateFormScreen from '../screens/forms/createForm';
+import CreateFormScreen from '../screens/forms/CreateForm';
 
 const Stack = createNativeStackNavigator();
 const headerStyleContainer = {
