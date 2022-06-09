@@ -4,7 +4,6 @@ import variableStyle from '../../config/variable.style'
 const styleSheet = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: '7%',
   },
   containerForm: {
     backgroundColor: 'white',

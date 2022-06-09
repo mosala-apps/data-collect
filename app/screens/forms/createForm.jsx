@@ -5,7 +5,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { IconButton } from 'react-native-paper';
 import styleSheet from './CreateForm.style';
-import FormView from '../../components/form/formView';
+import FormView from '../../components/form/FormView';
 import { useSelector } from 'react-redux';
 
 function CreateForm({ route, navigation }) {
@@ -35,6 +35,7 @@ function CreateForm({ route, navigation }) {
       <View style={styleSheet.bodyContainer}>
         <ScrollView>
           <FormView
+            form={selectedForm}
             navigation={navigation}
           />
         </ScrollView>
