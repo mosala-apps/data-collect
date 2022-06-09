@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Text, TextInput, TouchableWithoutFeedback, View,
 } from 'react-native';
@@ -11,21 +11,14 @@ import variableStyle from '../../config/variable.style';
 import { hospitalManagerNamesSelector } from '../../store';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import FormFieldInput from './FormFieldInput';
+import { useMemo } from 'react';
 function FormView({ form }) {
-  const items = [
-    {
-      key: 1,
-      name: 'Page 1',
-    },
-    {
-      key: 2,
-      name: 'Page 2',
-    },
-    {
-      key: 3,
-      name: 'Page 3',
-    },
-  ];
+
+  /**
+   * State
+   */
+  const [currentStep, setCurrentStep] = useState(1)
 
   /**
    * Store
@@ -44,6 +37,11 @@ function FormView({ form }) {
       password: '',
     },
   });
+
+  /**
+   * Actions
+   */
+  const submitStep = useMemo(() => currentStep === form.form_steps.length + 1, [currentStep, form])
 
 
   return (
@@ -72,34 +70,45 @@ function FormView({ form }) {
         </Card.Content>
       </Card>
 
-      <View>
-        {
-          items.map((item, index) => (
-            <View style={styleSheet.containerForm} key={item.key}>
-              {index === 0 ? (
-                <View style={styleSheet.containerFormStep}>
-                  <Text style={styleSheet.containerFormStepTitle}>{item.name}</Text>
-                </View>
-              ) : <Text />}
-              <View style={styleSheet.containerFormInput}>
-                <View style={styleSheet.containerFormInputLabel}>
-                  <Text style={styleSheet.containerFormInputLabelText} >Topical</Text>
-                  <Text style={styleSheet.containerFormInputLabelIcon}>*</Text>
-                </View>
+      <View style={{marginVertical: 10}}>
+        <Card style={styleSheet.stepCard}>
+          <Card.Content>
+            { form.form_steps && form.form_steps.length > 0 &&
+              (submitStep 
+                  ? <Text style={styleSheet.stepCardText}>Confirmation</Text>
+                  : <Text style={styleSheet.stepCardText}>{form.form_steps[currentStep - 1].title}</Text>
+              )
+            }
+            {
+              (!form.form_steps || form.form_steps.length == 0) &&
+              <Text>Aucune étape n'a encore été configurée sur ce formulaire</Text> 
+            }
+          </Card.Content>
+        </Card>
 
-                <TextInput
-                
-                  editable
-                  style={styleSheet.containerFormInputComponent}
-                  value={''}
-                  placeholder="Rechercher un formulaire"
-                />
-              </View>
-
-            </View>
-          ))
-        }
+        <View style={styleSheet.formFieldsView}>
+          { !submitStep && form.form_steps[currentStep - 1].form_fields.length > 0 &&
+              form.form_steps[currentStep - 1].form_fields.map((field, index) => (
+                <Card style={ index === 0 ? {...styleSheet.formFieldCard, ...styleSheet.formFieldCardFirst} : styleSheet.formFieldCard}>
+                  <Card.Content>
+                    <FormFieldInput
+                      field={field}
+                      key={'form-field-' + field.id}
+                    />
+                  </Card.Content>
+                </Card>
+              ))
+          }
+          { !submitStep && form.form_steps[currentStep - 1].form_fields.length === 0 &&
+            <Card style={{...styleSheet.formFieldCard, ...styleSheet.formFieldCardFirst}}>
+              <Card.Content>
+                <Text>Aucun champ créer sur cette étape pour l'instant</Text>
+              </Card.Content>
+            </Card>
+          }
+        </View>
       </View>
+      
       <View style={styleSheet.containerButton}>
         <Button
           disabled
