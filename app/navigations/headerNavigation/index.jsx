@@ -20,7 +20,6 @@ export default function HeaderNavigation() {
     setHospitalId(user.hospital.id);
   };
   useEffect(() => {
-    console.log('notifications', notifications);
     checkIsAuthenticatedUser();
     if (hospitalId) {
       dispatch(getNotificationNotRead({ id: hospitalId }));

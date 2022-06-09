@@ -17,7 +17,7 @@ const HospitalSlice = createSlice({
       state.hospital = payload;
       state.isLoading = false;
     },
-    [getHospital.pending]: (state, { payload }) => {
+    [getHospital.rejected]: (state, { payload }) => {
       state.hospitalError = payload;
       state.isLoading = false;
     },
