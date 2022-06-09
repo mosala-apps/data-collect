@@ -2,6 +2,7 @@ export default {
   primaryColor: '#FBFBFF',
   secondaryColor: '#6384EA',
   tertiaryColor: '#14244F',
+  fourthColor: '#F4F6FC',
   textMuted: '#aaa',
   fade: '#eee',
   success: '#00b065',

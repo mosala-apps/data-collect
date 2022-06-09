@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React,{useState,useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TouchableHighlight, View,Text } from 'react-native';
+import { TouchableWithoutFeedback, View,Text } from 'react-native';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { setUser, getNotificationNotRead,setNotificationNotRead } from '../../store';
@@ -37,18 +36,18 @@ export default function HeaderNavigation() {
   return (
     <View style={styleSheet.header}>
       <View>
-        <TouchableHighlight
+        <TouchableWithoutFeedback
           onPress={() => navigation.toggleDrawer()}
           style={{ marginRight: '10%' }}
         >
           <View>
             <Feather size={24} name="menu" style={styleSheet.color} />
           </View>
-        </TouchableHighlight>
+        </TouchableWithoutFeedback>
       </View>
       <View style={styleSheet.headerNavigationRight}>
         <View style={{ marginRight: '15%' }}>
-          <TouchableHighlight
+          <TouchableWithoutFeedback
             onPress={() => goToPageNotification()}
           >
             <View>
@@ -61,10 +60,10 @@ export default function HeaderNavigation() {
                 <Text style={styleSheet.notificationCount}>{notifications.length}</Text>:<Text style={styleSheet.notificationCount}>0</Text>
               }
             </View>
-          </TouchableHighlight>
+          </TouchableWithoutFeedback>
         </View>
         <View>
-          <TouchableHighlight onPress={() => navigation.navigate('Settings')}>
+          <TouchableWithoutFeedback onPress={() => navigation.navigate('Settings')}>
             <View>
               <Ionicons
                 name="settings-outline"
@@ -73,7 +72,7 @@ export default function HeaderNavigation() {
                 color="black"
               />
             </View>
-          </TouchableHighlight>
+          </TouchableWithoutFeedback>
         </View>
       </View>
     </View>
