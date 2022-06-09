@@ -42,8 +42,9 @@ export const styles = StyleSheet.create({
   },
   settingsFormBody: {
     marginTop: '3%',
-    padding: '10%',
-    width: '96%',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    width: '100%',
   },
   settingsFormInput: {
     borderWidth: 0.5,
@@ -59,20 +60,6 @@ export const styles = StyleSheet.create({
   },
   settingsFormButton: {
     marginTop: 20,
-    width: '50%',
-    height: 31,
-    backgroundColor: variableStyle.secondaryColor,
-    borderRadius: 5,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginLeft: 50,
-  },
-  settingsButtonText: {
-    textAlign: 'center',
-    color: '#ffff',
-    fontWeight: 'bold',
-    marginTop: 3,
-    textTransform: 'uppercase',
   },
   settingsTextError: {
     color: 'red',
