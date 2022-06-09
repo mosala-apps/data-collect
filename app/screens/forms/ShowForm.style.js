@@ -1,43 +1,17 @@
 import { StyleSheet } from 'react-native';
 import variableStyle from '../../config/variable.style';
+import partials from '../../config/partials.style'
 
 const styleSheet = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: variableStyle.secondaryColor,
-  },
+  container: partials.container,
   headerContainer: {
-    backgroundColor: variableStyle.secondaryColor,
-    padding: 20,
-    display: 'flex',
-    alignItems: 'center',
-    alignContent: 'center',
+    ...partials.headerContainer,
     justifyContent: 'space-between',
-    height: 60,
-    flexWrap: 'nowrap',
-    flexDirection: 'row',
-  },
-  headerIconContainer: {
-    width: 20,
-  },
-  headerIconView: {
-    borderRadius: 15,
-    width: 30,
-    height: 30,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   headerFilterContainer: {
     marginLeft: 20,
   },
-  bodyContainer: {
-    backgroundColor: variableStyle.primaryColor,
-    flex: 1,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    padding: 20,
-  },
+  bodyContainer: partials.bodyContainer,
   titleForm: {
     fontWeight: 'bold',
     fontSize: 20,

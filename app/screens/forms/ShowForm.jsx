@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { format } from 'date-fns';
 import { AntDesign, Feather } from '@expo/vector-icons'; 
+import { IconButton } from 'react-native-paper';
 
 import styleSheet from './ShowForm.style';
 import CompletedFormCard from '../../components/card/CompletedFormCard';
@@ -16,7 +17,7 @@ import variableStyle from '../../config/variable.style';
 import { getHospital } from '../../store';
 import { Fab } from 'native-base';
 export default function ShowForm({ route, navigation }) {
-  const { id } = route.params;
+  const currentFormId = route.params.id;
   /**
    * States
    */
@@ -31,7 +32,7 @@ export default function ShowForm({ route, navigation }) {
    */
   const dispatch = useDispatch();
   const hospital = useSelector((state) => state.hospital.hospital);
-  const selectedForm = hospital.forms.find((form) => form.id === id);
+  const selectedForm = hospital.forms.find((form) => form.id === currentFormId);
   const isLoading = useSelector((state) => state.hospital.isLoading);
 
   /**
@@ -100,22 +101,21 @@ export default function ShowForm({ route, navigation }) {
   };
 
   const handleClickOnNewForm = () => {
-    navigation.navigate('CreateForm');
+    navigation.navigate('CreateForm', { id: currentFormId });
   }
 
   return (
     <SafeAreaView style={styleSheet.container}>
       <View style={styleSheet.headerContainer}>
-        <View style={styleSheet.headerIconContainer}>
-          <TouchableNativeFeedback
+        <View>
+          <IconButton
+            icon="arrow-left"
+            color="white"
+            size={20}
             onPress={() => navigation.navigate('Home')}
-            background={Platform.OS === 'android' ? TouchableNativeFeedback.SelectableBackground() : ''}
-          >
-            <View style={styleSheet.headerIconView}>
-              <Ionicons name="arrow-back" size={20} color="white" />
-            </View>
-          </TouchableNativeFeedback>
+          />
         </View>
+
         <View style={styleSheet.headerFilterContainer}>
           <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
             <TouchableOpacity onPress={toggleStartDatePicker}>
