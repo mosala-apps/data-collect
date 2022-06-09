@@ -10,7 +10,7 @@ import ConflictsHandlingScreen from '../screens/conflictsHandling';
 import PendingFormsScreen from '../screens/pendingForms';
 import FormShowScreen from '../screens/forms/ShowForm';
 import SigninScreen from '../screens/auth/signin';
-import CreatFormScreen from '../screens/forms/createForm';
+import CreateFormScreen from '../screens/forms/createForm';
 
 const Stack = createNativeStackNavigator();
 const headerStyleContainer = {
@@ -117,8 +117,8 @@ function NavigationStack() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="CreatForm"
-          component={CreatFormScreen}
+          name="CreateForm"
+          component={CreateFormScreen}
           options={() => ({
             title: 'Création du formulaire',
             headerShown: false,

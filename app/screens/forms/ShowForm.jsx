@@ -100,7 +100,7 @@ export default function ShowForm({ route, navigation }) {
   };
 
   const handleClickOnNewForm = () => {
-    navigation.navigate('CreatForm');
+    navigation.navigate('CreateForm');
   }
 
   return (
