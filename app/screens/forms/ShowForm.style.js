@@ -52,12 +52,13 @@ const styleSheet = StyleSheet.create({
     color: variableStyle.textMuted,
   },
   filterDate: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: 'white',
     padding: 5,
     height: 30,
     borderRadius: 5,
     width: 100,
     textAlign: 'center',
+    color: 'black',
   },
   fab: {
     position: 'fixed',

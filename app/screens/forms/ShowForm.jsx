@@ -85,13 +85,13 @@ export default function ShowForm({ route, navigation }) {
   };
 
   const handleConfirmStartDate = (date) => {
-    setStartDate(date);
     toggleStartDatePicker();
+    setStartDate(date);
   };
 
   const handleConfirmEndDate = (date) => {
-    setEndDate(date);
     toggleEndDatePicker();
+    setEndDate(date);
   };
 
   const clearFilter = () => {
