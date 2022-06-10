@@ -25,7 +25,7 @@ function CreateForm({ route, navigation }) {
             icon="arrow-left"
             color="white"
             size={20}
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('ShowForm', { id: currentFormId })}
           />
         </View>
         <View>

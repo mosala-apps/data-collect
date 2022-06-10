@@ -19,6 +19,12 @@ function FormView({ form }) {
    * State
    */
   const [currentStep, setCurrentStep] = useState(1)
+  const [maxStepReached, setMaxStepReached] = useState(1)
+  const [completedForm, setCompletedForm] = useState(
+    {
+      completed_form_fields: {}
+    }
+  )
 
   /**
    * Store
@@ -42,6 +48,53 @@ function FormView({ form }) {
    * Actions
    */
   const submitStep = useMemo(() => currentStep === form.form_steps.length + 1, [currentStep, form])
+
+  const handleGotoPreviousStep = () => {
+    if (currentStep - 1 >= 1 && currentStep === maxStepReached) {
+      setCurrentStep(currentStep - 1)
+    } else {
+      if (currentStep - 1 >= 1) {
+        setCurrentStep(currentStep - 1)
+      }
+      // this.$refs.form.validate().then(success => {
+      //   if (success) {
+      //     if (this.currentStep - 1 >= 1) {
+      //       this.currentStep--
+      //     }
+      //   } else {
+      //     this.showWarningErrorOnForm()
+      //   }
+      // })
+    }
+  }
+
+  const handleGotoNextStep = () => {
+    console.log('handleGotoNextStep')
+    if (currentStep + 1 <= form.form_steps.length + 1) {
+      console.log('handleGotoNextStep')
+      setCurrentStep(currentStep + 1)
+    }
+    // this.$refs.form.validate().then(success => {
+    //   if (success) {
+    //     if (this.currentStep + 1 <= this.targetForm.form_steps.length + 1) {
+    //       this.currentStep++
+    //     }
+    //   } else {
+    //     this.showWarningErrorOnForm()
+    //   }
+    // })
+  }
+
+  const handleCompleteForm = () => {}
+
+  const handleFormFieldChange = (formFieldId, value) => {
+    completedForm.completed_form_fields[formFieldId] = value
+    setCompletedForm(completedForm)
+  }
+  const handleLastUpdateChange = (value) => {
+    completedForm.last_update = value
+    setCompletedForm(completedForm)
+  }
 
 
   return (
@@ -89,11 +142,20 @@ function FormView({ form }) {
         <View style={styleSheet.formFieldsView}>
           { !submitStep && form.form_steps[currentStep - 1].form_fields.length > 0 &&
               form.form_steps[currentStep - 1].form_fields.map((field, index) => (
-                <Card style={ index === 0 ? {...styleSheet.formFieldCard, ...styleSheet.formFieldCardFirst} : styleSheet.formFieldCard}>
+                <Card
+                  style={ index === 0 ? {...styleSheet.formFieldCard, ...styleSheet.formFieldCardFirst} : styleSheet.formFieldCard}
+                  key={'form-field-' + field.id}
+                >
                   <Card.Content>
                     <FormFieldInput
-                      field={field}
-                      key={'form-field-' + field.id}
+                      id={field.form_field_type.id}
+                      type={field.form_field_type.name}
+                      label={field.name}
+                      rules={field.rules}
+                      value={completedForm.completed_form_fields[field.id]}
+                      defaultValue={field.default_value}
+                      placeholder={`Entrer ${field.name}`}
+                      onInput={(value) => handleFormFieldChange(field.id, value)}
                     />
                   </Card.Content>
                 </Card>
@@ -102,31 +164,63 @@ function FormView({ form }) {
           { !submitStep && form.form_steps[currentStep - 1].form_fields.length === 0 &&
             <Card style={{...styleSheet.formFieldCard, ...styleSheet.formFieldCardFirst}}>
               <Card.Content>
-                <Text>Aucun champ créer sur cette étape pour l'instant</Text>
+                <Text style={{ textAlign: 'center'}}>Aucun champ créé sur cette étape pour l'instant</Text>
+              </Card.Content>
+            </Card>
+          }
+          {
+            submitStep &&
+            <Card style={{...styleSheet.formFieldCard, ...styleSheet.formFieldCardFirst}}>
+              <Card.Content>
+                <FormFieldInput
+                  value={completedForm.last_update}
+                  type='date'
+                  label='Sélectionnez la date'
+                  rules='required'
+                  placeholder='Veuillez choisir une date'
+                  onInput={(value) => handleLastUpdateChange(value)}
+                />
               </Card.Content>
             </Card>
           }
         </View>
       </View>
       
+      <View>
+          <Text style={{fontWeight: 'bold', textAlign: 'center'}}>
+              Etape { currentStep } sur { form.form_steps.length + 1 }
+          </Text>
+      </View>
+
       <View style={styleSheet.containerButton}>
         <Button
-          disabled
+          disabled={currentStep === 1}
           color={variableStyle.secondaryColor}
-          labelStyle={{color: 'white', textTransform: 'capitalize'}}
-          mode="contained"
-          onPress={() => {}}
+          labelStyle={{color: variableStyle.secondaryColor, textTransform: 'capitalize'}}
+          mode="outlined"
+          onPress={() => handleGotoPreviousStep()}
         >
           Précédent
         </Button>
-        <Button
-          color={variableStyle.secondaryColor}
-          labelStyle={{color: 'white', textTransform: 'capitalize'}}
-          mode="contained"
-          onPress={() => {}}
-        >
-          Suivant
-        </Button>
+        {
+          !submitStep ?
+          (<Button
+            color={variableStyle.secondaryColor}
+            labelStyle={{color: 'white', textTransform: 'capitalize'}}
+            mode="contained"
+            onPress={() => handleGotoNextStep()}
+          >
+            Suivant
+          </Button>) :
+           (<Button
+            color={variableStyle.secondaryColor}
+            labelStyle={{color: 'white', textTransform: 'capitalize'}}
+            mode="contained"
+            onPress={() => handleCompleteForm()}
+          >
+            Soumettre
+          </Button>)
+        }
       </View>
     </View>
   );
