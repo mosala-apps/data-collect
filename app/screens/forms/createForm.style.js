@@ -5,7 +5,10 @@ import partials from '../../config/partials.style'
 const styleSheet = StyleSheet.create({
   container: partials.container,
   headerContainer: partials.headerContainer,
-  bodyContainer: partials.bodyContainer,
+  bodyContainer: {
+    ...partials.bodyContainer,
+    backgroundColor: variableStyle.fourthColor,
+  },
   headerTitle: partials.headerTitle,
 })
 export default styleSheet
