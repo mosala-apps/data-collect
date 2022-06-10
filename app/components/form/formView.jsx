@@ -69,9 +69,7 @@ function FormView({ form }) {
   }
 
   const handleGotoNextStep = () => {
-    console.log('handleGotoNextStep')
     if (currentStep + 1 <= form.form_steps.length + 1) {
-      console.log('handleGotoNextStep')
       setCurrentStep(currentStep + 1)
     }
     // this.$refs.form.validate().then(success => {
@@ -175,7 +173,7 @@ function FormView({ form }) {
                 <FormFieldInput
                   value={completedForm.last_update}
                   type='date'
-                  label='Sélectionnez la date'
+                  label='Sélectionnez la date de récolte'
                   rules='required'
                   placeholder='Veuillez choisir une date'
                   onInput={(value) => handleLastUpdateChange(value)}
@@ -187,6 +185,7 @@ function FormView({ form }) {
       </View>
       
       <View>
+          <Text>{JSON.stringify(completedForm)}</Text>
           <Text style={{fontWeight: 'bold', textAlign: 'center'}}>
               Etape { currentStep } sur { form.form_steps.length + 1 }
           </Text>
