@@ -4,7 +4,7 @@ import { notificationsHospital } from './notificationAsyncQuerie'
 const NotificationSlice = createSlice({
   name: 'notification',
   initialState: {
-    notifications: [],
+    notifications: {},
     isLoading: false,
     notificationError: '',
   },
@@ -14,7 +14,7 @@ const NotificationSlice = createSlice({
       state.isLoading = true
     },
     [notificationsHospital.fulfilled]: (state, { payload }) => {
-      state.notifications = [...payload]
+      state.notifications = payload
       state.isLoading = false
     },
     [notificationsHospital.rejected]: (state, { payload }) => {

@@ -6,7 +6,7 @@ export const notificationsHospital = createAsyncThunk(
   async (payload) => {
     try {
       const notifications = await (
-        await apiURL.get(`/notifications/${payload.id}`)
+        await apiURL.get(`/notifications/notification-by-date/${payload.id}`)
       ).data;
       return notifications;
     } catch (error) {

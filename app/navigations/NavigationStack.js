@@ -59,6 +59,7 @@ function NavigationStack() {
             headerStyle: headerStyleContainer.headerStyle,
             headerTintColor: headerStyleContainer.headerTintColor,
             headerTitleStyle: headerStyleContainer.headerTitleStyle,
+            headerShown: false
           })}
         />
         <Stack.Screen
