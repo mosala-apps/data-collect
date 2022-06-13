@@ -10,6 +10,7 @@ import HeaderNavigation from '../../navigations/headerNavigation';
 import styleSheet from './index.style';
 import FormCard from '../../components/card/FormCard';
 import variableStyle from '../../config/variable.style';
+import { initDatabase } from '../../services/database'
 
 function Home({ navigation }) {
   /**
@@ -78,6 +79,12 @@ function Home({ navigation }) {
         </View>
       );
     }
+
+    // try {
+    //   initDatabase();
+    // } catch (error) {
+    //   console.log(error)
+    // }
 
     return (
       <FlatList

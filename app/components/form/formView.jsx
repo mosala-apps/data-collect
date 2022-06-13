@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text, TextInput, TouchableWithoutFeedback, View,
 } from 'react-native';
@@ -13,18 +13,12 @@ import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import FormFieldInput from './FormFieldInput';
 import { useMemo } from 'react';
-function FormView({ form }) {
+function FormView({ form, completedForm, setCompletedForm, currentStep, setCurrentStep }) {
 
   /**
    * State
    */
-  const [currentStep, setCurrentStep] = useState(1)
   const [maxStepReached, setMaxStepReached] = useState(1)
-  const [completedForm, setCompletedForm] = useState(
-    {
-      completed_form_fields: {}
-    }
-  )
 
   /**
    * Store
@@ -87,11 +81,11 @@ function FormView({ form }) {
 
   const handleFormFieldChange = (formFieldId, value) => {
     completedForm.completed_form_fields[formFieldId] = value
-    setCompletedForm(completedForm)
+    setCompletedForm({...completedForm})
   }
   const handleLastUpdateChange = (value) => {
     completedForm.last_update = value
-    setCompletedForm(completedForm)
+    setCompletedForm({...completedForm})
   }
 
 
@@ -224,7 +218,16 @@ function FormView({ form }) {
     </View>
   );
 }
+
+FormView.defaultProps = {
+  startStep: 1
+}
+
 FormView.propTypes = {
+  completedForm: PropTypes.object.isRequired,
+  currentStep: PropTypes.number.isRequired,
+  setCompletedForm: PropTypes.func.isRequired,
+  setCurrentStep: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
     goBack: PropTypes.func.isRequired,
   }).isRequired,

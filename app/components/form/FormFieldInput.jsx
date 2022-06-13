@@ -20,23 +20,35 @@ const FormFieldInput = ({type, placeholder, rules, label, defaultValue, value, o
   useEffect(() => {
     if (value === null || value === undefined) {
       setCurrentValue(defaultValue)
+    } else {
+      setCurrentValue(value)
+    }
+  }, [value])
+
+  useEffect(() => {
+    if (value === null || value === undefined) {
+      setCurrentValue(defaultValue)
       onInput(defaultValue)
     }
   }, [defaultValue])
 
   const currentValueDate = useMemo(() => currentValue ? new Date(currentValue) : new Date() , [currentValue])
   const currentValueDateLabel = useMemo(() => {
-    if (currentValue) {
-      return format(new Date(currentValue), 'dd/MM/yyyy')
+    let payload = null
+    try {
+      if (currentValue && type === 'date') {
+        payload = format(new Date(currentValue), 'dd/MM/yyyy')
+      }
+    } catch (error) {
+      console.log(error)
     }
-    return null
+    return payload
   }, [currentValue])
 
   /**
    * Actions
    */
   const handleChange = (payload) => {
-
     setCurrentValue(payload)
     onInput(payload)
   }
@@ -84,8 +96,8 @@ const FormFieldInput = ({type, placeholder, rules, label, defaultValue, value, o
             value={currentValue}
             onChange={handleChange}
           >
-            <Radio value={1} my={1}>Oui</Radio>
-            <Radio value={0} my={1}>Non</Radio>
+            <Radio value="1" my={1}>Oui</Radio>
+            <Radio value="0" my={1}>Non</Radio>
           </Radio.Group>
         </>
       }
