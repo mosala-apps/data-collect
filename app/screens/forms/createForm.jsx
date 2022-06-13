@@ -1,4 +1,4 @@
-import React,  { useState } from 'react';
+import React,  { useEffect, useState } from 'react';
 import {
   ScrollView, Text, ToastAndroid, View,
 } from 'react-native';
@@ -8,7 +8,7 @@ import { Menu, Pressable } from 'native-base';
 import styleSheet from './CreateForm.style';
 import FormView from '../../components/form/FormView';
 import { useSelector } from 'react-redux';
-import { storeForm, updateForm, fetchFormsByHospital } from '../../services/formService'
+import { storeForm, updateForm, fetchFormsByHospital, fetchForm } from '../../services/formService'
 import { Ionicons } from '@expo/vector-icons';
 import { statusForm } from '../../config/variables';
 
@@ -20,7 +20,6 @@ function CreateForm({ route, navigation }) {
    */
   const [currentStep, setCurrentStep] = useState(1)
   const [savedFormId, setSavedFormId] = useState(paramsSavedFormId)
-  const [savedForm, setSavedForm] = useState(null)
   const [completedForm, setCompletedForm] = useState(
     {
       completed_form_fields: {}
@@ -32,6 +31,19 @@ function CreateForm({ route, navigation }) {
    */
   const hospital = useSelector((state) => state.hospital.hospital);
   const selectedForm = hospital.forms.find((form) => form.id === currentFormId);
+
+  /**
+   * Hooks
+   */
+  useEffect(() => {
+    if (paramsSavedFormId) {
+      fetchForm(paramsSavedFormId).then((form) => {
+        if (form && form.payload) {
+          setCompletedForm(JSON.parse(form.payload))
+        }
+      })
+    }
+  }, []);
 
   /**
    * Actions
@@ -84,12 +96,12 @@ function CreateForm({ route, navigation }) {
     setCurrentStep(1)
   }
 
-  try {
-    fetchFormsByHospital({hospitalId: hospital.id, status: 'draft'})
+  // try {
+    // fetchFormsByHospital({hospitalId: hospital.id, status: 'draft'})
       // .then(response => console.log('response', response));
-  } catch (error) {
-    console.log(error);
-  }
+  // } catch (error) {
+  //   console.log(error);
+  // }
 
   return (
     <SafeAreaView style={styleSheet.container}>

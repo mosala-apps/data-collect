@@ -19,6 +19,25 @@ export const fetchAllForms = () => {
   });
 }
 
+export const fetchForm = (id) => {
+  return new Promise((resolve, reject) => {
+    db.transaction(tx => {
+      tx.executeSql(
+      "SELECT * FROM forms WHERE id = ?",
+      [id],
+      (_, result) => {
+        console.log('form/show', result)
+        resolve(result.rows._array[0]);
+      },
+      (_, err) => {
+        console.log('form/show', err)
+        reject(err);
+      }
+      );
+    });
+  });
+}
+
 export const storeForm = ({ payload, hospitalId, date, status, formTitle, formId }) => {
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {

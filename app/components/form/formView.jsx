@@ -179,7 +179,6 @@ function FormView({ form, completedForm, setCompletedForm, currentStep, setCurre
       </View>
       
       <View>
-          <Text>{JSON.stringify(completedForm)}</Text>
           <Text style={{fontWeight: 'bold', textAlign: 'center'}}>
               Etape { currentStep } sur { form.form_steps.length + 1 }
           </Text>
