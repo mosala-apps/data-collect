@@ -19,11 +19,12 @@ export const initDatabase = () => {
       tx.executeSql(
         `CREATE TABLE IF NOT EXISTS forms (
           id INTEGER PRIMARY KEY NOT NULL,
-          payload TEXT NOT NULL,
-          hospitalId INTEGER NOT NULL,
           date TEXT NOT NULL,
           status TEXT NOT NULL,
-          formTitle TEXT NOT NULL
+          formTitle TEXT NOT NULL,
+          payload TEXT NOT NULL,
+          hospitalId INTEGER NOT NULL,
+          formId INTEGER NOT NULL
         )`,
         [],
         () => {

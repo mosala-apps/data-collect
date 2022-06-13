@@ -80,11 +80,11 @@ function Home({ navigation }) {
       );
     }
 
-    // try {
-    //   initDatabase();
-    // } catch (error) {
-    //   console.log(error)
-    // }
+    try {
+      initDatabase();
+    } catch (error) {
+      console.log(error)
+    }
 
     return (
       <FlatList

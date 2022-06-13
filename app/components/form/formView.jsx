@@ -219,9 +219,7 @@ function FormView({ form, completedForm, setCompletedForm, currentStep, setCurre
   );
 }
 
-FormView.defaultProps = {
-  startStep: 1
-}
+FormView.defaultProps = {}
 
 FormView.propTypes = {
   completedForm: PropTypes.object.isRequired,

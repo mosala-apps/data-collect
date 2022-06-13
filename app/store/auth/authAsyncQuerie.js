@@ -50,7 +50,7 @@ export const offlineLogin = async (payload) => {
     addOfflineUsers(user, payload.password);
     return user;
   }
-  ToastAndroid.show('Echec de deconnexion', ToastAndroid.SHORT);
+  ToastAndroid.show('Échec de déconnexion', ToastAndroid.SHORT);
 };
 
 export const login = createAsyncThunk('user/login', async (payload) => {
@@ -65,6 +65,6 @@ export const logout = createAsyncThunk('user/logout', async () => {
     await AsyncStorage.removeItem('token_access');
     await AsyncStorage.removeItem('user');
   } catch (error) {
-    ToastAndroid.show('Echec de deconnexion', ToastAndroid.SHORT);
+    ToastAndroid.show('Échec de déconnexion', ToastAndroid.SHORT);
   }
 });
