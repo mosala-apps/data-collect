@@ -12,12 +12,34 @@ const styleSheet = StyleSheet.create({
   },
   filterDate: {
     backgroundColor: 'white',
-    padding: 5,
-    height: 30,
+    marginLeft:80,
+    marginBottom:10,
     borderRadius: 5,
-    width: 100,
-    textAlign: 'center',
-    color: 'black',
+    width: 210,
   },
+  titleNotification:{
+    fontWeight:'bold',
+    fontSize:15,
+    marginTop:10
+  },
+  dividerNotification:{
+    marginTop:17
+  },
+  cardContainer:{
+    marginTop:16
+  },
+  hourCard:{
+    position:'relative',
+    left:250,
+    fontWeight:'bold',
+  },
+  clearButton:{
+    position: 'relative',
+    bottom:35,
+    left:300
+  },
+  cardTitle:{
+    fontSize:9,
+  }
 })
 export default styleSheet

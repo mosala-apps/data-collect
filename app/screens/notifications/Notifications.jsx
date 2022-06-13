@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Card,Paragraph,IconButton } from 'react-native-paper';
+import { Card,Paragraph,IconButton,Button,Divider } from 'react-native-paper';
 import { Text, View,ScrollView,TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { AntDesign } from '@expo/vector-icons'; 
+import getMinutes from 'date-fns/getMinutes'
+import getHours from 'date-fns/getHours'
 import { format } from 'date-fns';
 import { setUser, notificationsHospital } from '../../store';
 import styleSheet from './Notifications.style';
@@ -38,6 +41,11 @@ function Notifications({ navigation }) {
     toggleDatePicker();
     setDate(date);
   };
+
+  const clearFilter = () =>{
+    setDate(null);
+  }
+
   return (
     <SafeAreaView style={styleSheet.container}>
       <View style={styleSheet.headerContainer}>
@@ -54,10 +62,11 @@ function Notifications({ navigation }) {
         </View>
       </View>
       <View>
-        <TouchableOpacity onPress={toggleDatePicker}>
-          <Text style={styleSheet.filterDate}>
-            {getDate ? format(new Date(getDate), 'dd/MM/yyyy') : }
-          </Text>
+        <Button icon="calendar" style={styleSheet.filterDate} labelStyle={{color:'black'}}  mode="contained" onPress={toggleDatePicker}>
+            {getDate ? format(new Date(getDate), 'dd/MM/yyyy'):'Sélectionner une Date'}
+        </Button>
+        <TouchableOpacity onPress={clearFilter}>
+              <AntDesign name="closecircleo" size={15} color="white" style={styleSheet.clearButton}/>
         </TouchableOpacity>
       </View>
       <DateTimePickerModal
@@ -72,15 +81,27 @@ function Notifications({ navigation }) {
       <ScrollView>
         <View>
           {
-            notifications.length > 0 ?
-            notifications.map((notification) => (
-              <Card style={ styleSheet.container} key={notification.id}>
-              <Card.Title  title={notification.title} />
-              <Card.Content>
-                <Paragraph>{notification.message}</Paragraph>
-              </Card.Content>
-            </Card>
-            )):<Text>Vous n'avez aucune notification</Text>
+            Object.keys(notifications)
+            .filter((dateNotification)=>{
+              return getDate ? dateNotification === format(new Date(getDate), 'yyyy-MM-dd') :true
+            })
+            .map((dateNotification)=>(
+              <View>
+                <Divider style={styleSheet.dividerNotification}/>
+                <Text style={styleSheet.titleNotification}>{dateNotification == format(new Date(), 'yyyy-mm-dd')?'Aujourd\'hui':dateNotification}</Text>
+                {
+                notifications[dateNotification].map((notification)=>(
+                  <Card style={styleSheet.cardContainer} key={notification.id}>
+                    <Card.Title title={notification.title} titleNumberOfLines={2}/>
+                    <Card.Content>
+                      <Paragraph>{notification.message}</Paragraph>
+                      <Paragraph style={styleSheet.hourCard}>{getHours(new Date(notification.created_at))+':'+getMinutes(new Date(notification.created_at))}</Paragraph>
+                    </Card.Content>
+                  </Card>
+                ))
+                }
+              </View>
+            ))
           }
         </View>
       </ScrollView>
