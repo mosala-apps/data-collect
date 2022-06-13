@@ -7,7 +7,6 @@ export const fetchAllForms = () => {
       "SELECT * FROM forms",
       [],
       (_, result) => {
-        console.log('form/index', result)
         resolve(result.rows._array);
       },
       (_, err) => {
@@ -26,7 +25,6 @@ export const fetchForm = (id) => {
       "SELECT * FROM forms WHERE id = ?",
       [id],
       (_, result) => {
-        console.log('form/show', result)
         resolve(result.rows._array[0]);
       },
       (_, err) => {
@@ -45,7 +43,6 @@ export const storeForm = ({ payload, hospitalId, date, status, formTitle, formId
         `INSERT INTO forms (payload, hospitalId, date, status, formTitle, formId) VALUES (?, ?, ?, ?, ?, ?)`,
         [payload, hospitalId, date, status, formTitle, +formId],
         (_, result) => {
-          console.log('form/store', result)
           resolve(result.insertId)
         },
         (_, error) => {
@@ -67,7 +64,6 @@ export const updateForm = (id, {payload, hospitalId, date, status, formTitle, fo
         `,
         [payload, hospitalId, date, status, formTitle, +formId, id],
         (_, result) => {
-          console.log('form/update', result)
           resolve(result.insertId)
         },
         (_, error) => {
@@ -86,7 +82,6 @@ export const fetchFormsByHospital = ({hospitalId, status}) => {
         "SELECT * FROM forms WHERE hospitalId = ? AND status = ?",
         [hospitalId, status],
         (_, result) => {
-          console.log('form/fetchByHospital', result)
           resolve(result.rows._array);
         },
         (_, err) => {
