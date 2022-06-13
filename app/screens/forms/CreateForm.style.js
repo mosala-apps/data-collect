@@ -4,7 +4,10 @@ import partials from '../../config/partials.style'
 
 const styleSheet = StyleSheet.create({
   container: partials.container,
-  headerContainer: partials.headerContainer,
+  headerContainer: {
+    ...partials.headerContainer,
+    justifyContent: 'space-between',
+  },
   bodyContainer: {
     ...partials.bodyContainer,
     backgroundColor: variableStyle.fourthColor,
