@@ -83,7 +83,7 @@ import { Text, View } from 'react-native';
             { currentValue &&
                 <IconButton
                   icon="close"
-                  iconColor="red"
+                  color="red"
                   size={20}
                   onPress={resetDate}
                 />

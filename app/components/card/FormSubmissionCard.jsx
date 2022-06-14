@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState, useMemo } from 'react';
 import { View, Text,SafeAreaView,FlatList,TouchableOpacity,ToastAndroid} from 'react-native';
-import { Card, Button,Avatar  } from 'react-native-paper';
+import { Card, Button,Avatar, IconButton  } from 'react-native-paper';
 import { fetchFormsByHospital,destroyForm } from '../../services/formService'
 import { useSelector } from 'react-redux';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -15,15 +15,14 @@ export default function FormSubmissionCard({navigation,statusForm}) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [getDate, setDate] = useState(null);
 
-    /**
+  /**
    * Store
    */
-     const user = useSelector((state) => state.auth.user);
-     
+  const user = useSelector((state) => state.auth.user);
 
   useEffect(()=>{
     FormsByHospital()
-  },[user])
+  }, [user])
 
   const FormsByHospital = async()=>{
     const data = await fetchFormsByHospital({hospitalId:user.hospital.id,status:statusForm})
@@ -50,40 +49,43 @@ export default function FormSubmissionCard({navigation,statusForm}) {
   }, [getDate, forms]);
 
 
-  const renderFormDraft=  ({item})=>{
-
-    const deleteItemCard = async()=>{
-     await destroyForm(item.id).then(()=>{
-      FormsByHospital()
-     ToastAndroid.show('La suppression a réussi', ToastAndroid.SHORT);
-   
-    }).catch(()=>{
-     ToastAndroid.show('La suppression a échoué', ToastAndroid.SHORT);
-   
-    })
+  const renderFormDraft = ({item}) => {
+    const deleteItemCard = async() => {
+      await destroyForm(item.id)
+        .then(() => {
+            FormsByHospital()
+            ToastAndroid.show('Suppression effectuée avec succès', ToastAndroid.SHORT);
+        })
+        .catch(() => {
+          ToastAndroid.show('La suppression a échouée', ToastAndroid.SHORT);
+        })
     }
     return  <Card style={styleSheet.containerCard}>
-              <TouchableOpacity style={{}} onPress={()=>navigation.navigate('CreateForm', { id: item.formId, savedFormId:item.id})} key={item.id}>
-              <Card.Content style={styleSheet.containerCardContent}>
-                <View style={styleSheet.containerAvatar}>
-                <Avatar.Text size={50} label={item.formTitle.split('')[0]} style={styleSheet.avatarText}/>
-                </View>
-              <View>
-              <Text style={styleSheet.containerCardTitle}>{item.formTitle}</Text> 
-                 
-                    <View>
-                    <Text>{format(new Date(item.date), 'dd/MM/yyyy HH:MM')}</Text>
-                    </View>
-              </View>
-              <View>
-                {
-                  statusForm !== 'synchronized' ?<Button icon="delete"  labelStyle={styleSheet.containerDeleteButton}  onPress={ deleteItemCard } ></Button>
-                    : <Text/>
-                }</View>
- 
-              </Card.Content>
-              </TouchableOpacity> 
-            </Card>
+      <TouchableOpacity
+        style={{}}
+        onPress={()=>navigation.navigate('CreateForm', { id: item.formId, savedFormId:item.id})} key={item.id}
+      >
+        <Card.Content style={styleSheet.containerCardContent}>
+          <View style={styleSheet.containerAvatar}>
+            <Avatar.Text size={50} label={item.formTitle.split('')[0]} style={styleSheet.avatarText}/>
+          </View>
+          <View>
+          <Text style={styleSheet.containerCardTitle}>{item.formTitle}</Text> 
+          <View>
+            <Text style={{fontSize: 13}}>{format(new Date(item.date), 'dd/MM/yyyy HH:MM')}</Text>
+          </View>
+          </View>
+          { statusForm !== 'synchronized' &&
+              <IconButton
+                icon="delete"
+                color="red"
+                labelStyle={styleSheet.containerDeleteButton}
+                onPress={ deleteItemCard }
+              />
+          }
+        </Card.Content>
+      </TouchableOpacity> 
+      </Card>
   }
   return (
     <SafeAreaView style={styleSheet.container}>
