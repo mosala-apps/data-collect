@@ -77,7 +77,7 @@ export default function FormSubmissionCard({navigation,statusForm}) {
               </View>
               <View>
                 {
-                  statusForm !=='statusForm.synchronized'?<Button icon="delete"  labelStyle={styleSheet.containerDeleteButton}  onPress={ deleteItemCard } ></Button>
+                  statusForm !== 'synchronized' ?<Button icon="delete"  labelStyle={styleSheet.containerDeleteButton}  onPress={ deleteItemCard } ></Button>
                     : <Text/>
                 }</View>
  
