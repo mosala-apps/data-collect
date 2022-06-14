@@ -54,15 +54,43 @@ export const storeForm = ({ payload, hospitalId, date, status, formTitle, formId
   });
 }
 
-export const updateForm = (id, {payload, hospitalId, date, status, formTitle, formId }) => {
+export const updateForm = (id, {payload, hospitalId, date, status, formTitle, formId, error }) => {
+  let setters = []
+  let args = []
+  if (payload) {
+    setters.push(`payload = ?`)
+    args.push(payload)
+  }
+  if (hospitalId) {
+    setters.push(`hospitalId = ?`)
+    args.push(hospitalId)
+  }
+  if (date) {
+    setters.push(`date = ?`)
+    args.push(date)
+  }
+  if (status) {
+    setters.push(`status = ?`)
+    args.push(status)
+  }
+  if (formTitle) {
+    setters.push(`formTitle = ?`)
+    args.push(formTitle)
+  }
+  if (formId) {
+    setters.push(`formId = ?`)
+    args.push(+formId)
+  }
+  if (error !== undefined && error !== null) {
+    setters.push(`error = ?`)
+    args.push(error)
+  }
+
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        `UPDATE forms
-          SET payload = ? , hospitalId = ?, date = ?, status = ?, formTitle = ?, formId = ?
-          WHERE id = ?
-        `,
-        [payload, hospitalId, date, status, formTitle, +formId, id],
+        `UPDATE forms SET ${setters.join(',')} WHERE id = ?`,
+        [...args, id],
         (_, result) => {
           resolve(result.insertId)
         },
@@ -86,6 +114,24 @@ export const fetchFormsByHospital = ({hospitalId, status}) => {
         },
         (_, err) => {
           console.log('form/fetchByHospital', err)
+          reject(err);
+        }
+      );
+    });
+  });
+}
+
+export const fetchFormsByStatus = (status) => {
+  return new Promise((resolve, reject) => {
+    db.transaction(tx => {
+      tx.executeSql(
+        "SELECT * FROM forms WHERE status = ? ORDER BY error",
+        [status],
+        (_, result) => {
+          resolve(result.rows._array);
+        },
+        (_, err) => {
+          console.log('form/fetchFormsByStatus', err)
           reject(err);
         }
       );

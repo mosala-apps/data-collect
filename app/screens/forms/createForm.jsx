@@ -15,7 +15,7 @@ import { hospitalManagerNamesSelector } from '../../store';
 
 function CreateForm({ route, navigation }) {
   const currentFormId = +route.params.id;
-  const paramsSavedFormId = +route.params.savedFormId || 2;
+  const paramsSavedFormId = +route.params.savedFormId;
   /**
    * State
    */

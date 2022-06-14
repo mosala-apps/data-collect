@@ -31,7 +31,7 @@ export const onlineLogin = async (payload) => {
     addOfflineUsers(user, payload.password);
     return user;
   }
-  return ToastAndroid.show('Échec', ToastAndroid.SHORT);
+  return ToastAndroid.show('Identifiants incorrectes', ToastAndroid.SHORT);
 };
 
 export const offlineLogin = async (payload) => {
@@ -41,13 +41,12 @@ export const offlineLogin = async (payload) => {
 
   const user = offlineUsers.find(
     (item) => (item.user.email === email
-        || item.user.usernmae === email
+        || item.user.username === email
         || item.user.phone_number === email)
       && item.password === password,
   );
   if (Object.keys(user).length !== 0) {
     addUserToAsyncStorage(user, user.password);
-    addOfflineUsers(user, payload.password);
     return user;
   }
   ToastAndroid.show('Échec de déconnexion', ToastAndroid.SHORT);
@@ -68,3 +67,13 @@ export const logout = createAsyncThunk('user/logout', async () => {
     ToastAndroid.show('Échec de déconnexion', ToastAndroid.SHORT);
   }
 });
+
+export const isLoggedIn = async () => {
+  const token = await AsyncStorage.getItem('token_access');
+  const user = await AsyncStorage.getItem('user');
+  if (token && user) {
+    return Promise.resolve(true)
+  } else {
+    return Promise.resolve(false)
+  }
+}
