@@ -1,18 +1,24 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import styleSheet from './FormFieldInput.style';
-import { FormControl, Input, Radio, WarningOutlineIcon } from "native-base";
+import React, { useMemo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'react-native-paper';
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { format } from 'date-fns';
-import variableStyle from '../../config/variable.style';
+import { Controller } from 'react-hook-form';
+import DynamicField from './DynamicField';
 
-const FormFieldInput = ({type, placeholder, rules, label, defaultValue, value, onInput}) => {
+const FormFieldInput = ({
+  type,
+  placeholder,
+  rules,
+  label,
+  defaultValue,
+  value,
+  name,
+  onInput,
+  control,
+  errors
+}) => {
   /**
-   * States+
+   * States
    */
   const [currentValue, setCurrentValue] = useState(value)
-  const [isPickerVisible, setIsPickerVisible] = useState(false)
   
   /**
    * Hooks
@@ -32,90 +38,39 @@ const FormFieldInput = ({type, placeholder, rules, label, defaultValue, value, o
     }
   }, [defaultValue])
 
-  const currentValueDate = useMemo(() => currentValue ? new Date(currentValue) : new Date() , [currentValue])
-  const currentValueDateLabel = useMemo(() => {
-    let payload = null
-    try {
-      if (currentValue && type === 'date') {
-        payload = format(new Date(currentValue), 'dd/MM/yyyy')
-      }
-    } catch (error) {
-      console.log(error)
+  const additionalRules = useMemo(() => {
+    const allRules = {}
+    if (type === 'number') {
+      allRules.pattern = /^\d+(\.\d+)?$/
     }
-    return payload
-  }, [currentValue])
-
-  /**
-   * Actions
-   */
-  const handleChange = (payload) => {
-    setCurrentValue(payload)
-    onInput(payload)
-  }
-
-  const toggleDatePicker = () => {
-    setIsPickerVisible(!isPickerVisible);
-  }
-
-  const handleConfirmDate = (date) => {
-    toggleDatePicker();
-    const dateFormatted = format(date, 'yyyy-MM-dd')
-    setCurrentValue(dateFormatted)
-    onInput(dateFormatted)
-  }
+    return allRules
+  }, [type])
 
   return (
-    <FormControl>
-      <FormControl.Label>{label} {rules && rules.match(/required/i)  ? '*' : ''}</FormControl.Label>
-      {type === 'date' && 
-        <>
-          <Button
-            uppercase={false}
-            labelStyle={{color: 'black'}}
-            icon="calendar"
-            mode="outlined"
-            onPress={toggleDatePicker}
-          >
-            {currentValueDateLabel || placeholder}
-          </Button>
-          <DateTimePickerModal
-            isVisible={isPickerVisible}
-            date={currentValueDate}
-            maximumDate={new Date()}
-            mode="date"
-            onConfirm={handleConfirmDate}
-            onCancel={toggleDatePicker}
-          />
-        </>
-      }
-
-      {type === 'boolean' &&
-        <>
-          <Radio.Group
-            name={label}
-            value={currentValue}
-            onChange={handleChange}
-          >
-            <Radio value="1" my={1}>Oui</Radio>
-            <Radio value="0" my={1}>Non</Radio>
-          </Radio.Group>
-        </>
-      }
-
-      {type !== 'date' && type !== 'boolean' &&
-        <>
-          <Input
+    <>
+      <Controller
+        control={control}
+        rules={{
+          required: !!(rules && rules.match(/required/i)),
+          ...additionalRules
+        }}
+        render={({ field: { onChange, onBlur } }) => (
+          <DynamicField
             type={type}
-            value={currentValue}
             placeholder={placeholder}
-            onChangeText={handleChange}
+            rules={rules}
+            label={label}
+            name={name}
+            errors={errors}
+            currentValue={currentValue}
+            setCurrentValue={setCurrentValue}
+            onInput={($event) => {onInput($event); onChange($event)}}
+            onBlur={onBlur}
           />
-        </>
-      }
-      <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-        At least 6 characters are required.
-      </FormControl.ErrorMessage>
-    </FormControl>
+        )}
+        name={name}
+      />
+    </>
   );
 }
 
@@ -123,7 +78,7 @@ FormFieldInput.defaultProps = {
   rules: '',
   defaultValue: null,
   value: null,
-  onInput: () => {},
+  onInput: () => { console.log('Input changed') },
 }
 
 FormFieldInput.propTypes = {
@@ -133,6 +88,9 @@ FormFieldInput.propTypes = {
   label: PropTypes.string.isRequired,
   defaultValue: PropTypes.string,
   value: PropTypes.string,
+  name: PropTypes.string.isRequired,
   onInput: PropTypes.func,
+  control: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
 }
 export default FormFieldInput;
