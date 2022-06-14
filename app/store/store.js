@@ -32,7 +32,7 @@ const reducers = combineReducers({
   setNotificationNotRead:SetNotificationNotReadSlice,
   hospital: HospitalSlice,
   hospitalManagerName: hospitalManagerNameSlice,
-  formSlice: FormSlice,
+  form: FormSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
