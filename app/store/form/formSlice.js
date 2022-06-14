@@ -1,12 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
+import apiURL from '../../config/apiURL';
 
 const FormSlice = createSlice({
   name: 'form',
-  initialState: {
-    form: [],
-    isLoading: false,
-  },
+  initialState: {},
+  reducers: {},
   extraReducers: {},
 })
 
-export default FormSlice.reducer
+export const { syncForm } = FormSlice.actions
+
+export default FormSlice.reducer;

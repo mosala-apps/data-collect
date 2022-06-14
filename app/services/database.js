@@ -23,6 +23,7 @@ export const initDatabase = () => {
           status TEXT NOT NULL,
           formTitle TEXT NOT NULL,
           payload TEXT NOT NULL,
+          error INTEGER DEFAULT 0,
           hospitalId INTEGER NOT NULL,
           formId INTEGER NOT NULL
         )`,

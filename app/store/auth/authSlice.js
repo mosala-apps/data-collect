@@ -7,7 +7,13 @@ const AuthSlice = createSlice({
   initialState: {
     user: {},
     isLoading: false,
+
+     /**
+     * Warning, is only used for login in signin page
+     * to check if user is really authenticated use authAsyncQuery.isLoggedIn()
+     **/
     isAuthenticated: false,
+
     isLogout: false,
     authError: false,
     lastDateAuth: null,
@@ -37,10 +43,10 @@ const AuthSlice = createSlice({
     },
     [logout.fulfilled]: (state) => {
       state.isLoading = false;
-      state.isAuthenticated = false,
-      state.isLogout = true,
-      state.user = null,
-      state.authError = false,
+      state.isAuthenticated = false;
+      state.isLogout = true;
+      state.user = null;
+      state.authError = false;
       state.lastDateAuth = null;
     }
   },
