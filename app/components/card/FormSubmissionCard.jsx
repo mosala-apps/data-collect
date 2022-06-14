@@ -1,8 +1,8 @@
 
 import React, { useEffect, useState, useMemo } from 'react';
-import { View, Text,SafeAreaView,FlatList,TouchableOpacity} from 'react-native';
+import { View, Text,SafeAreaView,FlatList,TouchableOpacity,ToastAndroid} from 'react-native';
 import { Card, Button,Avatar  } from 'react-native-paper';
-import { fetchFormsByHospital } from '../../services/formService'
+import { fetchFormsByHospital,destroyForm } from '../../services/formService'
 import { useSelector } from 'react-redux';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { AntDesign } from '@expo/vector-icons'; 
@@ -14,7 +14,7 @@ export default function FormSubmissionCard({navigation,statusForm}) {
   const [forms , setForms] = useState([])
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [getDate, setDate] = useState(null);
-
+  const [isDeleted,setIsDeleted] =useState(false);
 
     /**
    * Store
@@ -51,7 +51,19 @@ export default function FormSubmissionCard({navigation,statusForm}) {
   }, [getDate, forms]);
 
 
-  const renderFormDraft=({item})=>{
+  const renderFormDraft=  ({item})=>{
+    setIsDeleted(false)
+
+    const deleteItemCard = async()=>{
+     await destroyForm(item.id).then(()=>{
+      FormsByHospital()
+     ToastAndroid.show('La suppression a réussi', ToastAndroid.SHORT);
+   
+    }).catch(()=>{
+     ToastAndroid.show('La suppression a échoué', ToastAndroid.SHORT);
+   
+    })
+    }
     return  <Card style={styleSheet.containerCard}>
               <TouchableOpacity style={{}} onPress={()=>navigation.navigate('CreateForm', { id: item.formId, savedFormId:item.id})} key={item.id}>
               <Card.Content style={styleSheet.containerCardContent}>
@@ -65,7 +77,9 @@ export default function FormSubmissionCard({navigation,statusForm}) {
                     <Text>{format(new Date(item.date), 'dd/MM/yyyy HH:MM')}</Text>
                     </View>
               </View>
-                    
+
+              <Button icon="delete"  labelStyle={styleSheet.containerDeleteButton}  onPress={ deleteItemCard } ></Button>
+ 
               </Card.Content>
               </TouchableOpacity> 
             </Card>

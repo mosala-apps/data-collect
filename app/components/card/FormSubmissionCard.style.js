@@ -49,6 +49,7 @@ const styleSheet = StyleSheet.create({
   containerCardContent: {
     flexDirection: 'row',
     textAlign: 'center',
+    justifyContent: 'space-between',
   },
   containerCardStatus: {
     color: 'red',
@@ -67,6 +68,11 @@ const styleSheet = StyleSheet.create({
     textTransform: 'uppercase',
     textAlign: 'center',
     backgroundColor: variableStyle.fade,
+  },
+ 
+  containerDeleteButton: {
+    color: 'black',
+    textAlign: 'right',
   },
 })
 export default styleSheet

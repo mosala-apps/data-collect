@@ -18,15 +18,9 @@ export default function Drafts({navigation}) {
      
 
   useEffect(()=>{
-    FormsByHospital()
   },[user])
 
-  const FormsByHospital = async()=>{
-    const data = await fetchFormsByHospital({hospitalId:user.hospital.id,status:statusForm.draft})
-    setForms(data)
-    return data
-  }
-
+  
   return (
     <SafeAreaView style={styleSheet.container}>
       <FormSubmissionCard navigation={navigation} statusForm={statusForm.draft}/> 
