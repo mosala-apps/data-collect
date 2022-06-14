@@ -26,8 +26,9 @@ const FormFieldInput = ({
   useEffect(() => {
     if (value === null || value === undefined) {
       setCurrentValue(defaultValue)
-    } else {
+    } else if (currentValue !== value) {
       setCurrentValue(value)
+      onInput(value)
     }
   }, [value])
 
@@ -65,6 +66,7 @@ const FormFieldInput = ({
             currentValue={currentValue}
             setCurrentValue={setCurrentValue}
             onInput={($event) => {onInput($event); onChange($event)}}
+            onChangeForValidator={onChange}
             onBlur={onBlur}
           />
         )}
