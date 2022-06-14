@@ -10,6 +10,7 @@ import FormView from '../../components/form/FormView';
 import { useSelector } from 'react-redux';
 import { storeForm, updateForm, fetchFormsByHospital, fetchForm, destroyForm } from '../../services/formService'
 import { Ionicons } from '@expo/vector-icons';
+import { useForm } from 'react-hook-form';
 import { statusForm } from '../../config/variables';
 import { hospitalManagerNamesSelector } from '../../store';
 
@@ -37,6 +38,9 @@ function CreateForm({ route, navigation }) {
   /**
    * Hooks
    */
+  // { control, handleSubmit, formState: { errors, isValid }, reset }
+  const formHook = useForm({});
+
   useEffect(() => {
     if (paramsSavedFormId) {
       fetchForm(paramsSavedFormId).then((form) => {
@@ -120,6 +124,7 @@ function CreateForm({ route, navigation }) {
 
   const handleReset = () => {
     setCompletedForm({completed_form_fields: {}})
+    formHook.reset({})
     setCurrentStep(1)
   }
 
@@ -163,6 +168,7 @@ function CreateForm({ route, navigation }) {
             form={selectedForm}
             completedForm={completedForm}
             currentStep={currentStep}
+            formHook={formHook}
             setCompletedForm={setCompletedForm}
             setCurrentStep={setCurrentStep}
             handleCompleteForm={handleCompleteForm}

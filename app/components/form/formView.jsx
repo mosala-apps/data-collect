@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Text, View
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { useForm } from 'react-hook-form';
 import styleSheet from './FormView.style';
 import { Button, Card, Divider } from 'react-native-paper';
 import variableStyle from '../../config/variable.style';
@@ -11,8 +10,15 @@ import { hospitalManagerNamesSelector } from '../../store';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import FormFieldInput from './FormFieldInput';
-import { useMemo } from 'react';
-function FormView({ form, completedForm, setCompletedForm, currentStep, setCurrentStep, handleCompleteForm }) {
+function FormView({
+  form,
+  completedForm,
+  setCompletedForm,
+  currentStep,
+  setCurrentStep,
+  handleCompleteForm,
+  formHook
+}) {
 
   /**
    * State
@@ -28,14 +34,6 @@ function FormView({ form, completedForm, setCompletedForm, currentStep, setCurre
    * Hooks
    */
   const navigation = useNavigation();
-  const {
-    control, handleSubmit, formState: { errors, isValid }, reset,
-  } = useForm({
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-  });
 
   /**
    * Actions
@@ -139,11 +137,14 @@ function FormView({ form, completedForm, setCompletedForm, currentStep, setCurre
                     <FormFieldInput
                       id={field.form_field_type.id}
                       type={field.form_field_type.name}
+                      name={field.name}
                       label={field.name}
                       rules={field.rules}
                       value={completedForm.completed_form_fields[field.id]}
                       defaultValue={field.default_value}
                       placeholder={`Entrer ${field.name}`}
+                      control={formHook.control}
+                      errors={formHook.formState.errors}
                       onInput={(value) => handleFormFieldChange(field.id, value)}
                     />
                   </Card.Content>
@@ -165,8 +166,11 @@ function FormView({ form, completedForm, setCompletedForm, currentStep, setCurre
                   value={completedForm.last_update}
                   type='date'
                   label='Sélectionnez la date de récolte'
+                  name='last_update'
                   rules='required'
                   placeholder='Veuillez choisir une date'
+                  control={formHook.control}
+                  errors={formHook.formState.errors}
                   onInput={(value) => handleLastUpdateChange(value)}
                 />
               </Card.Content>
@@ -197,7 +201,7 @@ function FormView({ form, completedForm, setCompletedForm, currentStep, setCurre
             color={variableStyle.secondaryColor}
             labelStyle={{color: 'white', textTransform: 'capitalize'}}
             mode="contained"
-            onPress={() => handleGotoNextStep()}
+            onPress={formHook.handleSubmit(handleGotoNextStep)}
           >
             Suivant
           </Button>) :
@@ -205,7 +209,7 @@ function FormView({ form, completedForm, setCompletedForm, currentStep, setCurre
             color={variableStyle.secondaryColor}
             labelStyle={{color: 'white', textTransform: 'capitalize'}}
             mode="contained"
-            onPress={() => handleCompleteForm()}
+            onPress={formHook.handleSubmit(handleCompleteForm)}
           >
             Soumettre
           </Button>)
@@ -222,6 +226,7 @@ FormView.propTypes = {
   currentStep: PropTypes.number.isRequired,
   setCompletedForm: PropTypes.func.isRequired,
   setCurrentStep: PropTypes.func.isRequired,
-  handleCompleteForm: PropTypes.func.isRequired
+  handleCompleteForm: PropTypes.func.isRequired,
+  formHook: PropTypes.object.isRequired
 };
 export default FormView;
