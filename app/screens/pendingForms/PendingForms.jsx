@@ -3,11 +3,11 @@ import { SafeAreaView} from 'react-native';
 import { fetchFormsByHospital } from '../../services/formService'
 import { statusForm } from '../../config/variables';
 import { useSelector } from 'react-redux';
-import styleSheet from './Drafts.style';
+import styleSheet from './PendingForms.style';
 import FormSubmissionCard from '../../components/card/FormSubmissionCard';
 
 
-export default function Drafts({navigation}) {
+export default function PendingForms({navigation}) {
 
   const [forms , setForms] = useState([])
 
@@ -24,14 +24,14 @@ export default function Drafts({navigation}) {
   },[user])
 
   const FormsByHospital = async()=>{
-    const data = await fetchFormsByHospital({hospitalId:user.hospital.id,status:statusForm.draft})
+    const data = await fetchFormsByHospital({hospitalId:user.hospital.id,status:statusForm.saved})
     setForms(data)
     return data
   }
 
   return (
     <SafeAreaView style={styleSheet.container}>
-      <FormSubmissionCard navigation={navigation} statusForm={statusForm.draft}/> 
+      <FormSubmissionCard navigation={navigation} statusForm={statusForm.saved}/> 
     </SafeAreaView>
   );
 }

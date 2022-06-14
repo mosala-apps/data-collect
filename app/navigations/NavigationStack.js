@@ -7,7 +7,7 @@ import SettingScreen from '../screens/setting';
 import SynchronizedFormsScreen from '../screens/synchronizedForms/SynchronizedForm';
 import DraftsScreen from '../screens/drafts/Drafts';
 import ConflictsHandlingScreen from '../screens/conflictsHandling';
-import PendingFormsScreen from '../screens/pendingForms';
+import PendingFormsScreen from '../screens/pendingForms/PendingForms';
 import FormShowScreen from '../screens/forms/ShowForm';
 import SigninScreen from '../screens/auth/signin';
 import CreateFormScreen from '../screens/forms/CreateForm';
