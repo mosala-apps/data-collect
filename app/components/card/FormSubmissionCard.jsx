@@ -75,8 +75,11 @@ export default function FormSubmissionCard({navigation,statusForm}) {
                     <Text>{format(new Date(item.date), 'dd/MM/yyyy HH:MM')}</Text>
                     </View>
               </View>
-
-              <Button icon="delete"  labelStyle={styleSheet.containerDeleteButton}  onPress={ deleteItemCard } ></Button>
+              <View>
+                {
+                  statusForm !=='statusForm.synchronized'?<Button icon="delete"  labelStyle={styleSheet.containerDeleteButton}  onPress={ deleteItemCard } ></Button>
+                    : <Text/>
+                }</View>
  
               </Card.Content>
               </TouchableOpacity> 

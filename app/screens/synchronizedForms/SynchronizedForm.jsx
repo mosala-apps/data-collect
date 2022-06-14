@@ -24,7 +24,7 @@ export default function SynchronizedForms({navigation}) {
 
   return (
     <SafeAreaView style={styleSheet.container}>
-      <FormSubmissionCard navigation={navigation} statusForm={statusForm.sync}/> 
+      <FormSubmissionCard navigation={navigation} statusForm={statusForm.synchronized}/> 
     </SafeAreaView>
   );
 }
