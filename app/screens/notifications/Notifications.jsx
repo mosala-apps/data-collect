@@ -85,13 +85,18 @@ function Notifications({ navigation }) {
             .filter((dateNotification)=>{
               return getDate ? dateNotification === format(new Date(getDate), 'yyyy-MM-dd') :true
             })
-            .map((dateNotification)=>(
-              <View>
+            .map((dateNotification) => (
+              <View key={dateNotification}>
                 <Divider style={styleSheet.dividerNotification}/>
-                <Text style={styleSheet.titleNotification}>{dateNotification == format(new Date(), 'yyyy-mm-dd')?'Aujourd\'hui':dateNotification}</Text>
+                <Text style={styleSheet.titleNotification}>
+                  {dateNotification == format(new Date(), 'yyyy-mm-dd') ? "Aujourd’hui" : dateNotification}
+                </Text>
                 {
-                notifications[dateNotification].map((notification)=>(
-                  <Card style={styleSheet.cardContainer} key={notification.id}>
+                notifications[dateNotification].map((notification) => (
+                  <Card
+                    style={styleSheet.cardContainer}
+                    key={notification.id}
+                  >
                     <Card.Title title={notification.title} titleNumberOfLines={2}/>
                     <Card.Content>
                       <Paragraph>{notification.message}</Paragraph>

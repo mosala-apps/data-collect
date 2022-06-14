@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from 'react'
-import { Button } from 'react-native-paper';
+import { Button, IconButton } from 'react-native-paper';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { format } from 'date-fns';
 import { FormControl, Input, Radio, WarningOutlineIcon } from "native-base";
 import PropTypes from 'prop-types';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 
  const DynamicField = ({
   type,
@@ -42,6 +42,11 @@ import { Text } from 'react-native';
     onInput(dateFormatted)
   }
 
+  const resetDate = () => {
+    setCurrentValue(null)
+    onInput(null)
+  }
+
   /**
    * Hooks
    */
@@ -63,15 +68,27 @@ import { Text } from 'react-native';
       <FormControl.Label>{label} {rules && rules.match(/required/i)  ? '*' : ''}</FormControl.Label>
       {type === 'date' && 
         <>
-          <Button
-            uppercase={false}
-            labelStyle={{color: 'black'}}
-            icon="calendar"
-            mode="outlined"
-            onPress={toggleDatePicker}
-          >
-            {currentValueDateLabel || placeholder}
-          </Button>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <View style={{flex: 1}}>
+              <Button
+                uppercase={false}
+                labelStyle={{color: 'black', fontWeight: 'normal'}}
+                icon="calendar"
+                mode="outlined"
+                onPress={toggleDatePicker}
+              >
+                {currentValueDateLabel || placeholder}
+              </Button>
+            </View>
+            { currentValue &&
+                <IconButton
+                  icon="close"
+                  iconColor="red"
+                  size={20}
+                  onPress={resetDate}
+                />
+            }
+          </View>
           <DateTimePickerModal
             isVisible={isPickerVisible}
             date={currentValueDate}
@@ -107,9 +124,7 @@ import { Text } from 'react-native';
           />
         </>
       }
-      <Text>
-        {JSON.stringify(errors[name])}
-      </Text>
+
       <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
         { errors[name] && errors[name].type === 'required' && 'Ce champ est requis' }
         { errors[name] && errors[name].type === 'pattern' && 'Ce champ ne peut contenir que des données numérique (e.g. 1000 ou 1000.01)' }
