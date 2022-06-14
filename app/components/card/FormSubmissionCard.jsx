@@ -14,7 +14,6 @@ export default function FormSubmissionCard({navigation,statusForm}) {
   const [forms , setForms] = useState([])
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [getDate, setDate] = useState(null);
-  const [isDeleted,setIsDeleted] =useState(false);
 
     /**
    * Store
@@ -52,7 +51,6 @@ export default function FormSubmissionCard({navigation,statusForm}) {
 
 
   const renderFormDraft=  ({item})=>{
-    setIsDeleted(false)
 
     const deleteItemCard = async()=>{
      await destroyForm(item.id).then(()=>{
