@@ -8,13 +8,14 @@ import { Menu, Pressable } from 'native-base';
 import styleSheet from './CreateForm.style';
 import FormView from '../../components/form/FormView';
 import { useSelector } from 'react-redux';
-import { storeForm, updateForm, fetchFormsByHospital, fetchForm } from '../../services/formService'
+import { storeForm, updateForm, fetchFormsByHospital, fetchForm, destroyForm } from '../../services/formService'
 import { Ionicons } from '@expo/vector-icons';
 import { statusForm } from '../../config/variables';
+import { hospitalManagerNamesSelector } from '../../store';
 
 function CreateForm({ route, navigation }) {
-  const currentFormId = route.params.id;
-  const paramsSavedFormId = route.params.savedFormId;
+  const currentFormId = +route.params.id;
+  const paramsSavedFormId = +route.params.savedFormId;
   /**
    * State
    */
@@ -31,6 +32,7 @@ function CreateForm({ route, navigation }) {
    */
   const hospital = useSelector((state) => state.hospital.hospital);
   const selectedForm = hospital.forms.find((form) => form.id === currentFormId);
+  const hospitalManager = useSelector(hospitalManagerNamesSelector);
 
   /**
    * Hooks
@@ -52,7 +54,7 @@ function CreateForm({ route, navigation }) {
     if (savedFormId) {
       onUpdateForm()
     } else {
-      onSaveForm()
+      onSaveFormInDraft()
     }
   }
 
@@ -73,7 +75,7 @@ function CreateForm({ route, navigation }) {
       });
   }
 
-  const onSaveForm = () => {
+  const onSaveFormInDraft = () => {
     storeForm({
       payload: JSON.stringify(completedForm),
       hospitalId: hospital.id,
@@ -84,7 +86,32 @@ function CreateForm({ route, navigation }) {
     })
       .then((formId) => {
         setSavedFormId(formId);
+        ToastAndroid.show('Formulaire enregistré en brouillon avec succès', ToastAndroid.SHORT);
+      })
+      .catch(() => {
+        ToastAndroid.show('Impossible de sauvegarder votre formulaire', ToastAndroid.SHORT);
+      });
+  }
+
+  const handleCompleteForm = () => {
+    completedForm.created_manager_name = hospitalManager.name
+    completedForm.created_manager_first_name = hospitalManager.firstName
+    completedForm.hospital_id = hospital.id
+    completedForm.form_id = currentFormId
+    storeForm({
+      payload: JSON.stringify(completedForm),
+      hospitalId: hospital.id,
+      formTitle: selectedForm.title,
+      formId: currentFormId,
+      date: (new Date()).toISOString(),
+      status: statusForm.saved
+    })
+      .then(() => {
+        if (paramsSavedFormId) {
+          destroyForm(paramsSavedFormId)
+        }
         ToastAndroid.show('Formulaire sauvegardé avec succès', ToastAndroid.SHORT);
+        navigation.goBack()
       })
       .catch(() => {
         ToastAndroid.show('Impossible de sauvegarder votre formulaire', ToastAndroid.SHORT);
@@ -97,8 +124,8 @@ function CreateForm({ route, navigation }) {
   }
 
   // try {
-    // fetchFormsByHospital({hospitalId: hospital.id, status: 'draft'})
-      // .then(response => console.log('response', response));
+  //   fetchFormsByHospital({hospitalId: hospital.id, status: 'saved'})
+  //     .then(response => console.log('response', response));
   // } catch (error) {
   //   console.log(error);
   // }
@@ -112,7 +139,7 @@ function CreateForm({ route, navigation }) {
               icon="arrow-left"
               color="white"
               size={20}
-              onPress={() => navigation.navigate('ShowForm', { id: currentFormId })}
+              onPress={() => navigation.goBack()}
             />
           </View>
           <View>
@@ -134,11 +161,11 @@ function CreateForm({ route, navigation }) {
         <ScrollView>
           <FormView
             form={selectedForm}
-            navigation={navigation}
             completedForm={completedForm}
             currentStep={currentStep}
             setCompletedForm={setCompletedForm}
             setCurrentStep={setCurrentStep}
+            handleCompleteForm={handleCompleteForm}
           />
         </ScrollView>
       </View>

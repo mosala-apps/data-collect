@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
-  Text, TextInput, TouchableWithoutFeedback, View,
+  Text, View
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import styleSheet from './FormView.style';
@@ -13,7 +12,7 @@ import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import FormFieldInput from './FormFieldInput';
 import { useMemo } from 'react';
-function FormView({ form, completedForm, setCompletedForm, currentStep, setCurrentStep }) {
+function FormView({ form, completedForm, setCompletedForm, currentStep, setCurrentStep, handleCompleteForm }) {
 
   /**
    * State
@@ -76,8 +75,6 @@ function FormView({ form, completedForm, setCompletedForm, currentStep, setCurre
     //   }
     // })
   }
-
-  const handleCompleteForm = () => {}
 
   const handleFormFieldChange = (formFieldId, value) => {
     completedForm.completed_form_fields[formFieldId] = value
@@ -225,8 +222,6 @@ FormView.propTypes = {
   currentStep: PropTypes.number.isRequired,
   setCompletedForm: PropTypes.func.isRequired,
   setCurrentStep: PropTypes.func.isRequired,
-  navigation: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
+  handleCompleteForm: PropTypes.func.isRequired
 };
 export default FormView;
