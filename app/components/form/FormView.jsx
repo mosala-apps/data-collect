@@ -10,6 +10,7 @@ import { hospitalManagerNamesSelector } from '../../store';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import FormFieldInput from './FormFieldInput';
+import { Ionicons } from '@expo/vector-icons';
 function FormView({
   form,
   completedForm,
@@ -89,8 +90,23 @@ function FormView({
       <Card>
         <Card.Content>
           <View>
-            <Text style={{textAlign: 'center'}}>Vous soumettez vos données en tant que : </Text>
-            <Text style={{fontWeight: 'bold', textAlign: 'center'}}>{ hospitalManager.name } { hospitalManager.firstName }</Text>
+            {
+              hospitalManager.correct ?
+              (
+                <>
+                  <Text style={{textAlign: 'center'}}>Vous soumettez vos données en tant que : </Text>
+                  <Text style={{fontWeight: 'bold', textAlign: 'center'}}>{ hospitalManager.name } { hospitalManager.firstName }</Text>
+                </>
+              ) :
+              (
+                <>
+                  <Ionicons style={{textAlign: 'center'}} name="warning" size={24} color="red" />
+                  <Text style={{textAlign: 'center', color: 'red'}}>
+                    Vous devez correctement définir votre prénom et nom pour pouvoir soumettre des données
+                  </Text>
+                </>
+              )
+            }
             <Button
               labelStyle={{ fontWeight: 'normal'}}
               uppercase={false}
@@ -206,6 +222,7 @@ function FormView({
             Suivant
           </Button>) :
            (<Button
+            disabled={!hospitalManager.correct}
             color={variableStyle.secondaryColor}
             labelStyle={{color: 'white', textTransform: 'capitalize'}}
             mode="contained"
