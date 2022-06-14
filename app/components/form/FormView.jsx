@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import FormFieldInput from './FormFieldInput';
 import { Ionicons } from '@expo/vector-icons';
+import { FormControl, WarningOutlineIcon } from 'native-base';
 function FormView({
   form,
   completedForm,
@@ -18,7 +19,8 @@ function FormView({
   currentStep,
   setCurrentStep,
   handleCompleteForm,
-  formHook
+  formHook,
+  existedLastUpdates
 }) {
 
   /**
@@ -189,6 +191,13 @@ function FormView({
                   errors={formHook.formState.errors}
                   onInput={(value) => handleLastUpdateChange(value)}
                 />
+                <View style={{paddingRight: 10 }}>
+                  <FormControl isInvalid={existedLastUpdates.includes(completedForm.last_update)}>
+                    <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+                      Cette date a déjà une soumission. Veuillez choisir une autre date SVP !
+                    </FormControl.ErrorMessage>
+                  </FormControl>
+                </View>
               </Card.Content>
             </Card>
           }
@@ -222,7 +231,7 @@ function FormView({
             Suivant
           </Button>) :
            (<Button
-            disabled={!hospitalManager.correct}
+            disabled={!hospitalManager.correct || existedLastUpdates.includes(completedForm.last_update)}
             color={variableStyle.secondaryColor}
             labelStyle={{color: 'white', textTransform: 'capitalize'}}
             mode="contained"
@@ -244,6 +253,7 @@ FormView.propTypes = {
   setCompletedForm: PropTypes.func.isRequired,
   setCurrentStep: PropTypes.func.isRequired,
   handleCompleteForm: PropTypes.func.isRequired,
+  existedLastUpdates: PropTypes.array.isRequired,
   formHook: PropTypes.object.isRequired
 };
 export default FormView;

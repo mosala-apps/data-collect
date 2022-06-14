@@ -103,12 +103,23 @@ export const updateForm = (id, {payload, hospitalId, date, status, formTitle, fo
   });
 }
 
-export const fetchFormsByHospital = ({hospitalId, status}) => {
+export const fetchFormsByHospital = ({hospitalId, status, notStatus}) => {
   return new Promise((resolve, reject) => {
+    let queries = []
+    let args = []
+    if (status) {
+      queries.push(`AND status = ?`)
+      args.push(status)
+    }
+    if (notStatus) {
+      queries.push(`AND status <> ?`)
+      args.push(notStatus)
+    }
+
     db.transaction(tx => {
       tx.executeSql(
-        "SELECT * FROM forms WHERE hospitalId = ? AND status = ?  ORDER BY date DESC",
-        [hospitalId, status],
+        `SELECT * FROM forms WHERE hospitalId = ? ${queries} ORDER BY date DESC`,
+        [hospitalId, ...args],
         (_, result) => {
           resolve(result.rows._array);
         },

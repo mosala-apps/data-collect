@@ -8,6 +8,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { AntDesign } from '@expo/vector-icons'; 
 import { format } from 'date-fns';
 import styleSheet from './FormSubmissionCard.style';
+import variableStyle from '../../config/variable.style';
 
 export default function FormSubmissionCard({navigation,statusForm}) {
 
@@ -75,13 +76,14 @@ export default function FormSubmissionCard({navigation,statusForm}) {
             <Text style={{fontSize: 13}}>{format(new Date(item.date), 'dd/MM/yyyy HH:MM')}</Text>
           </View>
           </View>
-          { statusForm !== 'synchronized' &&
-              <IconButton
+          { statusForm !== 'synchronized' ?
+              (<IconButton
                 icon="delete"
                 color="red"
                 labelStyle={styleSheet.containerDeleteButton}
                 onPress={ deleteItemCard }
-              />
+              />) :
+              (<Text style={{width: 40}} />) 
           }
         </Card.Content>
       </TouchableOpacity> 

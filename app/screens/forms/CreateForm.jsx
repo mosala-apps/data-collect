@@ -21,6 +21,7 @@ function CreateForm({ route, navigation }) {
    * State
    */
   const [currentStep, setCurrentStep] = useState(1)
+  const [existedLastUpdates, setExistedLastUpdates] = useState([])
   const [savedFormId, setSavedFormId] = useState(paramsSavedFormId)
   const [completedForm, setCompletedForm] = useState(
     {
@@ -49,11 +50,19 @@ function CreateForm({ route, navigation }) {
         }
       })
     }
+    loadExistedLastUpdates()
   }, []);
 
   /**
    * Actions
    */
+  const loadExistedLastUpdates = async () => {
+    let lastUpdates = selectedForm.completed_forms.map((payload) => payload.last_update)
+    const data = await fetchFormsByHospital({hospitalId: hospital.id, notStatus: statusForm.draft })
+    lastUpdates = [...lastUpdates, ...data.map((form) => JSON.parse(form.payload).last_update)]
+    setExistedLastUpdates(lastUpdates)
+  }
+
   const handleSaveInDraft = () => {
     if (savedFormId) {
       onUpdateForm()
@@ -169,6 +178,7 @@ function CreateForm({ route, navigation }) {
             completedForm={completedForm}
             currentStep={currentStep}
             formHook={formHook}
+            existedLastUpdates={existedLastUpdates}
             setCompletedForm={setCompletedForm}
             setCurrentStep={setCurrentStep}
             handleCompleteForm={handleCompleteForm}
