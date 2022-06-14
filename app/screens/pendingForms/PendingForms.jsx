@@ -9,7 +9,6 @@ import FormSubmissionCard from '../../components/card/FormSubmissionCard';
 
 export default function PendingForms({navigation}) {
 
-  const [forms , setForms] = useState([])
 
 
 
@@ -20,14 +19,9 @@ export default function PendingForms({navigation}) {
      
 
   useEffect(()=>{
-    FormsByHospital()
   },[user])
 
-  const FormsByHospital = async()=>{
-    const data = await fetchFormsByHospital({hospitalId:user.hospital.id,status:statusForm.saved})
-    setForms(data)
-    return data
-  }
+  
 
   return (
     <SafeAreaView style={styleSheet.container}>

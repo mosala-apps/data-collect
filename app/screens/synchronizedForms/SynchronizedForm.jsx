@@ -9,7 +9,6 @@ import styleSheet from './SynchronizedForm.style'
 
 export default function SynchronizedForms({navigation}) {
 
-  const [forms , setForms] = useState([])
 
 
 
@@ -20,14 +19,8 @@ export default function SynchronizedForms({navigation}) {
      
 
   useEffect(()=>{
-    FormsByHospital()
   },[user])
 
-  const FormsByHospital = async()=>{
-    const data = await fetchFormsByHospital({hospitalId:user.hospital.id,status:statusForm.sync})
-    setForms(data)
-    return data
-  }
 
   return (
     <SafeAreaView style={styleSheet.container}>
