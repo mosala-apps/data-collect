@@ -11,8 +11,6 @@ export default function Drafts({navigation}) {
 
   const [forms , setForms] = useState([])
 
-
-
     /**
    * Store
    */

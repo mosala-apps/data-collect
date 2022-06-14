@@ -45,6 +45,12 @@ export default function FormSubmissionCard({navigation,statusForm}) {
     toggleDatePicker();
   }
 
+  
+  const filteredFormData = useMemo(() => {
+     return getDate ?forms.filter((form)=>format(new Date(form.date), 'dd/MM/yyyy') === format(new Date(getDate), 'dd/MM/yyyy')) : forms
+  }, [getDate, forms]);
+
+
   const renderFormDraft=({item})=>{
     return  <Card style={styleSheet.containerCard}>
               <TouchableOpacity style={{}} onPress={()=>navigation.navigate('CreateForm', { id: item.formId, savedFormId:item.id})} key={item.id}>
@@ -68,7 +74,7 @@ export default function FormSubmissionCard({navigation,statusForm}) {
     <SafeAreaView style={styleSheet.container}>
       <View style={styleSheet.containerCalendar}>
       <Button icon="calendar"  labelStyle={styleSheet.containerCalendarButton}  mode="container" onPress={toggleDatePicker}>
-      {getDate ?getDate:'Sélectionner une Date'}
+      {getDate ? format(new Date(getDate), 'dd/MM/yyyy'):'Sélectionner une Date'}
       </Button>
       <TouchableOpacity onPress={clearFilter}>
               <AntDesign name="closecircleo" size={15} color="black" style={styleSheet.clearButton}/>
@@ -86,7 +92,7 @@ export default function FormSubmissionCard({navigation,statusForm}) {
       <FlatList
         style={styleSheet.flatList}
         numColumns={1}
-        data={forms}
+        data={filteredFormData}
         renderItem={renderFormDraft}
       />
       </View>
