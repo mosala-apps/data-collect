@@ -83,7 +83,7 @@ export const fetchFormsByHospital = ({hospitalId, status}) => {
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
       tx.executeSql(
-        "SELECT * FROM forms WHERE hospitalId = ? AND status = ?",
+        "SELECT * FROM forms WHERE hospitalId = ? AND status = ?  ORDER BY date DESC",
         [hospitalId, status],
         (_, result) => {
           console.log('form/fetchByHospital', result)
