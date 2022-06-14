@@ -6,7 +6,7 @@ const FormSlice = createSlice({
   initialState: {},
   reducers: {},
   extraReducers: {},
-});
+})
 
 export const { syncForm } = FormSlice.actions
 

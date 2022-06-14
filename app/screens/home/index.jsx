@@ -17,7 +17,7 @@ function Home({ navigation }) {
    */
   const [textInput, setTextInput] = useState('');
   const dispatch = useDispatch();
-  const [refreshing, setRefreshing] = React.useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   /**
    * Store
