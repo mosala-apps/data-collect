@@ -4,8 +4,11 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import styleSheet from './FormCard.style';
+import { useNavigation } from '@react-navigation/native';
 
-function FormCard({ form, navigation }) {
+function FormCard({ form }) {
+
+  const navigation = useNavigation();
   const handlePress = () => {
     navigation.navigate('ShowForm', { id: form.id });
   };
@@ -44,9 +47,6 @@ function FormCard({ form, navigation }) {
 
 FormCard.propTypes = {
   form: PropTypes.object.isRequired,
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
 };
 
 export default FormCard;

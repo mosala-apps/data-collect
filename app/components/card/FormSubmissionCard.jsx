@@ -8,13 +8,14 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { AntDesign } from '@expo/vector-icons'; 
 import { format } from 'date-fns';
 import styleSheet from './FormSubmissionCard.style';
-import variableStyle from '../../config/variable.style';
+import { useNavigation } from '@react-navigation/native';
 
-export default function FormSubmissionCard({navigation,statusForm}) {
+export default function FormSubmissionCard({statusForm}) {
 
   const [forms , setForms] = useState([])
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [getDate, setDate] = useState(null);
+  const navigation = useNavigation();
 
   /**
    * Store
@@ -64,7 +65,7 @@ export default function FormSubmissionCard({navigation,statusForm}) {
     return  <Card style={styleSheet.containerCard}>
       <TouchableOpacity
         style={{}}
-        onPress={()=>navigation.navigate('CreateForm', { id: item.formId, savedFormId:item.id})} key={item.id}
+        onPress={() => navigation.navigate('CreateForm', { id: item.formId, savedFormId:item.id})} key={item.id}
       >
         <Card.Content style={styleSheet.containerCardContent}>
           <View style={styleSheet.containerAvatar}>

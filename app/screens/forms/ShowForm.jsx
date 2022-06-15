@@ -74,7 +74,6 @@ export default function ShowForm({ route, navigation }) {
     <CompletedFormCard
       completedForm={item}
       key={`completed-form-${item.id}`}
-      showEditAction={false}
     />
   );
 
@@ -163,7 +162,7 @@ export default function ShowForm({ route, navigation }) {
         </View>
         <View>
           <FlatList
-            style={{backgroundColor: 'white'}}
+            style={{backgroundColor: variableStyle.primaryColor}}
             numColumns={1}
             data={completedFormsFiltered}
             renderItem={flatListRenderedItem}
