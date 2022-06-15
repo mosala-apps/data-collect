@@ -94,36 +94,47 @@ function FormView({
     <View style={styleSheet.container}>
       <Card>
         <Card.Content>
-          <View>
-            {
-              hospitalManager.correct ?
-              (
-                <>
-                  <Text style={{textAlign: 'center'}}>Vous soumettez vos données en tant que : </Text>
-                  <Text style={{fontWeight: 'bold', textAlign: 'center'}}>{ hospitalManager.name } { hospitalManager.firstName }</Text>
-                </>
-              ) :
-              (
-                <>
-                  <Ionicons style={{textAlign: 'center'}} name="warning" size={24} color="red" />
-                  <Text style={{textAlign: 'center', color: 'red'}}>
-                    Vous devez correctement définir votre prénom et nom pour pouvoir soumettre des données
-                  </Text>
-                </>
-              )
-            }
-            <Button
-              labelStyle={{ fontWeight: 'normal'}}
-              uppercase={false}
-              color="#aaa"
-              mode="text"
-              icon="pencil"
-              compact
-              onPress={() => navigation.navigate('Settings')}
-            >
-              Cliquez-ici pour modifier
-            </Button>
-          </View>
+          { showSubmitAction && 
+            <View>
+              {
+                hospitalManager.correct ?
+                (
+                  <>
+                    <Text style={{textAlign: 'center'}}>Vous soumettez vos données en tant que : </Text>
+                    <Text style={{fontWeight: 'bold', textAlign: 'center'}}>{ hospitalManager.name } { hospitalManager.firstName }</Text>
+                  </>
+                ) :
+                (
+                  <>
+                    <Ionicons style={{textAlign: 'center'}} name="warning" size={24} color="red" />
+                    <Text style={{textAlign: 'center', color: 'red'}}>
+                      Vous devez correctement définir votre prénom et nom pour pouvoir soumettre des données
+                    </Text>
+                  </>
+                )
+              }
+              <Button
+                labelStyle={{ fontWeight: 'normal'}}
+                uppercase={false}
+                color="#aaa"
+                mode="text"
+                icon="pencil"
+                compact
+                onPress={() => navigation.navigate('Settings')}
+              >
+                Cliquez-ici pour modifier
+              </Button>
+            </View>
+          }
+          {
+            !showSubmitAction &&
+              <View>
+                <Text style={{textAlign: 'center'}}>Données soumises par :</Text>
+                <Text style={{fontWeight: 'bold', textAlign: 'center'}}>
+                  { completedForm.created_manager_name } { completedForm.created_manager_first_name }
+                </Text>
+              </View>
+          }
           <Divider style={{marginVertical: 10}} />
           <View>
             <Text>* Champs requis</Text>

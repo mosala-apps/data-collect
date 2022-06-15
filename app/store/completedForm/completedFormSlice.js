@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const FormSlice = createSlice({
-  name: 'form',
+const CompletedFormSlice = createSlice({
+  name: 'completedForm',
   initialState: {},
   reducers: {},
   extraReducers: {},
 })
 
-export default FormSlice.reducer;
+export default CompletedFormSlice.reducer;

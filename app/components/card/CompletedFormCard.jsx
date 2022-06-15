@@ -22,7 +22,7 @@ function CompletedFormCard ({completedForm}) {
         <Card.Content>
           <View style={styleSheet.cardView}>
             <View style={{flex: 1}}>
-              <Avatar.Text size={40} label={createdManagerNameAvatar} style={styleSheet.avatarText}/>
+              <Avatar.Text size={40} label={createdManagerNameAvatar} style={styleSheet.avatar} labelStyle={styleSheet.avatarText} />
             </View>
             <View style={{flex: 2, textAlign: 'center'}}>
               <Text style={{textAlign: 'left', textTransform: 'capitalize'}}>{completedForm.created_manager_name} {completedForm.created_manager_first_name}</Text>

@@ -47,8 +47,6 @@ const FormFieldInput = ({
     return allRules
   }, [type])
 
-  console.log('render', disabled)
-
   return (
     <>
       <Controller

@@ -10,12 +10,11 @@ const styleSheet = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
-  avatarText: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-    textAlign: 'center',
+  avatar: {
     backgroundColor: variableStyle.fade,
+  },
+  avatarText: {
+    textTransform: 'uppercase',
   },
   actions: {
     flex: 2,
