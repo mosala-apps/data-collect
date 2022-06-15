@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useMemo } from 'react';
-import { View, Text,SafeAreaView,FlatList,TouchableOpacity,ToastAndroid} from 'react-native';
+import { View, Text,SafeAreaView,FlatList,TouchableOpacity,ToastAndroid,RefreshControl} from 'react-native';
 import { Card, Button,Avatar, IconButton  } from 'react-native-paper';
 import { fetchFormsByHospital,destroyForm } from '../../services/formService'
 import { useSelector } from 'react-redux';
@@ -16,6 +16,7 @@ export default function FormSubmissionCard({statusForm}) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [getDate, setDate] = useState(null);
   const navigation = useNavigation();
+  const [refreshing, setRefreshing] = useState(false);
 
   /**
    * Store
@@ -23,12 +24,15 @@ export default function FormSubmissionCard({statusForm}) {
   const user = useSelector((state) => state.auth.user);
 
   useEffect(()=>{
-    FormsByHospital()
-  }, [user])
+   navigation.addListener('focus', () => {
+     FormsByHospital()   
+    });
+  }, [user,navigation])
 
   const FormsByHospital = async()=>{
     const data = await fetchFormsByHospital({hospitalId:user.hospital.id,status:statusForm})
     setForms(data)
+    setRefreshing(false);
     return data
   }
 
@@ -50,8 +54,13 @@ export default function FormSubmissionCard({statusForm}) {
      return getDate ?forms.filter((form)=>format(new Date(form.date), 'dd/MM/yyyy') === format(new Date(getDate), 'dd/MM/yyyy')) : forms
   }, [getDate, forms]);
 
+  const onRefresh = () => {
+    FormsByHospital()   
+    setRefreshing(true);
+  };
 
   const renderFormDraft = ({item}) => {
+
     const deleteItemCard = async() => {
       await destroyForm(item.id)
         .then(() => {
@@ -62,6 +71,7 @@ export default function FormSubmissionCard({statusForm}) {
           ToastAndroid.show('La suppression a échouée', ToastAndroid.SHORT);
         })
     }
+
     return  <Card style={styleSheet.containerCard}>
       <TouchableOpacity
         style={{}}
@@ -117,6 +127,13 @@ export default function FormSubmissionCard({statusForm}) {
         numColumns={1}
         data={filteredFormData}
         renderItem={renderFormDraft}
+        refreshControl={(
+          <RefreshControl
+            colors={[variableStyle.secondaryColor, variableStyle.tertiaryColor]}
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        )}
       />
       </View>
      
