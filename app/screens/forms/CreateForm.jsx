@@ -23,6 +23,7 @@ function CreateForm({ route, navigation }) {
   const [currentStep, setCurrentStep] = useState(1)
   const [existedLastUpdates, setExistedLastUpdates] = useState([])
   const [savedFormId, setSavedFormId] = useState(paramsSavedFormId)
+  const [savedForm, setSavedForm] = useState(null)
   const [completedForm, setCompletedForm] = useState(
     {
       completed_form_fields: {}
@@ -45,6 +46,7 @@ function CreateForm({ route, navigation }) {
   useEffect(() => {
     if (paramsSavedFormId) {
       fetchForm(paramsSavedFormId).then((form) => {
+        setSavedForm(form)
         if (form && form.payload) {
           setCompletedForm(JSON.parse(form.payload))
         }
@@ -182,6 +184,9 @@ function CreateForm({ route, navigation }) {
             setCompletedForm={setCompletedForm}
             setCurrentStep={setCurrentStep}
             handleCompleteForm={handleCompleteForm}
+            disableFields={savedForm && [statusForm.synchronized].includes(savedForm.status)}
+            disableLastUpdate={savedForm && [statusForm.saved, statusForm.synchronized].includes(savedForm.status)}
+            showSubmitAction={!savedForm || ![statusForm.synchronized].includes(savedForm.status)}
           />
         </ScrollView>
       </View>

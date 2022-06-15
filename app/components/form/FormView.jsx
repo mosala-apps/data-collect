@@ -20,7 +20,10 @@ function FormView({
   setCurrentStep,
   handleCompleteForm,
   formHook,
-  existedLastUpdates
+  existedLastUpdates,
+  disableFields,
+  disableLastUpdate,
+  showSubmitAction,
 }) {
 
   /**
@@ -161,6 +164,7 @@ function FormView({
                       value={completedForm.completed_form_fields[field.id]}
                       defaultValue={field.default_value}
                       placeholder={`Entrer ${field.name}`}
+                      disabled={disableFields}
                       control={formHook.control}
                       errors={formHook.formState.errors}
                       onInput={(value) => handleFormFieldChange(field.id, value)}
@@ -187,12 +191,13 @@ function FormView({
                   name='last_update'
                   rules='required'
                   placeholder='Veuillez choisir une date'
+                  disabled={disableLastUpdate}
                   control={formHook.control}
                   errors={formHook.formState.errors}
                   onInput={(value) => handleLastUpdateChange(value)}
                 />
                 <View style={{paddingRight: 10 }}>
-                  <FormControl isInvalid={existedLastUpdates.includes(completedForm.last_update)}>
+                  <FormControl isInvalid={existedLastUpdates.includes(completedForm.last_update) && !disableLastUpdate}>
                     <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
                       Cette date a déjà une soumission. Veuillez choisir une autre date SVP !
                     </FormControl.ErrorMessage>
@@ -221,7 +226,7 @@ function FormView({
           Précédent
         </Button>
         {
-          !submitStep ?
+          !submitStep &&
           (<Button
             color={variableStyle.secondaryColor}
             labelStyle={{color: 'white', textTransform: 'capitalize'}}
@@ -229,15 +234,18 @@ function FormView({
             onPress={formHook.handleSubmit(handleGotoNextStep)}
           >
             Suivant
-          </Button>) :
+          </Button>)
+        }
+        {
+          submitStep && showSubmitAction &&
            (<Button
-            disabled={!hospitalManager.correct || existedLastUpdates.includes(completedForm.last_update)}
+            disabled={!hospitalManager.correct || (existedLastUpdates.includes(completedForm.last_update) && !disableLastUpdate)}
             color={variableStyle.secondaryColor}
             labelStyle={{color: 'white', textTransform: 'capitalize'}}
             mode="contained"
             onPress={formHook.handleSubmit(handleCompleteForm)}
           >
-            Soumettre
+            Enregistrer
           </Button>)
         }
       </View>
@@ -245,15 +253,22 @@ function FormView({
   );
 }
 
-FormView.defaultProps = {}
+FormView.defaultProps = {
+  disableFields: false,
+  disableLastUpdate: false,
+  showSubmitAction: true
+}
 
 FormView.propTypes = {
   completedForm: PropTypes.object.isRequired,
   currentStep: PropTypes.number.isRequired,
+  disableFields: PropTypes.bool,
+  disableLastUpdate: PropTypes.bool,
+  showSubmitAction: PropTypes.bool,
   setCompletedForm: PropTypes.func.isRequired,
   setCurrentStep: PropTypes.func.isRequired,
   handleCompleteForm: PropTypes.func.isRequired,
   existedLastUpdates: PropTypes.array.isRequired,
-  formHook: PropTypes.object.isRequired
+  formHook: PropTypes.object.isRequired,
 };
 export default FormView;

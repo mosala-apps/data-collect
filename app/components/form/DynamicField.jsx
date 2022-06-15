@@ -19,6 +19,7 @@ import variableStyle from '../../config/variable.style';
   onInput,
   onChangeForValidator,
   onBlur,
+  disabled
 }) => {
   /**
    * States
@@ -80,6 +81,7 @@ import variableStyle from '../../config/variable.style';
             <View style={{flex: 1}}>
               <Button
                 uppercase={false}
+                disabled={disabled}
                 labelStyle={{color: 'black', fontWeight: 'normal'}}
                 icon="calendar"
                 mode="outlined"
@@ -88,7 +90,7 @@ import variableStyle from '../../config/variable.style';
                 {currentValueDateLabel || placeholder}
               </Button>
             </View>
-            { currentValue &&
+            { currentValue && !disabled &&
                 <IconButton
                   icon="close"
                   color="red"
@@ -112,11 +114,11 @@ import variableStyle from '../../config/variable.style';
         <>
           <RadioButton.Group onValueChange={handleChange} value={currentValue}>
             <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-              <RadioButton value="1" color={variableStyle.secondaryColor} />
+              <RadioButton value="1" color={variableStyle.secondaryColor} disabled={disabled} />
               <Text>Oui</Text>
             </View>
             <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-              <RadioButton value="0" color={variableStyle.secondaryColor} />
+              <RadioButton value="0" color={variableStyle.secondaryColor} disabled={disabled} />
               <Text>Non</Text>
             </View>
           </RadioButton.Group>
@@ -129,6 +131,7 @@ import variableStyle from '../../config/variable.style';
             type={type}
             value={currentValue}
             placeholder={placeholder}
+            isDisabled={disabled}
             onChangeText={handleChange}
             onBlur={onBlur}
           />
