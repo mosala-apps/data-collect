@@ -1,5 +1,6 @@
 import React,  { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   ScrollView, Text, ToastAndroid, View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -20,6 +21,7 @@ function CreateForm({ route, navigation }) {
   /**
    * State
    */
+  const [loading, setLoading] = useState(true)
   const [currentStep, setCurrentStep] = useState(1)
   const [existedLastUpdates, setExistedLastUpdates] = useState([])
   const [savedFormId, setSavedFormId] = useState(paramsSavedFormId)
@@ -45,12 +47,18 @@ function CreateForm({ route, navigation }) {
 
   useEffect(() => {
     if (paramsSavedFormId) {
-      fetchForm(paramsSavedFormId).then((form) => {
-        setSavedForm(form)
-        if (form && form.payload) {
-          setCompletedForm(JSON.parse(form.payload))
-        }
-      })
+      setLoading(true)
+      fetchForm(paramsSavedFormId)
+        .then((form) => {
+          setSavedForm(form)
+          if (form && form.payload) {
+            setCompletedForm(JSON.parse(form.payload))
+          }
+          setLoading(false)
+        })
+        .catch(() => setLoading(false))
+    } else {
+      setLoading(false)
     }
     loadExistedLastUpdates()
   }, []);
@@ -175,19 +183,25 @@ function CreateForm({ route, navigation }) {
       </View>
       <View style={styleSheet.bodyContainer}>
         <ScrollView>
-          <FormView
-            form={selectedForm}
-            completedForm={completedForm}
-            currentStep={currentStep}
-            formHook={formHook}
-            existedLastUpdates={existedLastUpdates}
-            setCompletedForm={setCompletedForm}
-            setCurrentStep={setCurrentStep}
-            handleCompleteForm={handleCompleteForm}
-            disableFields={savedForm && [statusForm.synchronized].includes(savedForm.status)}
-            disableLastUpdate={savedForm && [statusForm.saved, statusForm.synchronized].includes(savedForm.status)}
-            showSubmitAction={!savedForm || ![statusForm.synchronized].includes(savedForm.status)}
-          />
+          {
+            loading ? (
+              <ActivityIndicator size="large" />
+            ) : (
+              <FormView
+                form={selectedForm}
+                completedForm={completedForm}
+                currentStep={currentStep}
+                formHook={formHook}
+                existedLastUpdates={existedLastUpdates}
+                setCompletedForm={setCompletedForm}
+                setCurrentStep={setCurrentStep}
+                handleCompleteForm={handleCompleteForm}
+                disableFields={savedForm && [statusForm.synchronized].includes(savedForm.status)}
+                disableLastUpdate={savedForm && [statusForm.saved, statusForm.synchronized].includes(savedForm.status)}
+                showSubmitAction={!savedForm || ![statusForm.synchronized].includes(savedForm.status)}
+              />
+            )
+          }
         </ScrollView>
       </View>
     </SafeAreaView>
