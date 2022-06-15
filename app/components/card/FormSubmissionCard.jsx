@@ -73,7 +73,10 @@ export default function FormSubmissionCard({navigation,statusForm}) {
           <View>
           <Text style={styleSheet.containerCardTitle}>{item.formTitle}</Text> 
           <View>
-            <Text style={{fontSize: 13}}>{format(new Date(item.date), 'dd/MM/yyyy HH:MM')}</Text>
+            { JSON.parse(item.payload).last_update &&
+              <Text style={{fontSize: 13}}>Date de collecte : {format(new Date(JSON.parse(item.payload).last_update), 'dd/MM/yyyy')}</Text>
+            }
+            <Text style={{fontSize: 13}}>Enregistrer le {format(new Date(item.date), 'dd/MM/yyyy à HH:MM')}</Text>
           </View>
           </View>
           { statusForm !== 'synchronized' ?
