@@ -41,7 +41,7 @@ export const offlineLogin = async (payload) => {
 
   const user = offlineUsers.find(
     (item) => (item.user.email === email
-        || item.user.username === email
+        || item.user.usernmae === email
         || item.user.phone_number === email)
       && item.password === password,
   );

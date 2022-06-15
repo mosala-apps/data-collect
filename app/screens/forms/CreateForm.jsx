@@ -1,5 +1,6 @@
 import React,  { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   ScrollView, Text, ToastAndroid, View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -13,13 +14,16 @@ import { Ionicons } from '@expo/vector-icons';
 import { useForm } from 'react-hook-form';
 import { statusForm } from '../../config/variables';
 import { hospitalManagerNamesSelector } from '../../store';
+import { fetchCompletedForm } from '../../store/completedForm/completedFormAsyncQueries';
 
 function CreateForm({ route, navigation }) {
   const currentFormId = +route.params.id;
   const paramsSavedFormId = +route.params.savedFormId;
+  const paramsOnlineFormId = +route.params.onlineFormId;
   /**
    * State
    */
+  const [loading, setLoading] = useState(true)
   const [currentStep, setCurrentStep] = useState(1)
   const [existedLastUpdates, setExistedLastUpdates] = useState([])
   const [savedFormId, setSavedFormId] = useState(paramsSavedFormId)
@@ -45,12 +49,11 @@ function CreateForm({ route, navigation }) {
 
   useEffect(() => {
     if (paramsSavedFormId) {
-      fetchForm(paramsSavedFormId).then((form) => {
-        setSavedForm(form)
-        if (form && form.payload) {
-          setCompletedForm(JSON.parse(form.payload))
-        }
-      })
+      fetchFormToLocal()
+    } else if (paramsOnlineFormId) {
+      fetchCompletedFormOnline()
+    } else {
+      setLoading(false)
     }
     loadExistedLastUpdates()
   }, []);
@@ -58,6 +61,51 @@ function CreateForm({ route, navigation }) {
   /**
    * Actions
    */
+  const fetchFormToLocal = () => {
+    setLoading(true)
+    fetchForm(paramsSavedFormId)
+      .then((form) => {
+        setSavedForm(form)
+        if (form && form.payload) {
+          setCompletedForm(JSON.parse(form.payload))
+        }
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
+  }
+
+  const fetchCompletedFormOnline = () => {
+    setLoading(true)
+    fetchCompletedForm(paramsOnlineFormId)
+      .then((payloadCompletedForm) => {
+        const payload = {
+          last_update: payloadCompletedForm.last_update,
+          created_manager_first_name: payloadCompletedForm.created_manager_first_name,
+          created_manager_name: payloadCompletedForm.created_manager_name,
+          completed_form_fields: payloadCompletedForm.completed_form_fields
+            .map((completedFormField) => {
+              return {
+                formFieldId : completedFormField.form_field_id,
+                value : completedFormField.value
+              }
+            })
+            .reduce((acc, completedFormField) => ({...acc, [completedFormField.formFieldId] : completedFormField.value}), {})
+        }
+        setCompletedForm(payload)
+        setLoading(false)
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error && error.response && error.response.status === 0) {
+          ToastAndroid.show('Veuillez activer votre connexion internet pour accéder à ces informations', ToastAndroid.LONG);
+        } else {
+          ToastAndroid.show("Une erreur se produite, impossible d'accéder à ces informations", ToastAndroid.LONG);
+        }
+        navigation.goBack();
+        setLoading(false)
+      })
+  }
+
   const loadExistedLastUpdates = async () => {
     let lastUpdates = selectedForm.completed_forms.map((payload) => payload.last_update)
     const data = await fetchFormsByHospital({hospitalId: hospital.id, notStatus: statusForm.draft })
@@ -139,13 +187,6 @@ function CreateForm({ route, navigation }) {
     setCurrentStep(1)
   }
 
-  // try {
-  //   fetchFormsByHospital({hospitalId: hospital.id, status: 'saved'})
-  //     .then(response => console.log('response', response));
-  // } catch (error) {
-  //   console.log(error);
-  // }
-
   return (
     <SafeAreaView style={styleSheet.container}>
       <View style={styleSheet.headerContainer}>
@@ -175,19 +216,25 @@ function CreateForm({ route, navigation }) {
       </View>
       <View style={styleSheet.bodyContainer}>
         <ScrollView>
-          <FormView
-            form={selectedForm}
-            completedForm={completedForm}
-            currentStep={currentStep}
-            formHook={formHook}
-            existedLastUpdates={existedLastUpdates}
-            setCompletedForm={setCompletedForm}
-            setCurrentStep={setCurrentStep}
-            handleCompleteForm={handleCompleteForm}
-            disableFields={savedForm && [statusForm.synchronized].includes(savedForm.status)}
-            disableLastUpdate={savedForm && [statusForm.saved, statusForm.synchronized].includes(savedForm.status)}
-            showSubmitAction={!savedForm || ![statusForm.synchronized].includes(savedForm.status)}
-          />
+          {
+            loading ? (
+              <ActivityIndicator size="large" />
+            ) : (
+              <FormView
+                form={selectedForm}
+                completedForm={completedForm}
+                currentStep={currentStep}
+                formHook={formHook}
+                existedLastUpdates={existedLastUpdates}
+                setCompletedForm={setCompletedForm}
+                setCurrentStep={setCurrentStep}
+                handleCompleteForm={handleCompleteForm}
+                disableFields={!!paramsOnlineFormId || (savedForm && [statusForm.synchronized].includes(savedForm.status))}
+                disableLastUpdate={!!paramsOnlineFormId || (savedForm && [statusForm.saved, statusForm.synchronized].includes(savedForm.status))}
+                showSubmitAction={(!savedForm || ![statusForm.synchronized].includes(savedForm.status)) && !paramsOnlineFormId}
+              />
+            )
+          }
         </ScrollView>
       </View>
     </SafeAreaView>

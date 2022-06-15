@@ -55,7 +55,6 @@ function Home({ navigation }) {
     <FormCard
       key={item.id}
       form={item}
-      navigation={navigation}
     />
   );
   const onFlatList = () => {

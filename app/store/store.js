@@ -18,6 +18,7 @@ import SetNotificationNotReadSlice from './notification/setNotificationNotRead';
 import HospitalSlice from './hospital/hospitalSlice';
 import AuthSlice from './auth/authSlice';
 import FormSlice from './form/formSlice';
+import CompletedFormSlice from './completedForm/completedFormSlice';
 import hospitalManagerNameSlice from './hospitalManagerName/hospitalManagerNameSlice';
 
 const persistConfig = {
@@ -33,6 +34,7 @@ const reducers = combineReducers({
   hospital: HospitalSlice,
   hospitalManagerName: hospitalManagerNameSlice,
   form: FormSlice,
+  completedForm: CompletedFormSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

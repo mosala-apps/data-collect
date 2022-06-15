@@ -51,10 +51,10 @@ const FormFieldInput = ({
     <>
       <Controller
         control={control}
-        rules={ disabled ? {
+        rules={ disabled ? {} : {
           required: !!(rules && rules.match(/required/i)),
           ...additionalRules
-        } : {}}
+        }}
         render={({ field: { onChange, onBlur } }) => (
           <DynamicField
             type={type}

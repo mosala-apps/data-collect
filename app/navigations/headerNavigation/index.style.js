@@ -21,14 +21,14 @@ const styleSheet = StyleSheet.create({
   },
   notificationCount: {
     position:'absolute',
-    top:-10,
-    right: -4,
-    height: 20,
-    width: 20,
+    top: -5,
+    right: -2,
+    height: 15,
+    width: 15,
     color: '#ffffff',
     backgroundColor: 'red',
     borderRadius:50,
-    fontSize:14,
+    fontSize: 10,
     textAlign:'center'
   }
 })

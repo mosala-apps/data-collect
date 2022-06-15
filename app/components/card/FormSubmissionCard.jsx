@@ -8,13 +8,14 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { AntDesign } from '@expo/vector-icons'; 
 import { format } from 'date-fns';
 import styleSheet from './FormSubmissionCard.style';
-import variableStyle from '../../config/variable.style';
+import { useNavigation } from '@react-navigation/native';
 
-export default function FormSubmissionCard({navigation,statusForm}) {
+export default function FormSubmissionCard({statusForm}) {
 
   const [forms , setForms] = useState([])
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [getDate, setDate] = useState(null);
+  const navigation = useNavigation();
   const [refreshing, setRefreshing] = useState(false);
 
   /**
@@ -74,7 +75,7 @@ export default function FormSubmissionCard({navigation,statusForm}) {
     return  <Card style={styleSheet.containerCard}>
       <TouchableOpacity
         style={{}}
-        onPress={()=>navigation.navigate('CreateForm', { id: item.formId, savedFormId:item.id})} key={item.id}
+        onPress={() => navigation.navigate('CreateForm', { id: item.formId, savedFormId:item.id})} key={item.id}
       >
         <Card.Content style={styleSheet.containerCardContent}>
           <View style={styleSheet.containerAvatar}>
@@ -83,7 +84,10 @@ export default function FormSubmissionCard({navigation,statusForm}) {
           <View>
           <Text style={styleSheet.containerCardTitle}>{item.formTitle}</Text> 
           <View>
-            <Text style={{fontSize: 13}}>{format(new Date(item.date), 'dd/MM/yyyy HH:MM')}</Text>
+            { JSON.parse(item.payload).last_update &&
+              <Text style={{fontSize: 13}}>Date de collecte : {format(new Date(JSON.parse(item.payload).last_update), 'dd/MM/yyyy')}</Text>
+            }
+            <Text style={{fontSize: 13}}>Enregistrer le {format(new Date(item.date), 'dd/MM/yyyy à HH:MM')}</Text>
           </View>
           </View>
           { statusForm !== 'synchronized' ?

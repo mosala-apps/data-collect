@@ -89,7 +89,7 @@ function Notifications({ navigation }) {
               <View key={dateNotification}>
                 <Divider style={styleSheet.dividerNotification}/>
                 <Text style={styleSheet.titleNotification}>
-                  {dateNotification == format(new Date(), 'yyyy-mm-dd') ? "Aujourd’hui" : dateNotification}
+                  {dateNotification == format(new Date(), 'yyyy-mm-dd') ? "Aujourd’hui" : format(new Date(dateNotification), 'dd/MM/yyyy')}
                 </Text>
                 {
                 notifications[dateNotification].map((notification) => (
