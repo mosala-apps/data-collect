@@ -13,21 +13,22 @@ const FormFieldInput = ({
   name,
   onInput,
   control,
-  errors
+  errors,
+  disabled
 }) => {
   /**
    * States
    */
   const [currentValue, setCurrentValue] = useState(value)
-  
   /**
    * Hooks
    */
   useEffect(() => {
     if (value === null || value === undefined) {
       setCurrentValue(defaultValue)
-    } else {
+    } else if (currentValue !== value) {
       setCurrentValue(value)
+      onInput(value)
     }
   }, [value])
 
@@ -50,10 +51,10 @@ const FormFieldInput = ({
     <>
       <Controller
         control={control}
-        rules={{
+        rules={ disabled ? {
           required: !!(rules && rules.match(/required/i)),
           ...additionalRules
-        }}
+        } : {}}
         render={({ field: { onChange, onBlur } }) => (
           <DynamicField
             type={type}
@@ -64,7 +65,9 @@ const FormFieldInput = ({
             errors={errors}
             currentValue={currentValue}
             setCurrentValue={setCurrentValue}
+            disabled={disabled}
             onInput={($event) => {onInput($event); onChange($event)}}
+            onChangeForValidator={onChange}
             onBlur={onBlur}
           />
         )}
@@ -78,6 +81,7 @@ FormFieldInput.defaultProps = {
   rules: '',
   defaultValue: null,
   value: null,
+  disabled: false,
   onInput: () => { console.log('Input changed') },
 }
 
@@ -89,6 +93,7 @@ FormFieldInput.propTypes = {
   defaultValue: PropTypes.string,
   value: PropTypes.string,
   name: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
   onInput: PropTypes.func,
   control: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,

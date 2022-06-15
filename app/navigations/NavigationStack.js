@@ -106,7 +106,7 @@ function NavigationStack() {
           name="PendingForms"
           component={PendingFormsScreen}
           options={() => ({
-            title: 'En attente',
+            title: 'Formulaires en attente de synchronisation',
             headerStyle: headerStyleContainer.headerStyle,
             headerTintColor: headerStyleContainer.headerTintColor,
             headerTitleStyle: headerStyleContainer.headerTitleStyle,
