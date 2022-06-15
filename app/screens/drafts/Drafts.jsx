@@ -9,7 +9,7 @@ export default function Drafts({navigation}) {
   
   return (
     <SafeAreaView style={styleSheet.container}>
-      <FormSubmissionCard navigation={navigation} statusForm={statusForm.draft}/> 
+      <FormSubmissionCard navigation={navigation} statusForm={statusForm.draft} /> 
     </SafeAreaView>
   );
 }
