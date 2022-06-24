@@ -6,11 +6,12 @@ import NotificationsScreen from '../screens/notifications/Notifications';
 import SettingScreen from '../screens/setting';
 import SynchronizedFormsScreen from '../screens/synchronizedForms/SynchronizedForm';
 import DraftsScreen from '../screens/drafts/Drafts';
-import ConflictsHandlingScreen from '../screens/conflictsHandling';
+import ConflictsHandlingScreen from '../screens/conflictsHandling/ConflictsHandling';
 import PendingFormsScreen from '../screens/pendingForms/PendingForms';
 import FormShowScreen from '../screens/forms/ShowForm';
 import SigninScreen from '../screens/auth/signin';
 import CreateFormScreen from '../screens/forms/CreateForm';
+import ResolveConflictFormScreen from '../screens/forms/ResolveConflictForm';
 
 const Stack = createNativeStackNavigator();
 const headerStyleContainer = {
@@ -100,6 +101,7 @@ function NavigationStack() {
             headerStyle: headerStyleContainer.headerStyle,
             headerTintColor: headerStyleContainer.headerTintColor,
             headerTitleStyle: headerStyleContainer.headerTitleStyle,
+            headerShown: false
           })}
         />
         <Stack.Screen
@@ -120,6 +122,13 @@ function NavigationStack() {
         <Stack.Screen
           name="CreateForm"
           component={CreateFormScreen}
+          options={() => ({
+            headerShown: false,
+          })}
+        />
+        <Stack.Screen
+          name="ResolveConflictForm"
+          component={ResolveConflictFormScreen}
           options={() => ({
             headerShown: false,
           })}

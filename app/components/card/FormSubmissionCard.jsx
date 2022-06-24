@@ -9,6 +9,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { format } from 'date-fns';
 import styleSheet from './FormSubmissionCard.style';
 import { useNavigation } from '@react-navigation/native';
+import variableStyle from '../../config/variable.style';
 
 export default function FormSubmissionCard({statusForm}) {
 

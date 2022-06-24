@@ -1,18 +1,22 @@
 import React,{useState,useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TouchableWithoutFeedback, View,Text } from 'react-native';
-import { Ionicons, Feather } from '@expo/vector-icons';
+import { Ionicons, Feather,MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { setUser, getNotificationNotRead,setNotificationNotRead } from '../../store';
 import styleSheet from './index.style';
+import { fetchFormsByHospital } from '../../services/formService'
+import { statusForm } from '../../config/variables';
 
 
 export default function HeaderNavigation() {
   const navigation = useNavigation();
   const [hospitalId, setHospitalId] = useState(null);
+  const [forms , setForms] = useState([])
   const dispatch = useDispatch();
   const notifications = useSelector((state) => state.notificationNotRead.notificationNotReads);
   const user = useSelector((state) => state.auth.user);
+  const countForm = useSelector((state) => state.countConflictFormSlice.countConflict);
   const checkIsAuthenticatedUser = async () => {
     if (Object.keys(user).length === 0) {
       dispatch(setUser(JSON.parse(await AsyncStorage.getItem('user'))));
@@ -24,13 +28,30 @@ export default function HeaderNavigation() {
     if (hospitalId) {
       dispatch(getNotificationNotRead({ id: hospitalId }));
     }
-  }, [hospitalId]);
+    FormsConflictByHospital()
+  }, [hospitalId,user]);
+
+  useEffect (()=>{
+    FormsConflictByHospital()
+  },[countForm])
+
+  const FormsConflictByHospital = async()=>{
+    const data = await fetchFormsByHospital({hospitalId:user.hospital.id,status:statusForm.conflict})
+    const formConflicts =  data.filter((formConflict)=>formConflict.conflictResolved === null) 
+    setForms(formConflicts)
+    return data
+  }
 
   const goToPageNotification = () => {
     dispatch(setNotificationNotRead({ id: hospitalId }));
     navigation.navigate('Notifications');
     dispatch(getNotificationNotRead({ id: hospitalId }));
   }
+
+  const goToPageConflict = () => {
+    navigation.navigate('ConflictsHandling');
+  }
+
 
   return (
     <View style={styleSheet.header}>
@@ -61,6 +82,24 @@ export default function HeaderNavigation() {
             </View>
           </TouchableWithoutFeedback>
         </View>
+
+        <View style={{ marginRight: '15%' }}>
+          <TouchableWithoutFeedback
+            onPress={() => goToPageConflict()}
+          >
+            <View>
+              <MaterialIcons
+                name="cancel-schedule-send"
+                style={styleSheet.color}
+                size={24}
+              />
+              { forms && forms.length > 0 ?
+                <Text style={styleSheet.notificationCount}>{forms.length}</Text>:<Text style={styleSheet.notificationCount}>0</Text>
+              }
+            </View>
+          </TouchableWithoutFeedback>
+        </View>
+
         <View>
           <TouchableWithoutFeedback onPress={() => navigation.navigate('Settings')}>
             <View>

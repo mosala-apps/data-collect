@@ -6,7 +6,7 @@ import { statusForm } from '../config/variables';
 import { useDispatch, useSelector } from 'react-redux';
 import { syncForm } from '../store/form/formAsyncQueries';
 import { isConnected } from '../config/offlineConfig';
-import { logout } from '../store';
+import { logout, setCountConflict } from '../store';
 import { ToastAndroid } from 'react-native';
 import { isLoggedIn } from '../store/auth/authAsyncQuerie';
 
@@ -46,7 +46,13 @@ const SetupComponent = () => {
               handleExpireToken()
               reRunSync(TIME_ON_ERROR)
             } else {
-              await updateForm(formsSaved[0].id, {error: 1})
+              console.log('error(500)', error.response.data)
+              if(error.response.data.erreur ==='conflict'){
+                await updateForm(formsSaved[0].id, {status: statusForm.conflict})
+                dispatch(setCountConflict(1))
+              }else{
+                await updateForm(formsSaved[0].id, {error: 1})
+              }
               reRunSync(TIME_ON_ERROR)
             }
           })

@@ -250,7 +250,8 @@ function FormView({
         {
           submitStep && showSubmitAction &&
            (<Button
-            disabled={!hospitalManager.correct || (existedLastUpdates.includes(completedForm.last_update) && !disableLastUpdate)}
+            // disabled={!hospitalManager.correct || (existedLastUpdates.includes(completedForm.last_update) && !disableLastUpdate)}
+            disabled={!hospitalManager.correct}
             color={variableStyle.secondaryColor}
             labelStyle={{color: 'white', textTransform: 'capitalize'}}
             mode="contained"

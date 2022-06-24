@@ -54,7 +54,7 @@ export const storeForm = ({ payload, hospitalId, date, status, formTitle, formId
   });
 }
 
-export const updateForm = (id, {payload, hospitalId, date, status, formTitle, formId, error }) => {
+export const updateForm = (id, {payload, hospitalId, date, status, formTitle, formId, error, conflictResolved }) => {
   let setters = []
   let args = []
   if (payload) {
@@ -80,6 +80,10 @@ export const updateForm = (id, {payload, hospitalId, date, status, formTitle, fo
   if (formId) {
     setters.push(`formId = ?`)
     args.push(+formId)
+  }
+  if (conflictResolved) {
+    setters.push(`conflictResolved = ?`)
+    args.push(+conflictResolved)
   }
   if (error !== undefined && error !== null) {
     setters.push(`error = ?`)

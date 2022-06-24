@@ -13,6 +13,7 @@ export const initDatabase = () => {
           formTitle TEXT NOT NULL,
           payload TEXT NOT NULL,
           error INTEGER DEFAULT 0,
+          conflictResolved INTEGER,
           hospitalId INTEGER NOT NULL,
           formId INTEGER NOT NULL
         )`,

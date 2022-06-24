@@ -14,6 +14,7 @@ import {
 
 import NotificationSlice from './notification/notificationSlice';
 import NotificationNotReadSlice from './notification/notificationNotReadSlice';
+import CountConflictFormSlice from './completedForm/countConflictFormSlice';
 import SetNotificationNotReadSlice from './notification/setNotificationNotRead';
 import HospitalSlice from './hospital/hospitalSlice';
 import AuthSlice from './auth/authSlice';
@@ -30,6 +31,7 @@ const reducers = combineReducers({
   auth: AuthSlice,
   notification: NotificationSlice,
   notificationNotRead: NotificationNotReadSlice ,
+  countConflictFormSlice: CountConflictFormSlice,
   setNotificationNotRead:SetNotificationNotReadSlice,
   hospital: HospitalSlice,
   hospitalManagerName: hospitalManagerNameSlice,
